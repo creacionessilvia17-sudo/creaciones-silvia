@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sueños - Deco Artesanal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #fcf9f5;
+            --card-bg: #ffffff;
+            --primary-text: #3a2e2b;
+            --button-brown: #8c6853;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; }
+
+        body { background-color: var(--bg-color); color: var(--primary-text); max-width: 480px; margin: 0 auto; padding-bottom: 70px; }
+
+        /* --- HEADER Y BUSCADOR --- */
+        header { padding: 15px 20px; background: #fff; text-align: center; }
+        .logo-title { font-family: 'Caveat', cursive; font-size: 1.8rem; }
+        
+        .search-container { margin-top: 10px; display: flex; align-items: center; background: #f0ece9; padding: 8px 15px; border-radius: 20px; }
+        .search-container input { border: none; background: transparent; width: 100%; outline: none; margin-left: 10px; font-size: 0.9rem; }
+
+        /* --- CATEGORÍAS --- */
+        .categories-section { display: flex; justify-content: space-around; padding: 20px 10px; }
+        .category-item { cursor: pointer; text-align: center; }
+        .category-img { width: 60px; height: 60px; border-radius: 50%; background: #e8ded2; display: flex; align-items: center; justify-content: center; margin-bottom: 5px; }
+
+        /* --- PRODUCTOS (Sin precios) --- */
+        .products-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 0 15px; }
+        .product-card { background: #fff; border-radius: 12px; padding: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .product-img-container { width: 100%; height: 140px; border-radius: 8px; overflow: hidden; background: #f7f5f0; margin-bottom: 8px; }
+        .product-img-container img { width: 100%; height: 100%; object-fit: cover; }
+        .product-info h3 { font-size: 0.8rem; font-weight: 600; margin-bottom: 8px; text-align: center; }
+        .btn-add-cart { width: 100%; background-color: var(--button-brown); color: white; border: none; padding: 6px; border-radius: 6px; font-size: 0.7rem; cursor: pointer; }
+
+        /* --- NAVEGACIÓN INFERIOR (Modificada) --- */
+        .bottom-nav { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; background: #fff; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #eee; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; font-size: 0.7rem; color: #555; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-title">Sueños</div>
+        <div class="search-container">
+            <i class="fa-solid fa-magnifying-glass" style="color: #888;"></i>
+            <input type="text" id="buscador" placeholder="Buscar productos..." onkeyup="buscarProductos()">
+        </div>
+    </header>
+
+    <section class="categories-section">
+        <div class="category-item" onclick="filtrarProductos('atrapasuenos')">
+            <div class="category-img"><i class="fa-solid fa-dharmachakra"></i></div>
+            <span style="font-size: 0.7rem;">Atrapasueños</span>
+        </div>
+        <!-- Agregar más aquí -->
+    </section>
+
+    <section class="products-grid" id="contenedor-productos">
+        <!-- Ejemplo Producto -->
+        <div class="product-card" data-category="atrapasuenos" data-name="atrapasueños beige">
+            <div class="product-img-container"><img src="https://via.placeholder.com/200" alt="prod"></div>
+            <div class="product-info">
+                <h3>Atrapasueños Beige</h3>
+                <button class="btn-add-cart">Agregar al carrito</button>
+            </div>
+        </div>
+        
+        <div class="product-card" data-category="caminitos" data-name="caminito boho">
+            <div class="product-img-container"><img src="https://via.placeholder.com/200" alt="prod"></div>
+            <div class="product-info">
+                <h3>Caminito Boho</h3>
+                <button class="btn-add-cart">Agregar al carrito</button>
+            </div>
+        </div>
+    </section>
+
+    <nav class="bottom-nav">
+        <a href="#" class="nav-item" onclick="filtrarProductos('todos')">
+            <i class="fa-solid fa-house" style="font-size: 1.2rem;"></i> Inicio
+        </a>
+        <a href="#" class="nav-item">
+            <i class="fa-regular fa-heart" style="font-size: 1.2rem;"></i> Favoritos
+        </a>
+        <a href="#" class="nav-item">
+            <i class="fa-solid fa-cart-shopping" style="font-size: 1.2rem;"></i> Carrito
+        </a>
+    </nav>
+
+    <script>
+        // Función de Búsqueda
+        function buscarProductos() {
+            let input = document.getElementById('buscador').value.toLowerCase();
+            let tarjetas = document.getElementsByClassName('product-card');
+
+            for (let card of tarjetas) {
+                let nombre = card.getAttribute('data-name');
+                if (nombre.includes(input)) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            }
+        }
+
+        // Función de Filtrado por Categoría
+        function filtrarProductos(cat) {
+            let tarjetas = document.getElementsByClassName('product-card');
+            for (let card of tarjetas) {
+                if (cat === 'todos' || card.getAttribute('data-category') === cat) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            }
+        }
+    </script>
+</body>
+</html>
+
