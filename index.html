@@ -1,583 +1,499 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sueños | Deco Artesanal</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sueños - Deco Artesanal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-warm: #fbf9f6;
+            --brown-dark: #3c2e27;
+            --brown-btn: #806857;
+            --brown-btn-dark: #5a483c;
+            --meli-blue: #2970e6;
+            --meli-blue-hover: #1e58bc;
+            --meli-light-blue: #eaf2fe;
+            --text-main: #333333;
+            --gray-text: #777777;
+            --border-color: #eee7e1;
+        }
 
-<style>
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-    font-family:Arial, sans-serif;
-}
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; }
 
-body{
-    background:#f8f4ee;
-    color:#3e2b1f;
-}
+        body { 
+            background-color: var(--bg-warm); 
+            color: var(--text-main); 
+            max-width: 430px; 
+            margin: 0 auto; 
+            padding-bottom: 70px; 
+            box-shadow: 0 0 20px rgba(0,0,0,0.08);
+            position: relative;
+            min-height: 100vh;
+        }
 
-button{
-    cursor:pointer;
-    border:none;
-}
+        /* --- CONTENEDORES DE VISTAS --- */
+        .page-view { display: none; background: var(--bg-warm); }
+        .page-view.active { display: block; }
 
-header{
-    position:sticky;
-    top:0;
-    z-index:100;
-    background:#fffaf4;
-    height:75px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:10px 18px;
-    box-shadow:0 2px 10px #00000015;
-}
+        /* --- HEADER PRINCIPAL DE SUEÑOS --- */
+        .suenos-header {
+            background: #fff;
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-.logo{
-    font-size:25px;
-    font-weight:bold;
-    text-align:center;
-}
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
 
-.logo small{
-    display:block;
-    font-size:11px;
-    font-weight:normal;
-}
+        .header-logo img { width: 32px; height: 32px; }
+        .header-logo-text { text-align: center; }
+        .header-logo-text h1 { font-size: 1.1rem; letter-spacing: 2px; color: var(--brown-dark); font-weight: 600; }
+        .header-logo-text span { font-size: 0.55rem; letter-spacing: 1.5px; color: #888; text-transform: uppercase; display: block; }
 
-.header-btn{
-    background:none;
-    font-size:25px;
-    color:#4b3325;
-}
+        .header-actions { display: flex; align-items: center; gap: 15px; }
+        .header-action-icon { font-size: 1.1rem; color: #333; cursor: pointer; position: relative; }
+        
+        .cart-badge { 
+            position: absolute; top: -6px; right: -8px; 
+            background: var(--brown-dark); color: white; 
+            font-size: 0.6rem; font-weight: bold; 
+            border-radius: 50%; padding: 1px 5px; 
+        }
 
-.cart{
-    position:relative;
-}
+        /* --- BARRA DE BÚSQUEDA DINÁMICA --- */
+        .search-bar-header {
+            background: #fff;
+            padding: 8px 15px 12px 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
 
-.cart-number{
-    position:absolute;
-    background:#704b32;
-    color:white;
-    font-size:11px;
-    border-radius:50%;
-    width:18px;
-    height:18px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    right:-5px;
-    top:-5px;
-}
+        .search-input-box {
+            background: #f1ece6;
+            border-radius: 20px;
+            padding: 8px 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-/* HERO */
+        .search-input-box input {
+            border: none;
+            background: transparent;
+            outline: none;
+            width: 100%;
+            font-size: 0.85rem;
+            color: var(--text-main);
+        }
 
-.hero{
-    margin:15px;
-    height:390px;
-    border-radius:20px;
-    background:
-    linear-gradient(90deg,#eee0d1dd,#eee0d122),
-    url("https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=1000&q=80");
-    background-size:cover;
-    background-position:center;
-    padding:45px 25px;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-}
+        /* --- BANNER PRINCIPAL --- */
+        .hero-banner {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            background: url('https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&q=80&w=600') center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 20px;
+            color: #fff;
+        }
 
-.hero h1{
-    font-family:cursive;
-    font-size:38px;
-    max-width:260px;
-    line-height:1.1;
-}
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.25);
+        }
 
-.hero p{
-    margin-top:18px;
-    font-size:17px;
-    max-width:270px;
-}
+        .hero-content { position: relative; z-index: 2; max-width: 220px; }
+        .hero-subtitle { font-size: 0.65rem; letter-spacing: 1.5px; text-transform: uppercase; }
+        .hero-title { font-family: 'Georgia', serif; font-style: italic; font-size: 1.4rem; margin: 4px 0 10px 0; }
+        .hero-desc { font-size: 0.7rem; opacity: 0.9; margin-bottom: 12px; line-height: 1.3; }
 
-.main-btn{
-    margin-top:22px;
-    width:max-content;
-    padding:14px 22px;
-    border-radius:25px;
-    background:#704b32;
-    color:white;
-    font-weight:bold;
-}
+        .btn-hero {
+            background: var(--brown-btn-dark);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            margin-right: 5px;
+        }
 
-/* CATEGORIAS */
+        .btn-hero-outline {
+            background: rgba(255,255,255,0.8);
+            color: var(--brown-dark);
+        }
 
-.categories{
-    display:flex;
-    gap:12px;
-    overflow-x:auto;
-    padding:15px;
-}
+        /* --- CATEGORÍAS REDONDAS --- */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            padding: 20px 10px;
+            background: #fff;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
 
-.category{
-    min-width:95px;
-    text-align:center;
-}
+        .cat-item { cursor: pointer; }
+        .cat-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #f4eee7;
+            margin: 0 auto 6px auto;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #e2d7cc;
+        }
+        .cat-circle img { width: 100%; height: 100%; object-fit: cover; }
+        .cat-item span { font-size: 0.7rem; font-weight: 500; color: var(--brown-dark); }
 
-.category img{
-    width:85px;
-    height:85px;
-    object-fit:cover;
-    border-radius:50%;
-}
+        /* --- GRILLA DE PRODUCTOS (INICIO & BÚSQUEDA) --- */
+        .products-section { padding: 15px; }
+        .products-header-title { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .products-header-title h3 { font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; color: var(--brown-dark); font-weight: 700; }
+        .products-header-title a { font-size: 0.75rem; color: #888; text-decoration: underline; cursor: pointer; }
 
-.category p{
-    margin-top:7px;
-    font-weight:bold;
-    font-size:13px;
-}
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
-/* PRODUCTOS */
+        .card-product {
+            background: #fff;
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+            position: relative;
+            cursor: pointer;
+            border: 1px solid #f0e8e0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
 
-.section-title{
-    text-align:center;
-    margin:25px 0 15px;
-    font-family:cursive;
-    font-size:28px;
-}
+        .card-product .fav-icon { position: absolute; top: 15px; right: 15px; color: #ccc; font-size: 0.9rem; z-index: 2; }
+        .card-product img { width: 100%; height: 140px; object-fit: cover; border-radius: 6px; margin-bottom: 8px; }
+        .card-product .title { font-size: 0.78rem; font-weight: 500; color: #333; margin-bottom: 4px; }
+        .card-product .price { font-size: 0.95rem; font-weight: 700; color: var(--brown-dark); }
 
-.products{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:12px;
-    padding:15px;
-}
+        /* --- DETALLE DEL PRODUCTO (ESTILO ME LI) --- */
+        .detail-header {
+            background: #fff;
+            padding: 12px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-.product{
-    background:white;
-    border-radius:15px;
-    overflow:hidden;
-    box-shadow:0 2px 10px #00000012;
-    position:relative;
-}
+        .detail-img-box { position: relative; width: 100%; height: 320px; background: #fff; }
+        .detail-img-box img { width: 100%; height: 100%; object-fit: cover; }
+        .img-counter {
+            position: absolute; bottom: 12px; right: 15px;
+            background: rgba(0,0,0,0.5); color: #fff;
+            font-size: 0.65rem; padding: 2px 8px; border-radius: 10px;
+        }
 
-.product img{
-    width:100%;
-    height:180px;
-    object-fit:cover;
-}
+        .detail-info { background: #fff; padding: 15px; border-top: 1px solid var(--border-color); }
+        .detail-title { font-size: 1.15rem; font-weight: 600; color: #222; margin-bottom: 6px; }
+        .detail-price { font-size: 1.8rem; font-weight: 400; color: #111; margin-bottom: 8px; }
+        
+        .detail-bullets { font-size: 0.8rem; color: #666; line-height: 1.5; margin: 12px 0; }
+        .detail-bullets p { margin-bottom: 4px; }
 
-.product-info{
-    padding:12px;
-}
+        /* SECCIÓN MERCADO LIBRE CHECKOUT */
+        .meli-box { background: #fff; padding: 15px; border-top: 1px solid var(--border-color); }
+        
+        .stock-selector {
+            background: #f5f5f5;
+            padding: 10px 12px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
 
-.product h3{
-    font-size:16px;
-}
+        .btn-meli-buy {
+            width: 100%;
+            background: var(--meli-blue);
+            color: #fff;
+            border: none;
+            padding: 14px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            margin-bottom: 8px;
+        }
 
-.price{
-    font-size:20px;
-    font-weight:bold;
-    margin:7px 0;
-}
+        .btn-meli-add {
+            width: 100%;
+            background: var(--meli-light-blue);
+            color: var(--meli-blue);
+            border: none;
+            padding: 14px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
 
-.product button{
-    width:100%;
-    padding:10px;
-    border-radius:20px;
-    background:#704b32;
-    color:white;
-}
+        .guarantee-item {
+            display: flex;
+            gap: 12px;
+            font-size: 0.8rem;
+            color: #555;
+            margin-bottom: 12px;
+            align-items: flex-start;
+        }
+        .guarantee-item i { color: var(--meli-blue); font-size: 1rem; margin-top: 2px; }
 
-/* BUSCADOR */
+        .payment-methods-link {
+            border-top: 1px solid #f0f0f0;
+            padding-top: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: var(--meli-blue);
+            cursor: pointer;
+        }
 
-.search-box{
-    display:none;
-    padding:12px 15px;
-    background:white;
-}
+        /* --- MODAL MEDIOS DE PAGO --- */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            z-index: 200;
+            align-items: flex-end;
+        }
+        .modal-overlay.active { display: flex; }
 
-.search-box input{
-    width:100%;
-    padding:13px;
-    border-radius:25px;
-    border:1px solid #ddd;
-    outline:none;
-}
+        .modal-content {
+            background: #fff;
+            width: 100%;
+            max-width: 430px;
+            margin: 0 auto;
+            border-radius: 16px 16px 0 0;
+            padding: 20px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
 
-/* MODAL PRODUCTO */
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
 
-.modal{
-    display:none;
-    position:fixed;
-    inset:0;
-    background:#00000088;
-    z-index:200;
-    align-items:flex-end;
-}
+        .payment-group { margin-bottom: 18px; }
+        .payment-group-title { font-size: 0.8rem; font-weight: 600; color: #333; margin-bottom: 8px; }
+        .payment-icons-flex { display: flex; gap: 8px; flex-wrap: wrap; }
+        .payment-badge { border: 1px solid #e0e0e0; border-radius: 4px; padding: 4px 8px; font-size: 0.7rem; font-weight: bold; color: #555; }
 
-.modal-content{
-    background:#fffaf4;
-    width:100%;
-    max-height:90vh;
-    overflow:auto;
-    border-radius:25px 25px 0 0;
-    padding-bottom:25px;
-}
+        /* --- VISTA CARRITO --- */
+        .cart-header { background: #fff; padding: 15px; border-bottom: 1px solid var(--border-color); font-weight: 600; display: flex; justify-content: space-between; }
+        .cart-item { background: #fff; padding: 12px; margin-top: 10px; display: flex; gap: 10px; border-bottom: 1px solid #eee; }
+        .cart-item img { width: 60px; height: 60px; object-fit: cover; border-radius: 6px; }
+        .cart-item-info { flex: 1; }
+        .cart-item-title { font-size: 0.8rem; font-weight: 500; }
+        .cart-item-price { font-size: 0.9rem; font-weight: bold; color: var(--brown-dark); margin-top: 4px; }
 
-.modal-img{
-    width:100%;
-    height:300px;
-    object-fit:cover;
-}
+        .cart-bottom-bar {
+            position: fixed; bottom: 50px; left: 50%; transform: translateX(-50%);
+            width: 100%; max-width: 430px; background: #fff;
+            padding: 12px 15px; border-top: 1px solid var(--border-color);
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+        }
 
-.close{
-    position:absolute;
-    right:20px;
-    top:15px;
-    background:white;
-    width:38px;
-    height:38px;
-    border-radius:50%;
-    font-size:22px;
-}
+        /* --- BARRA DE NAVEGACIÓN INFERIOR --- */
+        .navbar-bottom {
+            position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+            width: 100%; max-width: 430px; background: #fff;
+            display: flex; justify-content: space-around; padding: 8px 0;
+            border-top: 1px solid var(--border-color); z-index: 100;
+        }
 
-.product-detail{
-    padding:20px;
-}
-
-.product-detail h2{
-    font-size:25px;
-}
-
-.description{
-    margin:12px 0;
-    line-height:1.5;
-}
-
-.quantity{
-    display:flex;
-    align-items:center;
-    gap:15px;
-    margin:15px 0;
-}
-
-.quantity button{
-    width:35px;
-    height:35px;
-    border-radius:50%;
-    background:#e8d8c8;
-}
-
-.action{
-    width:100%;
-    padding:15px;
-    border-radius:25px;
-    margin-top:10px;
-    font-size:16px;
-    font-weight:bold;
-}
-
-.add{
-    background:#e7d7c5;
-    color:#4b3325;
-}
-
-.buy{
-    background:#704b32;
-    color:white;
-}
-
-.ml{
-    background:#ffe600;
-    color:#333;
-}
-
-/* CARRITO */
-
-.cart-panel{
-    display:none;
-    position:fixed;
-    inset:0;
-    background:#00000088;
-    z-index:300;
-}
-
-.cart-content{
-    position:absolute;
-    right:0;
-    top:0;
-    height:100%;
-    width:90%;
-    max-width:400px;
-    background:#fffaf4;
-    padding:20px;
-    overflow:auto;
-}
-
-.cart-item{
-    display:flex;
-    gap:10px;
-    padding:12px 0;
-    border-bottom:1px solid #ddd;
-}
-
-.cart-item img{
-    width:70px;
-    height:70px;
-    object-fit:cover;
-    border-radius:10px;
-}
-
-.total{
-    font-size:22px;
-    font-weight:bold;
-    margin:20px 0;
-}
-
-/* PAGOS */
-
-.payment{
-    margin-top:20px;
-    padding:15px;
-    background:white;
-    border-radius:15px;
-}
-
-.payment h3{
-    margin-bottom:12px;
-}
-
-.payment label{
-    display:block;
-    padding:10px;
-    border-bottom:1px solid #eee;
-}
-
-/* NAV */
-
-.bottom-nav{
-    position:sticky;
-    bottom:0;
-    background:#fffaf4;
-    height:65px;
-    display:flex;
-    justify-content:space-around;
-    align-items:center;
-    border-top:1px solid #ddd;
-}
-
-.bottom-nav button{
-    background:none;
-    color:#4b3325;
-    font-size:12px;
-}
-
-.bottom-nav span{
-    display:block;
-    font-size:22px;
-}
-
-/* ESCRITORIO */
-
-@media(min-width:700px){
-    body{
-        max-width:500px;
-        margin:auto;
-        box-shadow:0 0 30px #00000015;
-    }
-}
-</style>
+        .nav-item { display: flex; flex-direction: column; align-items: center; font-size: 0.65rem; color: #777; cursor: pointer; }
+        .nav-item i { font-size: 1.1rem; margin-bottom: 2px; }
+        .nav-item.active { color: var(--brown-dark); font-weight: 600; }
+    </style>
 </head>
-
 <body>
 
-<header>
+    <!-- HEADER DE BRANDING SUEÑOS -->
+    <header class="suenos-header">
+        <i class="fa-solid fa-arrow-left" id="header-back-btn" onclick="navegarA('home')" style="display:none; cursor:pointer;"></i>
+        <div class="header-logo" onclick="navegarA('home')">
+            <div class="header-logo-text">
+                <h1>SUEÑOS</h1>
+                <span>• deco artesanal •</span>
+            </div>
+        </div>
+        <div class="header-actions">
+            <i class="fa-solid fa-magnifying-glass header-action-icon" onclick="enfocarBuscador()"></i>
+            <i class="fa-solid fa-bag-shopping header-action-icon" onclick="navegarA('cart')">
+                <span class="cart-badge" id="badge-cart">0</span>
+            </i>
+        </div>
+    </header>
 
-<button class="header-btn" onclick="toggleMenu()">☰</button>
+    <!-- BARRA BÚSQUEDA INTERACTIVA -->
+    <div class="search-bar-header">
+        <div class="search-input-box">
+            <i class="fa-solid fa-magnifying-glass" style="color: #999; font-size: 0.8rem;"></i>
+            <input type="text" id="input-search" placeholder="Buscar productos (ej. atrapasol)..." onkeyup="ejecutarBusqueda(this.value)">
+            <i class="fa-solid fa-xmark" id="clear-search" onclick="limpiarBuscador()" style="display:none; color: #888; cursor:pointer;"></i>
+        </div>
+    </div>
 
-<div class="logo">
-    🪶 SUEÑOS
-    <small>• deco artesanal •</small>
-</div>
+    <!-- ==================== VISTA 1: INICIO ==================== -->
+    <div id="view-home" class="page-view active">
+        <!-- Banner Principal -->
+        <div class="hero-banner">
+            <div class="hero-content">
+                <div class="hero-subtitle">Decorá tus espacios</div>
+                <div class="hero-title">Con buena energía</div>
+                <div class="hero-desc">Atrapasueños, caminitos, borlas y atrapasoles hechos a mano.</div>
+                <div>
+                    <button class="btn-hero">Ver productos</button>
+                    <button class="btn-hero btn-hero-outline">Sobre nosotros</button>
+                </div>
+            </div>
+        </div>
 
-<div>
-<button class="header-btn" onclick="toggleSearch()">⌕</button>
+        <!-- Categorías Redondas -->
+        <div class="categories-grid">
+            <div class="cat-item" onclick="filtrarCategoria('atrapasuenos')">
+                <div class="cat-circle"><img src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&q=80&w=150" alt="Atrapasueños"></div>
+                <span>Atrapasueños</span>
+            </div>
+            <div class="cat-item" onclick="filtrarCategoria('caminitos')">
+                <div class="cat-circle"><img src="https://images.unsplash.com/photo-1606744888344-493238951221?auto=format&fit=crop&q=80&w=150" alt="Caminitos"></div>
+                <span>Caminitos</span>
+            </div>
+            <div class="cat-item" onclick="filtrarCategoria('borlas')">
+                <div class="cat-circle"><img src="https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?auto=format&fit=crop&q=80&w=150" alt="Borlas"></div>
+                <span>Borlas</span>
+            </div>
+            <div class="cat-item" onclick="filtrarCategoria('atrapasoles')">
+                <div class="cat-circle"><img src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&q=80&w=150" alt="Atrapasoles"></div>
+                <span>Atrapasoles</span>
+            </div>
+        </div>
 
-<button class="header-btn cart" onclick="openCart()">
-    🛒
-    <span class="cart-number" id="cartNumber">0</span>
-</button>
-</div>
+        <!-- Productos Destacados -->
+        <div class="products-section">
+            <div class="products-header-title">
+                <h3>PRODUCTOS DESTACADOS</h3>
+                <a onclick="filtrarCategoria('todos')">Ver todos</a>
+            </div>
+            <div class="grid-2" id="home-products-container">
+                <!-- Se completan dinámicamente -->
+            </div>
+        </div>
+    </div>
 
-</header>
+    <!-- ==================== VISTA 2: RESULTADOS BÚSQUEDA / CATEGORÍA ==================== -->
+    <div id="view-search" class="page-view">
+        <div class="products-section">
+            <div class="products-header-title">
+                <h3 id="search-results-title">Resultados</h3>
+            </div>
+            <div class="grid-2" id="search-products-container">
+                <!-- Se filtran dinámicamente -->
+            </div>
+        </div>
+    </div>
 
-<div class="search-box" id="searchBox">
-<input 
-    type="text"
-    id="searchInput"
-    placeholder="Buscar atrapasueños, atrapasoles..."
-    oninput="searchProducts()">
-</div>
+    <!-- ==================== VISTA 3: DETALLE DEL PRODUCTO ==================== -->
+    <div id="view-detail" class="page-view">
+        <div class="detail-header">
+            <i class="fa-solid fa-arrow-left" onclick="navegarA('home')"></i>
+            <i class="fa-regular fa-heart"></i>
+        </div>
 
-<section class="hero">
+        <div class="detail-img-box">
+            <img id="detail-product-img" src="" alt="Producto">
+            <div class="img-counter">1/4</div>
+        </div>
 
-<h1>Decorá tus espacios con buena energía</h1>
+        <div class="detail-info">
+            <h2 class="detail-title" id="detail-product-title">Atrapasol Cristal</h2>
+            <div class="detail-price" id="detail-product-price">$ 4.800</div>
+            
+            <div class="detail-bullets">
+                <p>Atrapasol de cristal hecho a mano que llena tus espacios de luz y colores hermosos.</p>
+                <p>• <strong>Largo total:</strong> 40 cm aprox.</p>
+                <p>• <strong>Material:</strong> Cristal K9 y cuentas de vidrio.</p>
+                <p>• Hecho a mano con amor.</p>
+                <p>• Ideal para ventanas, terrazas y jardines.</p>
+            </div>
+        </div>
 
-<p>
-Atrapasueños, caminitos, borlas y atrapasoles hechos a mano.
-</p>
+        <!-- Checkout Estilo Mercado Libre -->
+        <div class="meli-box">
+            <div class="stock-selector">
+                <span>Cantidad: 1 unidad</span>
+                <i class="fa-solid fa-chevron-down" style="font-size:0.7rem;"></i>
+            </div>
 
-<button class="main-btn" onclick="scrollProducts()">
-Ver productos
-</button>
+            <button class="btn-meli-buy" onclick="comprarAhora()">Comprar ahora</button>
+            <button class="btn-meli-add" onclick="agregarAlCarrito()">Agregar al carrito</button>
 
-</section>
+            <div class="guarantee-item">
+                <i class="fa-shield-halved fa-solid"></i>
+                <div><strong>Compra Protegida:</strong> Recibí el producto que esperabas o te devolvemos tu dinero.</div>
+            </div>
 
-<h2 class="section-title">Categorías</h2>
+            <div class="guarantee-item">
+                <i class="fa-solid fa-handshake"></i>
+                <div><strong>Mercado Puntos:</strong> Sumás puntos en cada compra.</div>
+            </div>
 
-<div class="categories">
+            <div class="payment-methods-link" onclick="abrirModalPagos()">
+                <span>Ver los medios de pago</span>
+                <i class="fa-solid fa-chevron-right"></i>
+            </div>
+        </div>
+    </div>
 
-<div class="category" onclick="filterCategory('Atrapasueños')">
-<img src="https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=300&q=80">
-<p>Atrapasueños</p>
-</div>
+    <!-- ==================== VISTA 4: CARRITO ==================== -->
+    <div id="view-cart" class="page-view">
+        <div class="cart-header">
+            <span>Mi Carrito</span>
+            <span onclick="vaciarCarrito()" style="color:red; font-size:0.75rem; cursor:pointer;">Vaciar</span>
+        </div>
+        <div id="cart-items-container">
+            <!-- Items agregados -->
+        </div>
 
-<div class="category" onclick="filterCategory('Caminitos')">
-<img src="https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fit=crop&w=300&q=80">
-<p>Caminitos</p>
-</div>
-
-<div class="category" onclick="filterCategory('Borlas')">
-<img src="https://images.unsplash.com/photo-1598301257982-0cf014dabbcd?auto=format&fit=crop&w=300&q=80">
-<p>Borlas</p>
-</div>
-
-<div class="category" onclick="filterCategory('Atrapasoles')">
-<img src="https://images.unsplash.com/photo-1602523961358-f9f03dd557db?auto=format&fit=crop&w=300&q=80">
-<p>Atrapasoles</p>
-</div>
-
-</div>
-
-<h2 class="section-title" id="productos">
-♡ Productos destacados ♡
-</h2>
-
-<div class="products" id="productList"></div>
-
-<!-- MODAL PRODUCTO -->
-
-<div class="modal" id="productModal">
-
-<button class="close" onclick="closeProduct()">×</button>
-
-<div class="modal-content">
-
-<img id="modalImg" class="modal-img">
-
-<div class="product-detail">
-
-<h2 id="modalName"></h2>
-
-<div class="price" id="modalPrice"></div>
-
-<p class="description" id="modalDescription"></p>
-
-<div class="quantity">
-<button onclick="changeQuantity(-1)">−</button>
-<span id="quantity">1</span>
-<button onclick="changeQuantity(1)">+</button>
-</div>
-
-<button class="action add" onclick="addCurrentToCart()">
-🛒 Agregar al carrito
-</button>
-
-<button class="action buy" onclick="buyNow()">
-Comprar ahora
-</button>
-
-<div class="payment">
-
-<h3>💳 Métodos de pago</h3>
-
-<label>💙 Mercado Pago</label>
-<label>💳 Tarjeta de crédito</label>
-<label>💳 Tarjeta de débito</label>
-<label>🏦 Transferencia bancaria</label>
-
-</div>
-
-<button class="action ml" onclick="goMercadoLibre()">
-🛒 Comprar por Mercado Libre
-</button>
-
-</div>
-
-</div>
-</div>
-
-<!-- CARRITO -->
-
-<div class="cart-panel" id="cartPanel">
-
-<div class="cart-content">
-
-<button onclick="closeCart()">← Volver</button>
-
-<h2 style="margin:20px 0">🛒 Mi carrito</h2>
-
-<div id="cartItems"></div>
-
-<div class="total">
-Total: $<span id="cartTotal">0</span>
-</div>
-
-<button class="action buy" onclick="checkout()">
-Continuar compra
-</button>
-
-</div>
-
-</div>
-
-<!-- NAV -->
-
-<nav class="bottom-nav">
-
-<button onclick="scrollTopPage()">
-<span>⌂</span>
-Inicio
-</button>
-
-<button onclick="scrollProducts()">
-<span>▦</span>
-Productos
-</button>
-
-<button onclick="openCart()">
-<span>🛒</span>
-Carrito
-</button>
-
-<button onclick="contact()">
-<span>♡</span>
-Contacto
-</button>
-
-</nav>
-
-<script>
-
-const products = [
-
-{
-id:1,
-name:"Atrapasueños Beige",
-category:"Atrapasueños",
-price:8500,
-image:"https://images.unsplash.com/photo-1603006905003-be475563bc59?auto
+        <div class="cart-bottom-bar">
+            <div>
+                <span style="font-size: 0.7rem; color: #777;">Total:</span>
+                <div style="font-size: 1.1rem; font-weight: bold; color: var(--brown-dark);" id="cart-total-val">$ 0</div>
+            </div>
+            <button
