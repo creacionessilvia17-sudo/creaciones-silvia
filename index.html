@@ -8,124 +8,111 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
-        :root { --bg-warm: #fbf9f6; --brown-dark: #3c2e27; --brown-light: #f4eee7; --wsp-green: #25d366; --meli-blue: #2970e6; --text-main: #333333; --border-color: #eee7e1; }
+        :root { 
+            --bg-warm: #fbf9f6; 
+            --brown-dark: #3c2e27; 
+            --wsp-green: #25d366; 
+            --border-color: #eee7e1; 
+        }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; }
-        body { background-color: var(--bg-warm); color: var(--text-main); max-width: 430px; margin: 0 auto; padding-bottom: 70px; min-height: 100vh; box-shadow: 0 0 20px rgba(0,0,0,0.08); }
+        body { background-color: var(--bg-warm); color: #333; max-width: 430px; margin: 0 auto; padding-bottom: 70px; min-height: 100vh; box-shadow: 0 0 20px rgba(0,0,0,0.08); }
         
         .page-view { display: none; background: var(--bg-warm); min-height: 80vh; }
         .page-view.active { display: block !important; }
 
-        .suenos-header { background: #fff; padding: 12px 15px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 100; }
-        .header-title-box h1 { font-size: 1.1rem; letter-spacing: 1px; color: var(--brown-dark); font-weight: 600; }
-        .header-actions { position: relative; cursor: pointer; }
-        .cart-badge { position: absolute; top: -6px; right: -8px; background: var(--brown-dark); color: white; font-size: 0.65rem; border-radius: 50%; padding: 2px 6px; }
+        /* HEADER */
+        .suenos-header { background: #fff; padding: 15px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 100; }
+        .suenos-header h1 { font-size: 1.1rem; color: var(--brown-dark); font-weight: 600; text-align: center; width: 100%; }
 
-        .search-container { background: #fff; padding: 8px 15px 12px 15px; border-bottom: 1px solid var(--border-color); }
-        .search-box { background: #f1ece6; border-radius: 20px; padding: 8px 14px; display: flex; align-items: center; gap: 10px; }
-        .search-box input { border: none; background: transparent; outline: none; width: 100%; font-size: 0.85rem; }
-
+        /* GRILLA Y TARJETAS */
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px; }
         .card-product { background: #fff; border-radius: 10px; padding: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); cursor: pointer; border: 1px solid #f0e8e0; }
-        .card-product-icon { height: 120px; background: #fdfbf7; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 2.2rem; color: var(--brown-dark); margin-bottom: 8px; overflow: hidden; }
-        .card-product-icon img { width: 100%; height: 100%; object-fit: cover; }
         
-        .detail-box { background: #fff; padding: 20px; }
-        .btn-meli-buy { width: 100%; background: var(--meli-blue); color: #fff; border: none; padding: 12px; border-radius: 6px; margin-bottom: 10px; cursor: pointer; }
-        .btn-meli-add { width: 100%; background: #eaf2fe; color: var(--meli-blue); border: none; padding: 12px; border-radius: 6px; cursor: pointer; }
+        /* Contenedor de foto sin recorte */
+        .card-product-icon { height: 150px; background: #fff; border-radius: 6px; display: flex; align-items: center; justify-content: center; margin-bottom: 8px; overflow: hidden; }
+        .card-product-icon img { width: 100%; height: 100%; object-fit: contain; }
         
-        .navbar-bottom { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 430px; background: #fff; display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid var(--border-color); z-index: 100; }
-        .nav-item { display: flex; flex-direction: column; align-items: center; cursor: pointer; border: none; background: none; }
+        /* DETALLE Y GALERÍA */
+        .detail-box { background: #fff; padding: 20px; min-height: 80vh; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 15px 0 20px 0; }
+        .gallery-grid img { width: 100%; height: 110px; object-fit: contain; background: #fafafa; border: 1px solid #eee; border-radius: 6px; }
+
+        .btn-wsp { width: 100%; background: var(--wsp-green); color: #fff; border: none; padding: 14px; border-radius: 8px; font-weight: 700; font-size: 0.95rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
     </style>
 </head>
 <body>
 
     <header class="suenos-header">
-        <button id="btn-back" onclick="mostrarVista('home')" style="display:none; border:none; background:none;"><i class="fa-solid fa-arrow-left"></i></button>
-        <div class="header-title-box"><h1>CREACIONES SILVIA</h1></div>
-        <div class="header-actions" onclick="mostrarVista('cart')">
-            <i class="fa-solid fa-bag-shopping"></i>
-            <span class="cart-badge" id="cart-count">0</span>
-        </div>
+        <button id="btn-back" onclick="mostrarVista('home')" style="display:none; border:none; background:none; position:absolute; cursor:pointer;"><i class="fa-solid fa-arrow-left fa-lg"></i></button>
+        <h1>CREACIONES SILVIA</h1>
     </header>
 
-    <div class="search-container">
-        <div class="search-box">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" id="search-input" placeholder="Buscar mis productos..." onkeyup="buscarProducto()">
-        </div>
-    </div>
-
+    <!-- INICIO -->
     <div id="view-home" class="page-view active">
         <div class="grid-2" id="grid-productos"></div>
     </div>
 
+    <!-- VISTA DETALLE -->
     <div id="view-detail" class="page-view">
         <div class="detail-box">
-            <div id="detail-icon" style="height: 200px; background:#fdfbf7; display:flex; align-items:center; justify-content:center; overflow:hidden;"></div>
-            <h2 id="detail-title" style="margin: 15px 0;"></h2>
-            <div id="detail-price" style="font-size: 1.5rem; font-weight:bold; margin-bottom: 15px;"></div>
-            <button class="btn-meli-buy" onclick="comprarYIrAlCarrito()">Comprar ahora</button>
-            <button class="btn-meli-add" onclick="agregarAlCarritoActual()">Agregar al carrito</button>
+            <h2 id="detail-title" style="color: var(--brown-dark);"></h2>
+            <div id="detail-price" style="font-size: 1.4rem; font-weight: bold; margin: 10px 0; color: var(--brown-dark);"></div>
+            
+            <p style="font-size: 0.85rem; color: #666; margin-top: 15px;">Modelos / Colores disponibles:</p>
+            <div id="gallery-container" class="gallery-grid"></div>
+
+            <button class="btn-wsp" onclick="enviarPedidoWhatsApp()">
+                <i class="fa-brands fa-whatsapp fa-lg"></i>
+                Consultar / Pedir por WhatsApp
+            </button>
         </div>
     </div>
-
-    <div id="view-cart" class="page-view" style="padding: 15px;">
-        <div id="cart-list"></div>
-        <button style="width:100%; padding:15px; background:var(--wsp-green); color:#fff; border:none; border-radius:8px; margin-top:20px; font-weight:700;" onclick="enviarPedidoWhatsApp()">Enviar pedido por WhatsApp</button>
-    </div>
-
-    <nav class="navbar-bottom">
-        <button class="nav-item" onclick="mostrarVista('home')"><i class="fa-solid fa-house"></i><span>Inicio</span></button>
-        <button class="nav-item" onclick="mostrarVista('cart')"><i class="fa-solid fa-bag-shopping"></i><span>Carrito</span></button>
-    </nav>
 
     <script>
         const TU_NUMERO_WHATSAPP = "5493804100777";
 
-        // EDITA AQUÍ TU LISTA DE PRODUCTOS
+        // CONFIGURACIÓN DEL PRODUCTO Y SUS 6 FOTOS
         const listaProductos = [
-            { id: 1, nombre: 'Atrapasueños 1', precio: 5500, imagen: 'foto1.jpg' },
-            { id: 2, nombre: 'Atrapasueños 2', precio: 3200, imagen: 'foto2.jpg' },
-            { id: 3, nombre: 'Artesanía 3', precio: 4800, imagen: 'foto3.jpg' },
-            { id: 4, nombre: 'Artesanía 4', precio: 4200, imagen: 'foto4.jpg' },
-            { id: 5, nombre: 'Producto 5', precio: 6800, imagen: 'foto5.jpg' },
-            { id: 6, nombre: 'Producto 6', precio: 7500, imagen: 'foto6.jpg' },
-            { id: 7, nombre: 'Producto 7', precio: 5900, imagen: 'foto7.jpg' },
-            { id: 8, nombre: 'Producto 8', precio: 5100, imagen: 'foto8.jpg' },
-            { id: 9, nombre: 'Producto 9', precio: 8200, imagen: 'foto9.jpg' },
-            { id: 10, nombre: 'Producto 10', precio: 6400, imagen: 'foto10.jpg' },
-            { id: 11, nombre: 'Producto 11', precio: 4900, imagen: 'foto11.jpg' },
-            { id: 12, nombre: 'Producto 12', precio: 7100, imagen: 'foto12.jpg' },
-            { id: 13, nombre: 'Producto 13', precio: 9500, imagen: 'foto13.jpg' },
-            { id: 14, nombre: 'Producto 14', precio: 8800, imagen: 'foto14.jpg' },
-            { id: 15, nombre: 'Producto 15', precio: 5600, imagen: 'foto15.jpg' },
-            { id: 16, nombre: 'Producto 16', precio: 7900, imagen: 'foto16.jpg' },
-            { id: 17, nombre: 'Producto 17', precio: 5300, imagen: 'foto17.jpg' },
-            { id: 18, nombre: 'Producto 18', precio: 6000, imagen: 'foto18.jpg' },
-            { id: 19, nombre: 'Producto 19', precio: 12500, imagen: 'foto19.jpg' },
-            { id: 20, nombre: 'Producto 20', precio: 9900, imagen: 'foto20.jpg' }
+            { 
+                id: 1, 
+                nombre: 'Atrapasueños con Flores', 
+                precio: 5500, 
+                // Aquí están los nombres de las 6 fotos
+                fotos: ['foto1a.jpg', 'foto1b.jpg', 'foto1c.jpg', 'foto1d.jpg', 'foto1e.jpg', 'foto1f.jpg'] 
+            }
         ];
 
-        let carrito = [];
         let prodSeleccionado = null;
 
-        function cargarProductos(lista) {
+        function cargarProductos() {
             const grilla = document.getElementById('grid-productos');
             grilla.innerHTML = "";
-            lista.forEach(p => {
-                grilla.innerHTML += `<div class="card-product" onclick="abrirDetalle(${p.id})">
-                    <div class="card-product-icon"><img src="${p.imagen}" onerror="this.style.display='none'"></div>
-                    <div style="font-weight:600; font-size: 0.8rem;">${p.nombre}</div>
-                    <div style="font-weight:700;">$ ${p.precio}</div>
-                </div>`;
+            listaProductos.forEach(p => {
+                grilla.innerHTML += `
+                    <div class="card-product" onclick="abrirDetalle(${p.id})">
+                        <div class="card-product-icon">
+                            <img src="${p.fotos[0]}" onerror="this.src='https://via.placeholder.com/150?text=Atrapasue%C3%B1os'">
+                        </div>
+                        <div style="font-weight:600; font-size: 0.85rem; margin-bottom: 4px;">${p.nombre}</div>
+                        <div style="font-weight:700; color: var(--brown-dark);">$ ${p.precio.toLocaleString('es-AR')}</div>
+                    </div>
+                `;
             });
         }
 
         function abrirDetalle(id) {
             prodSeleccionado = listaProductos.find(p => p.id === id);
             document.getElementById('detail-title').innerText = prodSeleccionado.nombre;
-            document.getElementById('detail-price').innerText = "$ " + prodSeleccionado.precio;
-            document.getElementById('detail-icon').innerHTML = `<img src="${prodSeleccionado.imagen}" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'">`;
+            document.getElementById('detail-price').innerText = "$ " + prodSeleccionado.precio.toLocaleString('es-AR');
+            
+            const galeria = document.getElementById('gallery-container');
+            galeria.innerHTML = "";
+            
+            // Carga las 6 fotos en el detalle
+            prodSeleccionado.fotos.forEach(f => {
+                galeria.innerHTML += `<img src="${f}" onerror="this.src='https://via.placeholder.com/100?text=Foto'">`;
+            });
+
             mostrarVista('detail');
         }
 
@@ -135,41 +122,13 @@
             document.getElementById('btn-back').style.display = (vista === 'home') ? 'none' : 'block';
         }
 
-        function agregarAlCarritoActual() { 
-            carrito.push(prodSeleccionado); 
-            document.getElementById('cart-count').innerText = carrito.length; 
-            alert("Agregado al carrito"); 
-        }
-
-        function comprarYIrAlCarrito() { 
-            agregarAlCarritoActual(); 
-            mostrarVista('cart'); 
-        }
-
-        function buscarProducto() {
-            const t = document.getElementById('search-input').value.toLowerCase();
-            cargarProductos(listaProductos.filter(p => p.nombre.toLowerCase().includes(t)));
-        }
-
-        // FUNCIÓN PROFESIONAL DE WHATSAPP
         function enviarPedidoWhatsApp() {
-            if (carrito.length === 0) {
-                alert("Agrega productos al carrito primero.");
-                return;
-            }
-            let mensaje = "¡Hola Creaciones Silvia! 🌸 Quiero realizar el siguiente pedido:\n\n";
-            let total = 0;
-            carrito.forEach((item, i) => {
-                mensaje += `${i + 1}. ${item.nombre} - $${item.precio}\n`;
-                total += item.precio;
-            });
-            mensaje += `\n*Total a pagar: $${total}*\n\n¿Cómo podemos coordinar el pago y envío?`;
-            
+            let mensaje = `¡Hola Creaciones Silvia! 🌸 Quería consultar por el *${prodSeleccionado.nombre}* ($${prodSeleccionado.precio.toLocaleString('es-AR')}). ¿Tienes stock en los colores disponibles?`;
             const url = `https://wa.me/${TU_NUMERO_WHATSAPP}?text=${encodeURIComponent(mensaje)}`;
             window.open(url, '_blank');
         }
 
-        cargarProductos(listaProductos);
+        cargarProductos();
     </script>
 </body>
 </html>
