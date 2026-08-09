@@ -8,397 +8,147 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
-        :root {
-            --bg-warm: #fbf9f6;
-            --brown-dark: #3c2e27;
-            --brown-light: #f4eee7;
-            --wsp-green: #25d366;
-            --meli-blue: #2970e6;
-            --text-main: #333333;
-            --border-color: #eee7e1;
-        }
-
+        :root { --bg-warm: #fbf9f6; --brown-dark: #3c2e27; --brown-light: #f4eee7; --wsp-green: #25d366; --meli-blue: #2970e6; --text-main: #333333; --border-color: #eee7e1; }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; }
-
-        body { 
-            background-color: var(--bg-warm); 
-            color: var(--text-main); 
-            max-width: 430px; 
-            margin: 0 auto; 
-            padding-bottom: 70px; 
-            box-shadow: 0 0 20px rgba(0,0,0,0.08);
-            min-height: 100vh;
-        }
-
-        /* --- VISTAS --- */
+        body { background-color: var(--bg-warm); color: var(--text-main); max-width: 430px; margin: 0 auto; padding-bottom: 70px; min-height: 100vh; box-shadow: 0 0 20px rgba(0,0,0,0.08); }
+        
         .page-view { display: none; background: var(--bg-warm); min-height: 80vh; }
         .page-view.active { display: block !important; }
 
-        /* --- HEADER --- */
-        .suenos-header {
-            background: #fff;
-            padding: 12px 15px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid var(--border-color);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+        .suenos-header { background: #fff; padding: 12px 15px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 100; }
+        .header-title-box h1 { font-size: 1.1rem; letter-spacing: 1px; color: var(--brown-dark); font-weight: 600; }
+        .header-actions { position: relative; cursor: pointer; }
+        .cart-badge { position: absolute; top: -6px; right: -8px; background: var(--brown-dark); color: white; font-size: 0.65rem; border-radius: 50%; padding: 2px 6px; }
 
-        .header-title-box h1 { font-size: 1.1rem; letter-spacing: 1px; color: var(--brown-dark); font-weight: 600; text-align: center; }
-        .header-title-box span { font-size: 0.55rem; letter-spacing: 1.5px; color: #888; text-transform: uppercase; display: block; text-align: center; }
-
-        .header-actions { display: flex; align-items: center; gap: 15px; }
-        .btn-icon { font-size: 1.2rem; color: #333; cursor: pointer; position: relative; background: none; border: none; }
-        
-        .cart-badge { 
-            position: absolute; top: -6px; right: -8px; 
-            background: var(--brown-dark); color: white; 
-            font-size: 0.65rem; font-weight: bold; 
-            border-radius: 50%; padding: 2px 6px; 
-        }
-
-        /* --- BÚSQUEDA --- */
         .search-container { background: #fff; padding: 8px 15px 12px 15px; border-bottom: 1px solid var(--border-color); }
-        .search-box {
-            background: #f1ece6; border-radius: 20px; padding: 8px 14px;
-            display: flex; align-items: center; gap: 10px;
-        }
+        .search-box { background: #f1ece6; border-radius: 20px; padding: 8px 14px; display: flex; align-items: center; gap: 10px; }
         .search-box input { border: none; background: transparent; outline: none; width: 100%; font-size: 0.85rem; }
 
-        /* --- BANNER --- */
-        .hero-banner {
-            background: linear-gradient(135deg, #eaddca, #c8b29e);
-            padding: 20px; color: var(--brown-dark);
-            border-bottom: 1px solid var(--border-color);
-        }
-        .hero-title { font-family: 'Georgia', serif; font-style: italic; font-size: 1.3rem; margin: 4px 0; }
-
-        /* --- CATEGORÍAS --- */
-        .categories-grid { display: grid; grid-template-columns: repeat(4, 1fr); padding: 15px 10px; background: #fff; text-align: center; border-bottom: 1px solid var(--border-color); }
-        .cat-item { cursor: pointer; }
-        .cat-circle {
-            width: 50px; height: 50px; border-radius: 50%; background: var(--brown-light);
-            margin: 0 auto 6px auto; display: flex; align-items: center; justify-content: center;
-            border: 1px solid #e2d7cc; font-size: 1.2rem; color: var(--brown-dark);
-        }
-        .cat-item span { font-size: 0.65rem; font-weight: 500; color: var(--brown-dark); }
-
-        /* --- GRILLA DE PRODUCTOS Y BOTÓN VER TODOS --- */
-        .products-section { padding: 15px; }
-        .products-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .products-title { font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; color: var(--brown-dark); font-weight: 700; }
-        .btn-see-all { font-size: 0.75rem; color: var(--brown-dark); font-weight: 600; text-decoration: underline; cursor: pointer; background: none; border: none; }
-
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-
-        .card-product {
-            background: #fff; border-radius: 10px; padding: 12px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.04); cursor: pointer;
-            border: 1px solid #f0e8e0; text-align: center;
-            overflow: hidden;
-        }
-        .card-product-icon {
-            height: 120px; background: #fdfbf7; border-radius: 6px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 2.2rem; color: var(--brown-dark); margin-bottom: 8px;
-            overflow: hidden;
-        }
-        .card-product-icon img {
-            width: 100%; height: 100%; object-fit: cover; border-radius: 6px;
-        }
-        .card-product .title { font-size: 0.78rem; font-weight: 600; color: #333; margin-bottom: 4px; text-align: left; }
-        .card-product .price { font-size: 0.9rem; font-weight: 700; color: var(--brown-dark); text-align: left; }
-
-        /* --- DETALLE PRODUCTO --- */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px; }
+        .card-product { background: #fff; border-radius: 10px; padding: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); cursor: pointer; border: 1px solid #f0e8e0; }
+        .card-product-icon { height: 120px; background: #fdfbf7; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 2.2rem; color: var(--brown-dark); margin-bottom: 8px; overflow: hidden; }
+        .card-product-icon img { width: 100%; height: 100%; object-fit: cover; }
+        
         .detail-box { background: #fff; padding: 20px; }
-        .detail-icon-box { height: 220px; background: #fdfbf7; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 3.5rem; color: var(--brown-dark); margin-bottom: 15px; overflow: hidden; }
-        .detail-icon-box img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
-        .detail-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 8px; }
-        .detail-price { font-size: 1.6rem; font-weight: bold; color: var(--brown-dark); margin-bottom: 15px; }
-
-        .btn-meli-buy { width: 100%; background: var(--meli-blue); color: #fff; border: none; padding: 12px; border-radius: 6px; font-weight: 600; font-size: 0.85rem; cursor: pointer; margin-bottom: 10px; }
-        .btn-meli-add { width: 100%; background: #eaf2fe; color: var(--meli-blue); border: none; padding: 12px; border-radius: 6px; font-weight: 600; font-size: 0.85rem; cursor: pointer; }
-        .btn-wsp { width: 100%; background: var(--wsp-green); color: #fff; border: none; padding: 14px; border-radius: 6px; font-weight: 700; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
-
-        /* --- CARRITO --- */
-        .cart-header { background: #fff; padding: 15px; border-bottom: 1px solid var(--border-color); font-weight: 600; display: flex; justify-content: space-between; }
-        .cart-item { background: #fff; padding: 12px; margin-top: 10px; display: flex; gap: 12px; border-bottom: 1px solid #eee; align-items: center; }
-        .cart-item-icon { width: 50px; height: 50px; background: #fdfbf7; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; color: var(--brown-dark); overflow: hidden; flex-shrink: 0; }
-        .cart-item-icon img { width: 100%; height: 100%; object-fit: cover; }
-        .cart-item-info { flex: 1; }
-
-        /* --- NAV INFERIOR --- */
-        .navbar-bottom {
-            position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
-            width: 100%; max-width: 430px; background: #fff;
-            display: flex; justify-content: space-around; padding: 10px 0;
-            border-top: 1px solid var(--border-color); z-index: 100;
-        }
-        .nav-item { display: flex; flex-direction: column; align-items: center; font-size: 0.65rem; color: #777; cursor: pointer; background: none; border: none; }
-        .nav-item i { font-size: 1.1rem; margin-bottom: 2px; }
-        .nav-item.active { color: var(--brown-dark); font-weight: 600; }
+        .btn-meli-buy { width: 100%; background: var(--meli-blue); color: #fff; border: none; padding: 12px; border-radius: 6px; margin-bottom: 10px; cursor: pointer; }
+        .btn-meli-add { width: 100%; background: #eaf2fe; color: var(--meli-blue); border: none; padding: 12px; border-radius: 6px; cursor: pointer; }
+        
+        .navbar-bottom { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 430px; background: #fff; display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid var(--border-color); z-index: 100; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; cursor: pointer; border: none; background: none; }
     </style>
 </head>
 <body>
 
-    <!-- HEADER -->
     <header class="suenos-header">
-        <button class="btn-icon" id="btn-back" onclick="mostrarVista('home')" style="display:none;"><i class="fa-solid fa-arrow-left"></i></button>
-        <div class="header-title-box" onclick="mostrarVista('home')" style="cursor:pointer;">
-            <h1>CREACIONES SILVIA</h1>
-            <span>• artesanías •</span>
-        </div>
-        <div class="header-actions">
-            <button class="btn-icon" onclick="mostrarVista('cart')">
-                <i class="fa-solid fa-bag-shopping"></i>
-                <span class="cart-badge" id="cart-count">0</span>
-            </button>
+        <button id="btn-back" onclick="mostrarVista('home')" style="display:none; border:none; background:none;"><i class="fa-solid fa-arrow-left"></i></button>
+        <div class="header-title-box"><h1>CREACIONES SILVIA</h1></div>
+        <div class="header-actions" onclick="mostrarVista('cart')">
+            <i class="fa-solid fa-bag-shopping"></i>
+            <span class="cart-badge" id="cart-count">0</span>
         </div>
     </header>
 
-    <!-- BÚSQUEDA -->
     <div class="search-container">
         <div class="search-box">
-            <i class="fa-solid fa-magnifying-glass" style="color: #999;"></i>
-            <input type="text" id="search-input" placeholder="Buscar cuadros..." onkeyup="buscarProducto()">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="search-input" placeholder="Buscar mis productos..." onkeyup="buscarProducto()">
         </div>
     </div>
 
-    <!-- VISTA INICIO -->
     <div id="view-home" class="page-view active">
-        <div class="hero-banner">
-            <div style="font-size: 0.65rem; text-transform: uppercase;">Decorá tus espacios</div>
-            <div class="hero-title">Cuadros Artesanales</div>
-            <div style="font-size:0.75rem;">Diseños únicos elaborados a mano para tu hogar.</div>
-        </div>
-
-        <div class="categories-grid">
-            <div class="cat-item" onclick="filtrarCategoria('Cuadro')">
-                <div class="cat-circle"><i class="fa-solid fa-image"></i></div>
-                <span>Cuadros</span>
-            </div>
-            <div class="cat-item" onclick="filtrarCategoria('Madera')">
-                <div class="cat-circle"><i class="fa-solid fa-tree"></i></div>
-                <span>Madera</span>
-            </div>
-            <div class="cat-item" onclick="filtrarCategoria('Lienzo')">
-                <div class="cat-circle"><i class="fa-solid fa-palette"></i></div>
-                <span>Lienzos</span>
-            </div>
-            <div class="cat-item" onclick="filtrarCategoria('Set')">
-                <div class="cat-circle"><i class="fa-solid fa-layer-group"></i></div>
-                <span>Sets</span>
-            </div>
-        </div>
-
-        <div class="products-section">
-            <div class="products-header">
-                <div class="products-title" id="section-title">TODOS LOS CUADROS</div>
-                <button class="btn-see-all" onclick="mostrarTodosLosProductos()">Ver todos</button>
-            </div>
-            <div class="grid-2" id="grid-productos"></div>
-        </div>
+        <div class="grid-2" id="grid-productos"></div>
     </div>
 
-    <!-- VISTA DETALLE -->
     <div id="view-detail" class="page-view">
         <div class="detail-box">
-            <div class="detail-icon-box" id="detail-icon"></div>
-            <h2 class="detail-title" id="detail-title"></h2>
-            <div class="detail-price" id="detail-price"></div>
-            
-            <p style="font-size:0.85rem; color:#666; margin-bottom:20px;">
-                Cuadro decorativo hecho a mano con materiales de excelente calidad. Ideal para renovar y dar calidez a tus ambientes.
-            </p>
-
+            <div id="detail-icon" style="height: 200px; background:#fdfbf7; display:flex; align-items:center; justify-content:center; overflow:hidden;"></div>
+            <h2 id="detail-title" style="margin: 15px 0;"></h2>
+            <div id="detail-price" style="font-size: 1.5rem; font-weight:bold; margin-bottom: 15px;"></div>
             <button class="btn-meli-buy" onclick="comprarYIrAlCarrito()">Comprar ahora</button>
             <button class="btn-meli-add" onclick="agregarAlCarritoActual()">Agregar al carrito</button>
         </div>
     </div>
 
-    <!-- VISTA CARRITO -->
-    <div id="view-cart" class="page-view">
-        <div class="cart-header">
-            <span>Tu Carrito de Compras</span>
-            <span onclick="vaciarCarrito()" style="color:red; font-size:0.75rem; cursor:pointer;">Vaciar</span>
-        </div>
-        
-        <div id="cart-list" style="padding: 15px;"></div>
-
-        <div style="padding: 15px; background: #fff; border-top: 1px solid var(--border-color); margin-top: 20px;">
-            <div style="display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 15px;">
-                <span>Total:</span>
-                <span id="cart-total">$ 0</span>
-            </div>
-            <button class="btn-wsp" onclick="enviarPedidoWhatsApp()">
-                <i class="fa-brands fa-whatsapp" style="font-size: 1.2rem;"></i>
-                Enviar pedido por WhatsApp
-            </button>
-        </div>
+    <div id="view-cart" class="page-view" style="padding: 15px;">
+        <div id="cart-list"></div>
+        <button style="width:100%; padding:15px; background:var(--wsp-green); color:#fff; border:none; border-radius:8px; margin-top:20px;" onclick="enviarPedidoWhatsApp()">Enviar pedido por WhatsApp</button>
     </div>
 
-    <!-- NAV INFERIOR -->
     <nav class="navbar-bottom">
-        <button class="nav-item active" id="nav-btn-home" onclick="mostrarVista('home')">
-            <i class="fa-solid fa-house"></i>
-            <span>Inicio</span>
-        </button>
-        <button class="nav-item" id="nav-btn-cart" onclick="mostrarVista('cart')">
-            <i class="fa-solid fa-bag-shopping"></i>
-            <span>Carrito</span>
-        </button>
+        <button class="nav-item" onclick="mostrarVista('home')"><i class="fa-solid fa-house"></i><span>Inicio</span></button>
+        <button class="nav-item" onclick="mostrarVista('cart')"><i class="fa-solid fa-bag-shopping"></i><span>Carrito</span></button>
     </nav>
 
     <script>
-        // CONFIGURACIÓN DE TU TELÉFONO DE WHATSAPP
         const TU_NUMERO_WHATSAPP = "5493804100777";
 
-        // BASE DE DATOS ACTUALIZADA CON FOTO1.JPG A FOTO20.JPG
+        // ACÁ EDITÁS TUS PRODUCTOS, PRECIOS Y FOTOS
         const listaProductos = [
-            { id: 1, nombre: 'Cuadro 1', precio: 5500, imagen: 'foto1.jpg' },
-            { id: 2, nombre: 'Cuadro 2', precio: 6200, imagen: 'foto2.jpg' },
-            { id: 3, nombre: 'Cuadro 3', precio: 4800, imagen: 'foto3.jpg' },
-            { id: 4, nombre: 'Cuadro 4', precio: 4200, imagen: 'foto4.jpg' },
-            { id: 5, nombre: 'Cuadro 5', precio: 6800, imagen: 'foto5.jpg' },
-            { id: 6, nombre: 'Cuadro 6', precio: 7500, imagen: 'foto6.jpg' },
-            { id: 7, nombre: 'Cuadro 7', precio: 5900, imagen: 'foto7.jpg' },
-            { id: 8, nombre: 'Cuadro 8', precio: 5100, imagen: 'foto8.jpg' },
-            { id: 9, nombre: 'Cuadro 9', precio: 8200, imagen: 'foto9.jpg' },
-            { id: 10, nombre: 'Cuadro 10', precio: 6400, imagen: 'foto10.jpg' },
-            { id: 11, nombre: 'Cuadro 11', precio: 4900, imagen: 'foto11.jpg' },
-            { id: 12, nombre: 'Cuadro 12', precio: 7100, imagen: 'foto12.jpg' },
-            { id: 13, nombre: 'Cuadro 13', precio: 9500, imagen: 'foto13.jpg' },
-            { id: 14, nombre: 'Cuadro 14', precio: 8800, imagen: 'foto14.jpg' },
-            { id: 15, nombre: 'Cuadro 15', precio: 5600, imagen: 'foto15.jpg' },
-            { id: 16, nombre: 'Cuadro 16', precio: 7900, imagen: 'foto16.jpg' },
-            { id: 17, nombre: 'Cuadro 17', precio: 5300, imagen: 'foto17.jpg' },
-            { id: 18, nombre: 'Cuadro 18', precio: 6000, imagen: 'foto18.jpg' },
-            { id: 19, nombre: 'Cuadro 19', precio: 12500, imagen: 'foto19.jpg' },
-            { id: 20, nombre: 'Cuadro 20', precio: 9900, imagen: 'foto20.jpg' }
+            { id: 1, nombre: 'Atrapasueños 1', precio: 5500, imagen: 'foto1.jpg' },
+            { id: 2, nombre: 'Atrapasueños 2', precio: 3200, imagen: 'foto2.jpg' },
+            { id: 3, nombre: 'Artesanía 3', precio: 4800, imagen: 'foto3.jpg' },
+            { id: 4, nombre: 'Artesanía 4', precio: 4200, imagen: 'foto4.jpg' },
+            { id: 5, nombre: 'Producto 5', precio: 6800, imagen: 'foto5.jpg' },
+            { id: 6, nombre: 'Producto 6', precio: 7500, imagen: 'foto6.jpg' },
+            { id: 7, nombre: 'Producto 7', precio: 5900, imagen: 'foto7.jpg' },
+            { id: 8, nombre: 'Producto 8', precio: 5100, imagen: 'foto8.jpg' },
+            { id: 9, nombre: 'Producto 9', precio: 8200, imagen: 'foto9.jpg' },
+            { id: 10, nombre: 'Producto 10', precio: 6400, imagen: 'foto10.jpg' },
+            { id: 11, nombre: 'Producto 11', precio: 4900, imagen: 'foto11.jpg' },
+            { id: 12, nombre: 'Producto 12', precio: 7100, imagen: 'foto12.jpg' },
+            { id: 13, nombre: 'Producto 13', precio: 9500, imagen: 'foto13.jpg' },
+            { id: 14, nombre: 'Producto 14', precio: 8800, imagen: 'foto14.jpg' },
+            { id: 15, nombre: 'Producto 15', precio: 5600, imagen: 'foto15.jpg' },
+            { id: 16, nombre: 'Producto 16', precio: 7900, imagen: 'foto16.jpg' },
+            { id: 17, nombre: 'Producto 17', precio: 5300, imagen: 'foto17.jpg' },
+            { id: 18, nombre: 'Producto 18', precio: 6000, imagen: 'foto18.jpg' },
+            { id: 19, nombre: 'Producto 19', precio: 12500, imagen: 'foto19.jpg' },
+            { id: 20, nombre: 'Producto 20', precio: 9900, imagen: 'foto20.jpg' }
         ];
 
         let carrito = [];
-        let productoSeleccionado = null;
+        let prodSeleccionado = null;
 
-        // FUNCIÓN AUXILIAR PARA RENDERIZAR IMAGEN O ÍCONO DE REEMPLAZO
-        function obtenerHTMLImagen(urlImagen) {
-            // Verifica que no sea el placeholder que pusimos antes, o que sea un archivo que sí existe
-            return `<img src="${urlImagen}" alt="Cuadro" onerror="this.onerror=null; this.parentElement.innerHTML='<i class=\\'fa-solid fa-image\\'></i>';">`;
-        }
-
-        // MOSTRAR/OCULTAR VISTAS
-        function mostrarVista(vista) {
-            document.querySelectorAll('.page-view').forEach(el => el.classList.remove('active'));
-            document.getElementById('btn-back').style.display = (vista === 'home') ? 'none' : 'block';
-
-            if (vista === 'home') {
-                document.getElementById('view-home').classList.add('active');
-            } else if (vista === 'detail') {
-                document.getElementById('view-detail').classList.add('active');
-            } else if (vista === 'cart') {
-                document.getElementById('view-cart').classList.add('active');
-                renderizarCarrito();
-            }
-            window.scrollTo(0, 0);
-        }
-
-        // CARGAR PRODUCTOS EN GRILLA
-        function cargarProductos(productos) {
+        function cargarProductos(lista) {
             const grilla = document.getElementById('grid-productos');
             grilla.innerHTML = "";
-
-            if (productos.length === 0) {
-                grilla.innerHTML = `<p style="grid-column: span 2; font-size:0.85rem; color:#888; text-align:center; padding: 20px;">No se encontraron cuadros.</p>`;
-                return;
-            }
-
-            productos.forEach(prod => {
-                grilla.innerHTML += `
-                    <div class="card-product" onclick="abrirDetalle(${prod.id})">
-                        <div class="card-product-icon">
-                            ${obtenerHTMLImagen(prod.imagen)}
-                        </div>
-                        <div class="title">${prod.nombre}</div>
-                        <div class="price">$ ${prod.precio.toLocaleString('es-AR')}</div>
-                    </div>
-                `;
+            lista.forEach(p => {
+                grilla.innerHTML += `<div class="card-product" onclick="abrirDetalle(${p.id})">
+                    <div class="card-product-icon"><img src="${p.imagen}" onerror="this.style.display='none'"></div>
+                    <div style="font-weight:600;">${p.nombre}</div>
+                    <div style="font-weight:700;">$ ${p.precio}</div>
+                </div>`;
             });
         }
 
-        // MOSTRAR TODOS LOS PRODUCTOS
-        function mostrarTodosLosProductos() {
-            document.getElementById('search-input').value = "";
-            document.getElementById('section-title').innerText = "TODOS LOS CUADROS";
-            cargarProductos(listaProductos);
-        }
-
-        // ABRIR DETALLE
         function abrirDetalle(id) {
-            productoSeleccionado = listaProductos.find(p => p.id === id);
-            document.getElementById('detail-title').innerText = productoSeleccionado.nombre;
-            document.getElementById('detail-price').innerText = "$ " + productoSeleccionado.precio.toLocaleString('es-AR');
-            document.getElementById('detail-icon').innerHTML = obtenerHTMLImagen(productoSeleccionado.imagen);
+            prodSeleccionado = listaProductos.find(p => p.id === id);
+            document.getElementById('detail-title').innerText = prodSeleccionado.nombre;
+            document.getElementById('detail-price').innerText = "$ " + prodSeleccionado.precio;
+            document.getElementById('detail-icon').innerHTML = `<img src="${prodSeleccionado.imagen}" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'">`;
             mostrarVista('detail');
         }
 
-        // BUSCADOR
+        function mostrarVista(vista) {
+            document.querySelectorAll('.page-view').forEach(v => v.classList.remove('active'));
+            document.getElementById('view-' + vista).classList.add('active');
+            document.getElementById('btn-back').style.display = (vista === 'home') ? 'none' : 'block';
+        }
+
+        function agregarAlCarritoActual() { carrito.push(prodSeleccionado); document.getElementById('cart-count').innerText = carrito.length; alert("Agregado"); }
+        function comprarYIrAlCarrito() { agregarAlCarritoActual(); mostrarVista('cart'); }
+
         function buscarProducto() {
-            const texto = document.getElementById('search-input').value.toLowerCase();
-            const filtrados = listaProductos.filter(p => p.nombre.toLowerCase().includes(texto));
-            document.getElementById('section-title').innerText = texto ? `RESULTADOS (${filtrados.length})` : "TODOS LOS CUADROS";
-            cargarProductos(filtrados);
+            const t = document.getElementById('search-input').value.toLowerCase();
+            cargarProductos(listaProductos.filter(p => p.nombre.toLowerCase().includes(t)));
         }
 
-        function filtrarCategoria(cat) {
-            document.getElementById('search-input').value = cat;
-            buscarProducto();
+        function enviarPedidoWhatsApp() {
+            let msg = "Hola, quiero: " + carrito.map(p => p.nombre).join(", ");
+            window.open("https://wa.me/" + TU_NUMERO_WHATSAPP + "?text=" + encodeURIComponent(msg));
         }
 
-        // CARRITO
-        function agregarAlCarritoActual() {
-            if (productoSeleccionado) {
-                carrito.push(productoSeleccionado);
-                actualizarContador();
-                alert(`"${productoSeleccionado.nombre}" se agregó al carrito.`);
-            }
-        }
-
-        function comprarYIrAlCarrito() {
-            if (productoSeleccionado) {
-                carrito.push(productoSeleccionado);
-                actualizarContador();
-                mostrarVista('cart');
-            }
-        }
-
-        function actualizarContador() {
-            document.getElementById('cart-count').innerText = carrito.length;
-        }
-
-        function renderizarCarrito() {
-            const contenedor = document.getElementById('cart-list');
-            contenedor.innerHTML = "";
-            let total = 0;
-
-            if (carrito.length === 0) {
-                contenedor.innerHTML = `<p style="text-align:center; color:#888; font-size:0.85rem; padding: 20px;">Tu carrito está vacío.</p>`;
-            } else {
-                carrito.forEach((item, index) => {
-                    total += item.precio;
-                    contenedor.innerHTML += `
-                        <div class="cart-item">
-                            <div class="cart-item-icon">${obtenerHTMLImagen(item.imagen)}</div>
-                            <div class="cart-item-info">
-                                <div style="font-size:0.85rem; font-weight:600;">${item.nombre}</div>
-                                <div style="font-size:0.9rem; font-weight:bold; color:var(--brown-dark);">$ ${item.precio.toLocaleString('es-AR')}</div>
-                            </div>
-                            <i class="fa-regular fa-trash-can" onclick="eliminarDelCarrito(${index})" style="color:red; cursor:pointer;"></i>
-                        </div>
-                    `;
-                });
-            }
-
-         
+        cargarProductos(listaProductos);
+    </script>
+</body>
+</html>
