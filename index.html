@@ -2,133 +2,72 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Creaciones Silvia</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
     <style>
-        :root { 
-            --bg-warm: #fbf9f6; 
-            --brown-dark: #3c2e27; 
-            --wsp-green: #25d366; 
-            --border-color: #eee7e1; 
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; }
-        body { background-color: var(--bg-warm); color: #333; max-width: 430px; margin: 0 auto; padding-bottom: 70px; min-height: 100vh; box-shadow: 0 0 20px rgba(0,0,0,0.08); }
-        
-        .page-view { display: none; background: var(--bg-warm); min-height: 80vh; }
-        .page-view.active { display: block !important; }
-
-        /* HEADER */
-        .suenos-header { background: #fff; padding: 15px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 100; }
-        .suenos-header h1 { font-size: 1.1rem; color: var(--brown-dark); font-weight: 600; text-align: center; width: 100%; }
-
-        /* GRILLA Y TARJETAS */
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px; }
-        .card-product { background: #fff; border-radius: 10px; padding: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); cursor: pointer; border: 1px solid #f0e8e0; }
-        
-        /* Contenedor de foto sin recorte */
-        .card-product-icon { height: 150px; background: #fff; border-radius: 6px; display: flex; align-items: center; justify-content: center; margin-bottom: 8px; overflow: hidden; }
-        .card-product-icon img { width: 100%; height: 100%; object-fit: contain; }
-        
-        /* DETALLE Y GALERÍA */
-        .detail-box { background: #fff; padding: 20px; min-height: 80vh; }
-        .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 15px 0 20px 0; }
-        .gallery-grid img { width: 100%; height: 110px; object-fit: contain; background: #fafafa; border: 1px solid #eee; border-radius: 6px; }
-
-        .btn-wsp { width: 100%; background: var(--wsp-green); color: #fff; border: none; padding: 14px; border-radius: 8px; font-weight: 700; font-size: 0.95rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        * { box-sizing: border-box; font-family: sans-serif; }
+        body { background: #fbf9f6; max-width: 400px; margin: 0 auto; padding: 20px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .card { background: white; padding: 10px; border-radius: 8px; cursor: pointer; box-shadow: 0 2px 5px #ddd; }
+        .card img { width: 100%; height: 120px; object-fit: cover; background: #eee; }
+        .detail { display: none; background: white; padding: 20px; border-radius: 8px; }
+        .active { display: block; }
+        .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; margin: 15px 0; }
+        .gallery img { width: 100%; height: 80px; object-fit: cover; background: #eee; }
     </style>
 </head>
 <body>
 
-    <header class="suenos-header">
-        <button id="btn-back" onclick="mostrarVista('home')" style="display:none; border:none; background:none; position:absolute; cursor:pointer;"><i class="fa-solid fa-arrow-left fa-lg"></i></button>
-        <h1>CREACIONES SILVIA</h1>
-    </header>
-
-    <!-- INICIO -->
-    <div id="view-home" class="page-view active">
-        <div class="grid-2" id="grid-productos"></div>
+    <div id="view-home" class="active">
+        <h1>Creaciones Silvia</h1>
+        <div class="grid" id="lista-productos"></div>
     </div>
 
-    <!-- VISTA DETALLE -->
-    <div id="view-detail" class="page-view">
-        <div class="detail-box">
-            <h2 id="detail-title" style="color: var(--brown-dark);"></h2>
-            <div id="detail-price" style="font-size: 1.4rem; font-weight: bold; margin: 10px 0; color: var(--brown-dark);"></div>
-            
-            <p style="font-size: 0.85rem; color: #666; margin-top: 15px;">Modelos / Colores disponibles:</p>
-            <div id="gallery-container" class="gallery-grid"></div>
-
-            <button class="btn-wsp" onclick="enviarPedidoWhatsApp()">
-                <i class="fa-brands fa-whatsapp fa-lg"></i>
-                Consultar / Pedir por WhatsApp
-            </button>
-        </div>
+    <div id="view-detail" class="detail">
+        <button onclick="document.getElementById('view-home').classList.add('active'); document.getElementById('view-detail').classList.remove('active')">← Volver</button>
+        <h2 id="det-titulo"></h2>
+        <div class="gallery" id="lista-fotos"></div>
     </div>
 
     <script>
-        const TU_NUMERO_WHATSAPP = "5493804100777";
-
-        // CONFIGURACIÓN DEL PRODUCTO Y SUS 6 FOTOS
-        const listaProductos = [
-            { 
-                id: 1, 
-                nombre: 'Atrapasueños con Flores', 
-                precio: 5500, 
-                // Aquí están los nombres de las 6 fotos
-                fotos: ['foto1a.jpg', 'foto1b.jpg', 'foto1c.jpg', 'foto1d.jpg', 'foto1e.jpg', 'foto1f.jpg'] 
-            }
+        // --- AQUÍ SOLO CAMBIAS EL NOMBRE DEL PRODUCTO ---
+        const prods = [
+            { id: 1, nombre: 'Atrapasueños Flores' },
+            { id: 2, nombre: 'Producto 2' },
+            { id: 3, nombre: 'Producto 3' },
+            { id: 4, nombre: 'Producto 4' },
+            { id: 5, nombre: 'Producto 5' },
+            { id: 6, nombre: 'Producto 6' },
+            { id: 7, nombre: 'Producto 7' },
+            { id: 8, nombre: 'Producto 8' },
+            { id: 9, nombre: 'Producto 9' },
+            { id: 10, nombre: 'Producto 10' },
+            { id: 11, nombre: 'Producto 11' }
         ];
 
-        let prodSeleccionado = null;
-
-        function cargarProductos() {
-            const grilla = document.getElementById('grid-productos');
-            grilla.innerHTML = "";
-            listaProductos.forEach(p => {
-                grilla.innerHTML += `
-                    <div class="card-product" onclick="abrirDetalle(${p.id})">
-                        <div class="card-product-icon">
-                            <img src="${p.fotos[0]}" onerror="this.src='https://via.placeholder.com/150?text=Atrapasue%C3%B1os'">
-                        </div>
-                        <div style="font-weight:600; font-size: 0.85rem; margin-bottom: 4px;">${p.nombre}</div>
-                        <div style="font-weight:700; color: var(--brown-dark);">$ ${p.precio.toLocaleString('es-AR')}</div>
-                    </div>
-                `;
+        function renderHome() {
+            let html = "";
+            prods.forEach(p => {
+                html += `<div class="card" onclick="verDetalle(${p.id})">
+                            <img src="${p.id}-1.jpg" onerror="this.src='https://via.placeholder.com/150'">
+                            <p>${p.nombre}</p>
+                         </div>`;
             });
+            document.getElementById('lista-productos').innerHTML = html;
         }
 
-        function abrirDetalle(id) {
-            prodSeleccionado = listaProductos.find(p => p.id === id);
-            document.getElementById('detail-title').innerText = prodSeleccionado.nombre;
-            document.getElementById('detail-price').innerText = "$ " + prodSeleccionado.precio.toLocaleString('es-AR');
+        function verDetalle(id) {
+            document.getElementById('view-home').classList.remove('active');
+            document.getElementById('view-detail').classList.add('active');
+            document.getElementById('det-titulo').innerText = prods.find(p=>p.id==id).nombre;
             
-            const galeria = document.getElementById('gallery-container');
-            galeria.innerHTML = "";
-            
-            // Carga las 6 fotos en el detalle
-            prodSeleccionado.fotos.forEach(f => {
-                galeria.innerHTML += `<img src="${f}" onerror="this.src='https://via.placeholder.com/100?text=Foto'">`;
-            });
-
-            mostrarVista('detail');
+            let fotosHtml = "";
+            for(let i=1; i<=6; i++) {
+                fotosHtml += `<img src="${id}-${i}.jpg" onerror="this.style.display='none'">`;
+            }
+            document.getElementById('lista-fotos').innerHTML = fotosHtml;
         }
 
-        function mostrarVista(vista) {
-            document.querySelectorAll('.page-view').forEach(v => v.classList.remove('active'));
-            document.getElementById('view-' + vista).classList.add('active');
-            document.getElementById('btn-back').style.display = (vista === 'home') ? 'none' : 'block';
-        }
-
-        function enviarPedidoWhatsApp() {
-            let mensaje = `¡Hola Creaciones Silvia! 🌸 Quería consultar por el *${prodSeleccionado.nombre}* ($${prodSeleccionado.precio.toLocaleString('es-AR')}). ¿Tienes stock en los colores disponibles?`;
-            const url = `https://wa.me/${TU_NUMERO_WHATSAPP}?text=${encodeURIComponent(mensaje)}`;
-            window.open(url, '_blank');
-        }
-
-        cargarProductos();
+        renderHome();
     </script>
 </body>
 </html>
