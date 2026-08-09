@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sueños - Deco Artesanal</title>
+    <title>Creaciones Silvia</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
@@ -47,7 +47,7 @@
             z-index: 100;
         }
 
-        .header-title-box h1 { font-size: 1.1rem; letter-spacing: 2px; color: var(--brown-dark); font-weight: 600; text-align: center; }
+        .header-title-box h1 { font-size: 1.1rem; letter-spacing: 1px; color: var(--brown-dark); font-weight: 600; text-align: center; }
         .header-title-box span { font-size: 0.55rem; letter-spacing: 1.5px; color: #888; text-transform: uppercase; display: block; text-align: center; }
 
         .header-actions { display: flex; align-items: center; gap: 15px; }
@@ -141,8 +141,8 @@
     <header class="suenos-header">
         <button class="btn-icon" id="btn-back" onclick="mostrarVista('home')" style="display:none;"><i class="fa-solid fa-arrow-left"></i></button>
         <div class="header-title-box" onclick="mostrarVista('home')" style="cursor:pointer;">
-            <h1>SUEÑOS</h1>
-            <span>• deco artesanal •</span>
+            <h1>CREACIONES SILVIA</h1>
+            <span>• artesanías •</span>
         </div>
         <div class="header-actions">
             <button class="btn-icon" onclick="mostrarVista('cart')">
@@ -156,7 +156,7 @@
     <div class="search-container">
         <div class="search-box">
             <i class="fa-solid fa-magnifying-glass" style="color: #999;"></i>
-            <input type="text" id="search-input" placeholder="Buscar atrapasoles, borlas..." onkeyup="buscarProducto()">
+            <input type="text" id="search-input" placeholder="Buscar..." onkeyup="buscarProducto()">
         </div>
     </div>
 
@@ -190,7 +190,6 @@
         <div class="products-section">
             <div class="products-header">
                 <div class="products-title" id="section-title">PRODUCTOS DESTACADOS</div>
-                <!-- BOTÓN MOSTRAR TODOS -->
                 <button class="btn-see-all" onclick="mostrarTodosLosProductos()">Ver todos</button>
             </div>
             <div class="grid-2" id="grid-productos"></div>
@@ -227,7 +226,6 @@
                 <span>Total:</span>
                 <span id="cart-total">$ 0</span>
             </div>
-            <!-- BOTÓN ENVIAR PEDIDO POR WHATSAPP -->
             <button class="btn-wsp" onclick="enviarPedidoWhatsApp()">
                 <i class="fa-brands fa-whatsapp" style="font-size: 1.2rem;"></i>
                 Enviar pedido por WhatsApp
@@ -398,7 +396,7 @@
                 return;
             }
 
-            let mensaje = "¡Hola Sueños Deco! 🌸 Quiero realizar el siguiente pedido:\n\n";
+            let mensaje = "¡Hola Creaciones Silvia! 🌸 Quiero realizar el siguiente pedido:\n\n";
             let total = 0;
 
             carrito.forEach((item, i) => {
@@ -417,4 +415,3 @@
     </script>
 </body>
 </html>
-
