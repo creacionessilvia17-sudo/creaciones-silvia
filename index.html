@@ -71,7 +71,7 @@
 
     <div id="view-cart" class="page-view" style="padding: 15px;">
         <div id="cart-list"></div>
-        <button style="width:100%; padding:15px; background:var(--wsp-green); color:#fff; border:none; border-radius:8px; margin-top:20px;" onclick="enviarPedidoWhatsApp()">Enviar pedido por WhatsApp</button>
+        <button style="width:100%; padding:15px; background:var(--wsp-green); color:#fff; border:none; border-radius:8px; margin-top:20px; font-weight:700;" onclick="enviarPedidoWhatsApp()">Enviar pedido por WhatsApp</button>
     </div>
 
     <nav class="navbar-bottom">
@@ -82,7 +82,7 @@
     <script>
         const TU_NUMERO_WHATSAPP = "5493804100777";
 
-        // ACÁ EDITÁS TUS PRODUCTOS, PRECIOS Y FOTOS
+        // EDITA AQUÍ TU LISTA DE PRODUCTOS
         const listaProductos = [
             { id: 1, nombre: 'Atrapasueños 1', precio: 5500, imagen: 'foto1.jpg' },
             { id: 2, nombre: 'Atrapasueños 2', precio: 3200, imagen: 'foto2.jpg' },
@@ -115,7 +115,7 @@
             lista.forEach(p => {
                 grilla.innerHTML += `<div class="card-product" onclick="abrirDetalle(${p.id})">
                     <div class="card-product-icon"><img src="${p.imagen}" onerror="this.style.display='none'"></div>
-                    <div style="font-weight:600;">${p.nombre}</div>
+                    <div style="font-weight:600; font-size: 0.8rem;">${p.nombre}</div>
                     <div style="font-weight:700;">$ ${p.precio}</div>
                 </div>`;
             });
@@ -135,17 +135,38 @@
             document.getElementById('btn-back').style.display = (vista === 'home') ? 'none' : 'block';
         }
 
-        function agregarAlCarritoActual() { carrito.push(prodSeleccionado); document.getElementById('cart-count').innerText = carrito.length; alert("Agregado"); }
-        function comprarYIrAlCarrito() { agregarAlCarritoActual(); mostrarVista('cart'); }
+        function agregarAlCarritoActual() { 
+            carrito.push(prodSeleccionado); 
+            document.getElementById('cart-count').innerText = carrito.length; 
+            alert("Agregado al carrito"); 
+        }
+
+        function comprarYIrAlCarrito() { 
+            agregarAlCarritoActual(); 
+            mostrarVista('cart'); 
+        }
 
         function buscarProducto() {
             const t = document.getElementById('search-input').value.toLowerCase();
             cargarProductos(listaProductos.filter(p => p.nombre.toLowerCase().includes(t)));
         }
 
+        // FUNCIÓN PROFESIONAL DE WHATSAPP
         function enviarPedidoWhatsApp() {
-            let msg = "Hola, quiero: " + carrito.map(p => p.nombre).join(", ");
-            window.open("https://wa.me/" + TU_NUMERO_WHATSAPP + "?text=" + encodeURIComponent(msg));
+            if (carrito.length === 0) {
+                alert("Agrega productos al carrito primero.");
+                return;
+            }
+            let mensaje = "¡Hola Creaciones Silvia! 🌸 Quiero realizar el siguiente pedido:\n\n";
+            let total = 0;
+            carrito.forEach((item, i) => {
+                mensaje += `${i + 1}. ${item.nombre} - $${item.precio}\n`;
+                total += item.precio;
+            });
+            mensaje += `\n*Total a pagar: $${total}*\n\n¿Cómo podemos coordinar el pago y envío?`;
+            
+            const url = `https://wa.me/${TU_NUMERO_WHATSAPP}?text=${encodeURIComponent(mensaje)}`;
+            window.open(url, '_blank');
         }
 
         cargarProductos(listaProductos);
