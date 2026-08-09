@@ -12,6 +12,7 @@
             --bg-warm: #fbf9f6;
             --brown-dark: #3c2e27;
             --brown-light: #f4eee7;
+            --wsp-green: #25d366;
             --meli-blue: #2970e6;
             --text-main: #333333;
             --border-color: #eee7e1;
@@ -70,10 +71,10 @@
         /* --- BANNER --- */
         .hero-banner {
             background: linear-gradient(135deg, #eaddca, #c8b29e);
-            padding: 25px 20px; color: var(--brown-dark);
+            padding: 20px; color: var(--brown-dark);
             border-bottom: 1px solid var(--border-color);
         }
-        .hero-title { font-family: 'Georgia', serif; font-style: italic; font-size: 1.4rem; margin: 4px 0; }
+        .hero-title { font-family: 'Georgia', serif; font-style: italic; font-size: 1.3rem; margin: 4px 0; }
 
         /* --- CATEGORÍAS --- */
         .categories-grid { display: grid; grid-template-columns: repeat(4, 1fr); padding: 15px 10px; background: #fff; text-align: center; border-bottom: 1px solid var(--border-color); }
@@ -83,12 +84,14 @@
             margin: 0 auto 6px auto; display: flex; align-items: center; justify-content: center;
             border: 1px solid #e2d7cc; font-size: 1.2rem; color: var(--brown-dark);
         }
-        .cat-item span { font-size: 0.7rem; font-weight: 500; color: var(--brown-dark); }
+        .cat-item span { font-size: 0.65rem; font-weight: 500; color: var(--brown-dark); }
 
-        /* --- GRILLA DE PRODUCTOS --- */
+        /* --- GRILLA DE PRODUCTOS Y BOTÓN VER TODOS --- */
         .products-section { padding: 15px; }
-        .products-title { font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; color: var(--brown-dark); font-weight: 700; margin-bottom: 15px; }
-        
+        .products-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .products-title { font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; color: var(--brown-dark); font-weight: 700; }
+        .btn-see-all { font-size: 0.75rem; color: var(--brown-dark); font-weight: 600; text-decoration: underline; cursor: pointer; background: none; border: none; }
+
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
         .card-product {
@@ -97,29 +100,30 @@
             border: 1px solid #f0e8e0; text-align: center;
         }
         .card-product-icon {
-            height: 100px; background: #fdfbf7; border-radius: 6px;
+            height: 90px; background: #fdfbf7; border-radius: 6px;
             display: flex; align-items: center; justify-content: center;
-            font-size: 2.5rem; color: var(--brown-dark); margin-bottom: 10px;
+            font-size: 2.2rem; color: var(--brown-dark); margin-bottom: 8px;
         }
-        .card-product .title { font-size: 0.8rem; font-weight: 600; color: #333; margin-bottom: 4px; text-align: left; }
-        .card-product .price { font-size: 0.95rem; font-weight: 700; color: var(--brown-dark); text-align: left; }
+        .card-product .title { font-size: 0.78rem; font-weight: 600; color: #333; margin-bottom: 4px; text-align: left; }
+        .card-product .price { font-size: 0.9rem; font-weight: 700; color: var(--brown-dark); text-align: left; }
 
         /* --- DETALLE PRODUCTO --- */
         .detail-box { background: #fff; padding: 20px; }
-        .detail-icon-box { height: 180px; background: #fdfbf7; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 4rem; color: var(--brown-dark); margin-bottom: 15px; }
-        .detail-title { font-size: 1.2rem; font-weight: 600; margin-bottom: 8px; }
-        .detail-price { font-size: 1.8rem; font-weight: bold; color: var(--brown-dark); margin-bottom: 15px; }
+        .detail-icon-box { height: 160px; background: #fdfbf7; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 3.5rem; color: var(--brown-dark); margin-bottom: 15px; }
+        .detail-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 8px; }
+        .detail-price { font-size: 1.6rem; font-weight: bold; color: var(--brown-dark); margin-bottom: 15px; }
 
-        .btn-meli-buy { width: 100%; background: var(--meli-blue); color: #fff; border: none; padding: 14px; border-radius: 6px; font-weight: 600; font-size: 0.9rem; cursor: pointer; margin-bottom: 10px; }
-        .btn-meli-add { width: 100%; background: #eaf2fe; color: var(--meli-blue); border: none; padding: 14px; border-radius: 6px; font-weight: 600; font-size: 0.9rem; cursor: pointer; }
+        .btn-meli-buy { width: 100%; background: var(--meli-blue); color: #fff; border: none; padding: 12px; border-radius: 6px; font-weight: 600; font-size: 0.85rem; cursor: pointer; margin-bottom: 10px; }
+        .btn-meli-add { width: 100%; background: #eaf2fe; color: var(--meli-blue); border: none; padding: 12px; border-radius: 6px; font-weight: 600; font-size: 0.85rem; cursor: pointer; }
+        .btn-wsp { width: 100%; background: var(--wsp-green); color: #fff; border: none; padding: 14px; border-radius: 6px; font-weight: 700; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
 
         /* --- CARRITO --- */
         .cart-header { background: #fff; padding: 15px; border-bottom: 1px solid var(--border-color); font-weight: 600; display: flex; justify-content: space-between; }
         .cart-item { background: #fff; padding: 12px; margin-top: 10px; display: flex; gap: 12px; border-bottom: 1px solid #eee; align-items: center; }
-        .cart-item-icon { width: 45px; height: 45px; background: #fdfbf7; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: var(--brown-dark); }
+        .cart-item-icon { width: 40px; height: 40px; background: #fdfbf7; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; color: var(--brown-dark); }
         .cart-item-info { flex: 1; }
 
-        /* --- BARRA INFERIOR --- */
+        /* --- NAV INFERIOR --- */
         .navbar-bottom {
             position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
             width: 100%; max-width: 430px; background: #fff;
@@ -184,7 +188,11 @@
         </div>
 
         <div class="products-section">
-            <div class="products-title" id="section-title">PRODUCTOS DESTACADOS</div>
+            <div class="products-header">
+                <div class="products-title" id="section-title">PRODUCTOS DESTACADOS</div>
+                <!-- BOTÓN MOSTRAR TODOS -->
+                <button class="btn-see-all" onclick="mostrarTodosLosProductos()">Ver todos</button>
+            </div>
             <div class="grid-2" id="grid-productos"></div>
         </div>
     </div>
@@ -219,7 +227,11 @@
                 <span>Total:</span>
                 <span id="cart-total">$ 0</span>
             </div>
-            <button class="btn-meli-buy" onclick="alert('¡Proceso de compra iniciado!')">Finalizar Compra</button>
+            <!-- BOTÓN ENVIAR PEDIDO POR WHATSAPP -->
+            <button class="btn-wsp" onclick="enviarPedidoWhatsApp()">
+                <i class="fa-brands fa-whatsapp" style="font-size: 1.2rem;"></i>
+                Enviar pedido por WhatsApp
+            </button>
         </div>
     </div>
 
@@ -236,6 +248,9 @@
     </nav>
 
     <script>
+        // CONFIGURACIÓN DE TU TELÉFONO (Escribe aquí tu número con código de país, ej: 5491112345678)
+        const TU_NUMERO_WHATSAPP = "5491100000000";
+
         // BASE DE DATOS DE PRODUCTOS
         const listaProductos = [
             { id: 1, nombre: 'Atrapasol Cristal LUZ', precio: 4800, icono: 'fa-sun' },
@@ -265,13 +280,13 @@
             window.scrollTo(0, 0);
         }
 
-        // MOSTRAR PRODUCTOS EN LA GRILLA
+        // CARGAR PRODUCTOS EN GRILLA
         function cargarProductos(productos) {
             const grilla = document.getElementById('grid-productos');
             grilla.innerHTML = "";
 
             if (productos.length === 0) {
-                grilla.innerHTML = `<p style="grid-column: span 2; font-size:0.85rem; color:#888;">No se encontraron productos.</p>`;
+                grilla.innerHTML = `<p style="grid-column: span 2; font-size:0.85rem; color:#888; text-align:center; padding: 20px;">No se encontraron productos.</p>`;
                 return;
             }
 
@@ -286,6 +301,13 @@
                     </div>
                 `;
             });
+        }
+
+        // MOSTRAR TODOS LOS PRODUCTOS
+        function mostrarTodosLosProductos() {
+            document.getElementById('search-input').value = "";
+            document.getElementById('section-title').innerText = "TODOS LOS PRODUCTOS";
+            cargarProductos(listaProductos);
         }
 
         // ABRIR DETALLE
@@ -369,8 +391,30 @@
             renderizarCarrito();
         }
 
+        // ENVIAR POR WHATSAPP
+        function enviarPedidoWhatsApp() {
+            if (carrito.length === 0) {
+                alert("Agrega al menos un producto al carrito para realizar el pedido.");
+                return;
+            }
+
+            let mensaje = "¡Hola Sueños Deco! 🌸 Quiero realizar el siguiente pedido:\n\n";
+            let total = 0;
+
+            carrito.forEach((item, i) => {
+                mensaje += `${i + 1}. ${item.nombre} - $${item.precio.toLocaleString('es-AR')}\n`;
+                total += item.precio;
+            });
+
+            mensaje += `\n*Total a pagar: $${total.toLocaleString('es-AR')}*\n\n¿Cómo podemos coordinar el pago y envío?`;
+
+            const url = `https://wa.me/${TU_NUMERO_WHATSAPP}?text=${encodeURIComponent(mensaje)}`;
+            window.open(url, '_blank');
+        }
+
         // CARGA INICIAL
         cargarProductos(listaProductos);
     </script>
 </body>
 </html>
+
