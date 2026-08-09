@@ -1,404 +1,583 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mercado Libre - Deco Artesanal</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            --meli-yellow: #fff159;
-            --meli-blue: #3483fa;
-            --meli-blue-hover: #2968c8;
-            --meli-light-blue: #e3edfb;
-            --meli-green: #00a650;
-            --meli-bg: #f5f5f5;
-            --meli-text: #333333;
-            --meli-gray-text: #8c8c8c;
-            --meli-border: #e6e6e6;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sueños | Deco Artesanal</title>
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; }
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial, sans-serif;
+}
 
-        body { 
-            background-color: var(--meli-bg); 
-            color: var(--meli-text); 
-            max-width: 480px; 
-            margin: 0 auto; 
-            padding-bottom: 70px; 
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-            position: relative;
-            min-height: 100vh;
-        }
+body{
+    background:#f8f4ee;
+    color:#3e2b1f;
+}
 
-        /* --- VISTAS --- */
-        .page-view { display: none; background: #fff; }
-        .page-view.active { display: block; }
+button{
+    cursor:pointer;
+    border:none;
+}
 
-        /* --- HEADER ESTILO MERCADO LIBRE --- */
-        header.meli-header { 
-            background: var(--meli-yellow); 
-            padding: 10px 15px; 
-            position: sticky; 
-            top: 0; 
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+header{
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:#fffaf4;
+    height:75px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:10px 18px;
+    box-shadow:0 2px 10px #00000015;
+}
 
-        .header-icon { font-size: 1.2rem; color: #333; cursor: pointer; }
+.logo{
+    font-size:25px;
+    font-weight:bold;
+    text-align:center;
+}
 
-        .search-bar { 
-            flex: 1;
-            display: flex; 
-            align-items: center; 
-            background: #fff; 
-            padding: 6px 12px; 
-            border-radius: 20px; 
-            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
-        }
-        .search-bar input { 
-            border: none; outline: none; width: 100%; margin-left: 8px; font-size: 0.85rem;
-        }
+.logo small{
+    display:block;
+    font-size:11px;
+    font-weight:normal;
+}
 
-        .header-actions { display: flex; gap: 15px; align-items: center; }
+.header-btn{
+    background:none;
+    font-size:25px;
+    color:#4b3325;
+}
 
-        /* --- VISTA INICIO / CATÁLOGO --- */
-        .catalog-container { background: var(--meli-bg); padding: 10px; }
-        .section-title { font-size: 0.95rem; font-weight: 700; color: #333; margin: 10px 5px; }
+.cart{
+    position:relative;
+}
 
-        .products-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .product-card { 
-            background: #fff; 
-            border-radius: 6px; 
-            padding: 12px; 
-            cursor: pointer; 
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08); 
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .product-card img { width: 100%; height: 130px; object-fit: contain; margin-bottom: 8px; }
-        .product-card h4 { font-size: 0.8rem; font-weight: 400; color: #333; margin-bottom: 6px; height: 34px; overflow: hidden; line-height: 1.2; }
-        .product-card .price { font-size: 1rem; font-weight: 700; color: #333; }
-        .product-card .shipping { font-size: 0.7rem; color: var(--meli-green); font-weight: 600; margin-top: 4px; }
+.cart-number{
+    position:absolute;
+    background:#704b32;
+    color:white;
+    font-size:11px;
+    border-radius:50%;
+    width:18px;
+    height:18px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    right:-5px;
+    top:-5px;
+}
 
-        /* --- VISTA DETALLE DEL PRODUCTO --- */
-        .detail-body { padding: 15px; background: #fff; }
-        .detail-img-box { width: 100%; height: 260px; text-align: center; margin-bottom: 15px; }
-        .detail-img-box img { width: 100%; height: 100%; object-fit: contain; }
-        
-        .product-title { font-size: 1.05rem; font-weight: 400; color: #333; margin-bottom: 8px; line-height: 1.3; }
-        .rating-box { font-size: 0.75rem; color: var(--meli-blue); margin-bottom: 12px; display: flex; align-items: center; gap: 4px; }
+/* HERO */
 
-        .price-section { margin-bottom: 12px; }
-        .old-price { font-size: 0.85rem; color: var(--meli-gray-text); text-decoration: line-through; }
-        .current-price { font-size: 1.8rem; font-weight: 400; color: #333; display: flex; align-items: center; gap: 8px; }
-        .discount-tag { font-size: 0.85rem; color: var(--meli-green); font-weight: 600; }
+.hero{
+    margin:15px;
+    height:390px;
+    border-radius:20px;
+    background:
+    linear-gradient(90deg,#eee0d1dd,#eee0d122),
+    url("https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=1000&q=80");
+    background-size:cover;
+    background-position:center;
+    padding:45px 25px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
 
-        .payment-methods-strip { font-size: 0.8rem; color: var(--meli-blue); margin-bottom: 15px; display: flex; align-items: center; gap: 8px; cursor: pointer; }
+.hero h1{
+    font-family:cursive;
+    font-size:38px;
+    max-width:260px;
+    line-height:1.1;
+}
 
-        .shipping-tag { color: var(--meli-green); font-size: 0.85rem; font-weight: 600; margin-bottom: 15px; }
+.hero p{
+    margin-top:18px;
+    font-size:17px;
+    max-width:270px;
+}
 
-        .stock-box { background: #f5f5f5; padding: 12px 15px; border-radius: 8px; font-size: 0.85rem; display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .stock-box select { border: none; background: transparent; font-weight: 600; outline: none; cursor: pointer; }
+.main-btn{
+    margin-top:22px;
+    width:max-content;
+    padding:14px 22px;
+    border-radius:25px;
+    background:#704b32;
+    color:white;
+    font-weight:bold;
+}
 
-        /* BOTONES ME LI */
-        .btn-meli-primary { width: 100%; background: var(--meli-blue); color: #fff; border: none; padding: 14px; border-radius: 6px; font-weight: 600; font-size: 0.95rem; cursor: pointer; margin-bottom: 10px; }
-        .btn-meli-primary:hover { background: var(--meli-blue-hover); }
+/* CATEGORIAS */
 
-        .btn-meli-secondary { width: 100%; background: var(--meli-light-blue); color: var(--meli-blue); border: none; padding: 14px; border-radius: 6px; font-weight: 600; font-size: 0.95rem; cursor: pointer; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.categories{
+    display:flex;
+    gap:12px;
+    overflow-x:auto;
+    padding:15px;
+}
 
-        /* --- VISTA CARRITO DE COMPRAS --- */
-        .cart-header-bar { background: var(--meli-yellow); padding: 12px 15px; display: flex; align-items: center; gap: 15px; font-weight: 600; font-size: 1.1rem; }
-        .cart-location { background: #fffde7; padding: 8px 15px; font-size: 0.75rem; color: #333; border-bottom: 1px solid #ede7b1; display: flex; align-items: center; gap: 6px; }
+.category{
+    min-width:95px;
+    text-align:center;
+}
 
-        .cart-group { background: #fff; margin-top: 10px; border-top: 1px solid var(--meli-border); border-bottom: 1px solid var(--meli-border); }
-        .cart-group-header { padding: 10px 15px; font-size: 0.8rem; font-weight: 700; border-bottom: 1px solid #f5f5f5; display: flex; align-items: center; gap: 8px; }
+.category img{
+    width:85px;
+    height:85px;
+    object-fit:cover;
+    border-radius:50%;
+}
 
-        .cart-item { padding: 12px 15px; display: flex; gap: 12px; }
-        .cart-item img { width: 70px; height: 70px; object-fit: contain; border-radius: 4px; border: 1px solid #eee; }
-        .cart-item-details { flex: 1; }
-        .cart-item-title { font-size: 0.8rem; color: #333; margin-bottom: 6px; line-height: 1.2; }
-        .cart-item-price { font-size: 1rem; font-weight: 600; color: #333; }
-        
-        .cart-item-controls { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; }
-        .cart-qty-select { border: 1px solid #ccc; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; background: #fff; }
-        .btn-trash { color: var(--meli-gray-text); background: none; border: none; font-size: 0.95rem; cursor: pointer; }
+.category p{
+    margin-top:7px;
+    font-weight:bold;
+    font-size:13px;
+}
 
-        /* Checkout Bar Flotante Inferior */
-        .cart-footer-checkout { position: fixed; bottom: 50px; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; background: #fff; border-top: 1px solid var(--meli-border); padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 -3px 10px rgba(0,0,0,0.05); z-index: 90; }
-        .checkout-total-label { font-size: 0.7rem; color: var(--meli-gray-text); }
-        .checkout-total-price { font-size: 1.2rem; font-weight: 700; color: #333; }
-        .btn-continue-checkout { background: var(--meli-blue); color: #fff; border: none; padding: 12px 28px; border-radius: 6px; font-weight: 600; font-size: 0.9rem; cursor: pointer; }
+/* PRODUCTOS */
 
-        /* NAVEGACIÓN INFERIOR FIXA */
-        .bottom-navbar { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; background: #fff; display: flex; justify-content: space-around; padding: 8px 0; border-top: 1px solid var(--meli-border); z-index: 100; }
-        .nav-button { display: flex; flex-direction: column; align-items: center; font-size: 0.65rem; color: #666; text-decoration: none; position: relative; cursor: pointer; }
-        .nav-button i { font-size: 1.1rem; margin-bottom: 2px; }
-        .nav-button.active { color: var(--meli-blue); }
+.section-title{
+    text-align:center;
+    margin:25px 0 15px;
+    font-family:cursive;
+    font-size:28px;
+}
 
-        .cart-badge { position: absolute; top: -4px; right: 12px; background: var(--meli-blue); color: white; font-size: 0.6rem; font-weight: bold; border-radius: 50%; padding: 1px 5px; }
-    </style>
+.products{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    padding:15px;
+}
+
+.product{
+    background:white;
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:0 2px 10px #00000012;
+    position:relative;
+}
+
+.product img{
+    width:100%;
+    height:180px;
+    object-fit:cover;
+}
+
+.product-info{
+    padding:12px;
+}
+
+.product h3{
+    font-size:16px;
+}
+
+.price{
+    font-size:20px;
+    font-weight:bold;
+    margin:7px 0;
+}
+
+.product button{
+    width:100%;
+    padding:10px;
+    border-radius:20px;
+    background:#704b32;
+    color:white;
+}
+
+/* BUSCADOR */
+
+.search-box{
+    display:none;
+    padding:12px 15px;
+    background:white;
+}
+
+.search-box input{
+    width:100%;
+    padding:13px;
+    border-radius:25px;
+    border:1px solid #ddd;
+    outline:none;
+}
+
+/* MODAL PRODUCTO */
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:#00000088;
+    z-index:200;
+    align-items:flex-end;
+}
+
+.modal-content{
+    background:#fffaf4;
+    width:100%;
+    max-height:90vh;
+    overflow:auto;
+    border-radius:25px 25px 0 0;
+    padding-bottom:25px;
+}
+
+.modal-img{
+    width:100%;
+    height:300px;
+    object-fit:cover;
+}
+
+.close{
+    position:absolute;
+    right:20px;
+    top:15px;
+    background:white;
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    font-size:22px;
+}
+
+.product-detail{
+    padding:20px;
+}
+
+.product-detail h2{
+    font-size:25px;
+}
+
+.description{
+    margin:12px 0;
+    line-height:1.5;
+}
+
+.quantity{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    margin:15px 0;
+}
+
+.quantity button{
+    width:35px;
+    height:35px;
+    border-radius:50%;
+    background:#e8d8c8;
+}
+
+.action{
+    width:100%;
+    padding:15px;
+    border-radius:25px;
+    margin-top:10px;
+    font-size:16px;
+    font-weight:bold;
+}
+
+.add{
+    background:#e7d7c5;
+    color:#4b3325;
+}
+
+.buy{
+    background:#704b32;
+    color:white;
+}
+
+.ml{
+    background:#ffe600;
+    color:#333;
+}
+
+/* CARRITO */
+
+.cart-panel{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:#00000088;
+    z-index:300;
+}
+
+.cart-content{
+    position:absolute;
+    right:0;
+    top:0;
+    height:100%;
+    width:90%;
+    max-width:400px;
+    background:#fffaf4;
+    padding:20px;
+    overflow:auto;
+}
+
+.cart-item{
+    display:flex;
+    gap:10px;
+    padding:12px 0;
+    border-bottom:1px solid #ddd;
+}
+
+.cart-item img{
+    width:70px;
+    height:70px;
+    object-fit:cover;
+    border-radius:10px;
+}
+
+.total{
+    font-size:22px;
+    font-weight:bold;
+    margin:20px 0;
+}
+
+/* PAGOS */
+
+.payment{
+    margin-top:20px;
+    padding:15px;
+    background:white;
+    border-radius:15px;
+}
+
+.payment h3{
+    margin-bottom:12px;
+}
+
+.payment label{
+    display:block;
+    padding:10px;
+    border-bottom:1px solid #eee;
+}
+
+/* NAV */
+
+.bottom-nav{
+    position:sticky;
+    bottom:0;
+    background:#fffaf4;
+    height:65px;
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    border-top:1px solid #ddd;
+}
+
+.bottom-nav button{
+    background:none;
+    color:#4b3325;
+    font-size:12px;
+}
+
+.bottom-nav span{
+    display:block;
+    font-size:22px;
+}
+
+/* ESCRITORIO */
+
+@media(min-width:700px){
+    body{
+        max-width:500px;
+        margin:auto;
+        box-shadow:0 0 30px #00000015;
+    }
+}
+</style>
 </head>
+
 <body>
 
-    <!-- HEADER GENERAL -->
-    <header class="meli-header">
-        <i class="fa-solid fa-arrow-left header-icon" id="btn-back-header" onclick="navegarA('home')" style="display:none;"></i>
-        <div class="search-bar">
-            <i class="fa-solid fa-magnifying-glass" style="color: #aaa; font-size: 0.8rem;"></i>
-            <input type="text" placeholder="Buscar en Mercado Libre">
-        </div>
-        <div class="header-actions">
-            <i class="fa-brands fa-whatsapp header-icon"></i>
-            <i class="fa-solid fa-cart-shopping header-icon" onclick="navegarA('cart')" style="position:relative;">
-                <span class="cart-badge" id="header-cart-badge">0</span>
-            </i>
-        </div>
-    </header>
+<header>
 
-    <!-- ==================== VISTA 1: INICIO Y CATÁLOGO ==================== -->
-    <div id="view-home" class="page-view active">
-        <div class="catalog-container">
-            <div class="section-title">Productos destacados</div>
-            
-            <div class="products-grid">
-                <!-- Producto 1: Atrapasueños -->
-                <div class="product-card" onclick="verDetalle('Atrapasueños Beige Plumas Naturales', 8500, 10000, 'https://via.placeholder.com/300x300/e3edfb/3483fa?text=Atrapasue%C3%B1os')">
-                    <img src="https://via.placeholder.com/300x300/e3edfb/3483fa?text=Atrapasue%C3%B1os" alt="Atrapasueños">
-                    <h4>Atrapasueños Beige Plumas Naturales</h4>
-                    <div>
-                        <div class="price">$ 8.500</div>
-                        <div class="shipping">Llega gratis mañana</div>
-                    </div>
-                </div>
+<button class="header-btn" onclick="toggleMenu()">☰</button>
 
-                <!-- Producto 2: Atrapasol -->
-                <div class="product-card" onclick="verDetalle('Atrapasol de Cristal LUZ Multifacético', 6800, 8000, 'https://via.placeholder.com/300x300/e3edfb/3483fa?text=Atrapasol')">
-                    <img src="https://via.placeholder.com/300x300/e3edfb/3483fa?text=Atrapasol" alt="Atrapasol">
-                    <h4>Atrapasol de Cristal LUZ Multifacético</h4>
-                    <div>
-                        <div class="price">$ 6.800</div>
-                        <div class="shipping">Llega gratis mañana</div>
-                    </div>
-                </div>
+<div class="logo">
+    🪶 SUEÑOS
+    <small>• deco artesanal •</small>
+</div>
 
-                <!-- Producto 3: Caminito -->
-                <div class="product-card" onclick="verDetalle('Caminito de Mesa Boho Algodón', 12000, 14000, 'https://via.placeholder.com/300x300/e3edfb/3483fa?text=Caminito')">
-                    <img src="https://via.placeholder.com/300x300/e3edfb/3483fa?text=Caminito" alt="Caminito">
-                    <h4>Caminito de Mesa Boho Algodón</h4>
-                    <div>
-                        <div class="price">$ 12.000</div>
-                        <div class="shipping">Llega gratis mañana</div>
-                    </div>
-                </div>
+<div>
+<button class="header-btn" onclick="toggleSearch()">⌕</button>
 
-                <!-- Producto 4: Borla -->
-                <div class="product-card" onclick="verDetalle('Borla Colgante Rosa Decorativa', 4500, 5500, 'https://via.placeholder.com/300x300/e3edfb/3483fa?text=Borla')">
-                    <img src="https://via.placeholder.com/300x300/e3edfb/3483fa?text=Borla" alt="Borla">
-                    <h4>Borla Colgante Rosa Decorativa</h4>
-                    <div>
-                        <div class="price">$ 4.500</div>
-                        <div class="shipping">Llega gratis mañana</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<button class="header-btn cart" onclick="openCart()">
+    🛒
+    <span class="cart-number" id="cartNumber">0</span>
+</button>
+</div>
 
-    <!-- ==================== VISTA 2: DETALLE DEL PRODUCTO ==================== -->
-    <div id="view-detail" class="page-view">
-        <div class="detail-body">
-            <div class="detail-img-box">
-                <img id="detail-img" src="" alt="Producto">
-            </div>
+</header>
 
-            <h1 class="product-title" id="detail-title">Nombre del Producto</h1>
-            
-            <div class="rating-box">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <span>4.9 | +100 vendidos</span>
-            </div>
+<div class="search-box" id="searchBox">
+<input 
+    type="text"
+    id="searchInput"
+    placeholder="Buscar atrapasueños, atrapasoles..."
+    oninput="searchProducts()">
+</div>
 
-            <div class="price-section">
-                <div class="old-price" id="detail-old-price">$ 0</div>
-                <div class="current-price">
-                    <span id="detail-price">$ 0</span>
-                    <span class="discount-tag">15% OFF</span>
-                </div>
-            </div>
+<section class="hero">
 
-            <div class="payment-methods-strip" onclick="alert('Medios de pago: Visa, Mastercard, Mercado Pago, Efectivo.')">
-                <span>Medios de pago</span>
-                <i class="fa-brands fa-cc-visa"></i>
-                <i class="fa-brands fa-cc-mastercard"></i>
-                <i class="fa-brands fa-cc-amex"></i>
-                <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #aaa;"></i>
-            </div>
+<h1>Decorá tus espacios con buena energía</h1>
 
-            <div class="shipping-tag">
-                <i class="fa-solid fa-truck"></i> Llegá gratis mañana
-            </div>
+<p>
+Atrapasueños, caminitos, borlas y atrapasoles hechos a mano.
+</p>
 
-            <div class="stock-box">
-                <span>Stock disponible</span>
-                <div>
-                    <span>Cantidad: </span>
-                    <select id="select-qty">
-                        <option value="1">1 unidad (+50 disponibles)</option>
-                        <option value="2">2 unidades</option>
-                        <option value="3">3 unidades</option>
-                    </select>
-                </div>
-            </div>
+<button class="main-btn" onclick="scrollProducts()">
+Ver productos
+</button>
 
-            <button class="btn-meli-primary" onclick="comprarAhora()">Comprar ahora</button>
-            <button class="btn-meli-secondary" onclick="agregarAlCarrito()">
-                <i class="fa-solid fa-cart-plus"></i> Agregar al carrito
-            </button>
-        </div>
-    </div>
+</section>
 
-    <!-- ==================== VISTA 3: CARRITO DE COMPRAS ==================== -->
-    <div id="view-cart" class="page-view">
-        <div class="cart-header-bar">
-            <span>Carrito</span>
-        </div>
+<h2 class="section-title">Categorías</h2>
 
-        <div class="cart-location">
-            <i class="fa-solid fa-location-dot" style="color:#666;"></i>
-            <span>Enviar a Capital Federal</span>
-        </div>
+<div class="categories">
 
-        <div id="cart-items-container">
-            <!-- Productos del carrito -->
-        </div>
+<div class="category" onclick="filterCategory('Atrapasueños')">
+<img src="https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=300&q=80">
+<p>Atrapasueños</p>
+</div>
 
-        <!-- BARRA FLOTANTE DE CONTINUAR COMPRA -->
-        <div class="cart-footer-checkout" id="cart-checkout-bar">
-            <div>
-                <div class="checkout-total-label">Total a pagar</div>
-                <div class="checkout-total-price" id="cart-total-price">$ 0</div>
-            </div>
-            <button class="btn-continue-checkout" onclick="alert('¡Iniciando Proceso de Compra!')">
-                Continuar (<span id="cart-total-count">0</span>)
-            </button>
-        </div>
-    </div>
+<div class="category" onclick="filterCategory('Caminitos')">
+<img src="https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fit=crop&w=300&q=80">
+<p>Caminitos</p>
+</div>
 
-    <!-- ==================== MENÚ DE NAVEGACIÓN INFERIOR ME LI ==================== -->
-    <nav class="bottom-navbar">
-        <div class="nav-button active" id="nav-btn-home" onclick="navegarA('home')">
-            <i class="fa-solid fa-house"></i>
-            <span>Inicio</span>
-        </div>
-        <div class="nav-button" onclick="alert('Categorías')">
-            <i class="fa-solid fa-border-all"></i>
-            <span>Categorías</span>
-        </div>
-        <div class="nav-button" id="nav-btn-cart" onclick="navegarA('cart')">
-            <i class="fa-solid fa-cart-shopping"></i>
-            <span>Carrito</span>
-            <span class="cart-badge" id="nav-cart-badge">0</span>
-        </div>
-        <div class="nav-button" onclick="alert('Videos')">
-            <i class="fa-circle-play fa-regular"></i>
-            <span>Videos</span>
-        </div>
-        <div class="nav-button" onclick="alert('Más opciones')">
-            <i class="fa-solid fa-bars"></i>
-            <span>Más</span>
-        </div>
-    </nav>
+<div class="category" onclick="filterCategory('Borlas')">
+<img src="https://images.unsplash.com/photo-1598301257982-0cf014dabbcd?auto=format&fit=crop&w=300&q=80">
+<p>Borlas</p>
+</div>
 
-    <!-- ==================== LÓGICA DE FUNCIONAMIENTO ==================== -->
-    <script>
-        let carrito = [];
-        let productoSeleccionado = null;
+<div class="category" onclick="filterCategory('Atrapasoles')">
+<img src="https://images.unsplash.com/photo-1602523961358-f9f03dd557db?auto=format&fit=crop&w=300&q=80">
+<p>Atrapasoles</p>
+</div>
 
-        function formatearMoneda(monto) {
-            return '$ ' + monto.toLocaleString('es-AR');
-        }
+</div>
 
-        function navegarA(vista) {
-            document.querySelectorAll('.page-view').forEach(v => v.classList.remove('active'));
-            document.querySelectorAll('.nav-button').forEach(b => b.classList.remove('active'));
-            
-            let btnBack = document.getElementById('btn-back-header');
+<h2 class="section-title" id="productos">
+♡ Productos destacados ♡
+</h2>
 
-            if (vista === 'home') {
-                document.getElementById('view-home').classList.add('active');
-                document.getElementById('nav-btn-home').classList.add('active');
-                btnBack.style.display = 'none';
-            } else if (vista === 'detail') {
-                document.getElementById('view-detail').classList.add('active');
-                btnBack.style.display = 'block';
-            } else if (vista === 'cart') {
-                document.getElementById('view-cart').classList.add('active');
-                document.getElementById('nav-btn-cart').classList.add('active');
-                btnBack.style.display = 'block';
-                renderizarCarrito();
-            }
-            window.scrollTo(0, 0);
-        }
+<div class="products" id="productList"></div>
 
-        function verDetalle(nombre, precio, precioAnterior, imagen) {
-            productoSeleccionado = { nombre, precio, imagen };
-            
-            document.getElementById('detail-title').innerText = nombre;
-            document.getElementById('detail-price').innerText = formatearMoneda(precio);
-            document.getElementById('detail-old-price').innerText = formatearMoneda(precioAnterior);
-            document.getElementById('detail-img').src = imagen;
-            document.getElementById('select-qty').value = "1";
+<!-- MODAL PRODUCTO -->
 
-            navegarA('detail');
-        }
+<div class="modal" id="productModal">
 
-        function agregarAlCarrito() {
-            let cantidad = parseInt(document.getElementById('select-qty').value);
-            
-            let existe = carrito.find(p => p.nombre === productoSeleccionado.nombre);
-            if (existe) {
-                existe.cantidad += cantidad;
-            } else {
-                carrito.push({
-                    nombre: productoSeleccionado.nombre,
-                    precio: productoSeleccionado.precio,
-                    imagen: productoSeleccionado.imagen,
-                    cantidad: cantidad
-                });
-            }
+<button class="close" onclick="closeProduct()">×</button>
 
-            actualizarBadges();
-            alert("¡Producto agregado al carrito!");
-        }
+<div class="modal-content">
 
-        function comprarAhora() {
-            agregarAlCarrito();
-            navegarA('cart');
-        }
+<img id="modalImg" class="modal-img">
 
-        function actualizarBadges() {
-            let total = carrito.reduce((acc, item) => acc + item.cantidad, 0);
-            document.getElementById('header-cart-badge').innerText = total;
-            document.getElementById('nav-cart-badge').innerText = total;
-            document.getElementById('cart-total-count').innerText = total;
-        }
+<div class="product-detail">
 
-        function renderizarCarrito() {
-            let container = document.getElementById('cart-items-container');
-            container.innerHTML = "";
+<h2 id="modalName"></h2>
 
-            if (carrito.length === 0) {
-                container.innerHTML = `
-                    <div style="text-align:center; padding: 50px 20px; background:#fff;">
-                        <i class="fa-solid fa-cart-shopping" style="font-size: 3rem; color: #ccc; margin-bottom: 10px;"></i>
-                        <p style="color:#666; font-size: 0.9rem;">Tu carrito está va
+<div class="price" id="modalPrice"></div>
+
+<p class="description" id="modalDescription"></p>
+
+<div class="quantity">
+<button onclick="changeQuantity(-1)">−</button>
+<span id="quantity">1</span>
+<button onclick="changeQuantity(1)">+</button>
+</div>
+
+<button class="action add" onclick="addCurrentToCart()">
+🛒 Agregar al carrito
+</button>
+
+<button class="action buy" onclick="buyNow()">
+Comprar ahora
+</button>
+
+<div class="payment">
+
+<h3>💳 Métodos de pago</h3>
+
+<label>💙 Mercado Pago</label>
+<label>💳 Tarjeta de crédito</label>
+<label>💳 Tarjeta de débito</label>
+<label>🏦 Transferencia bancaria</label>
+
+</div>
+
+<button class="action ml" onclick="goMercadoLibre()">
+🛒 Comprar por Mercado Libre
+</button>
+
+</div>
+
+</div>
+</div>
+
+<!-- CARRITO -->
+
+<div class="cart-panel" id="cartPanel">
+
+<div class="cart-content">
+
+<button onclick="closeCart()">← Volver</button>
+
+<h2 style="margin:20px 0">🛒 Mi carrito</h2>
+
+<div id="cartItems"></div>
+
+<div class="total">
+Total: $<span id="cartTotal">0</span>
+</div>
+
+<button class="action buy" onclick="checkout()">
+Continuar compra
+</button>
+
+</div>
+
+</div>
+
+<!-- NAV -->
+
+<nav class="bottom-nav">
+
+<button onclick="scrollTopPage()">
+<span>⌂</span>
+Inicio
+</button>
+
+<button onclick="scrollProducts()">
+<span>▦</span>
+Productos
+</button>
+
+<button onclick="openCart()">
+<span>🛒</span>
+Carrito
+</button>
+
+<button onclick="contact()">
+<span>♡</span>
+Contacto
+</button>
+
+</nav>
+
+<script>
+
+const products = [
+
+{
+id:1,
+name:"Atrapasueños Beige",
+category:"Atrapasueños",
+price:8500,
+image:"https://images.unsplash.com/photo-1603006905003-be475563bc59?auto
