@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sueños - Deco Artesanal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -17,6 +17,7 @@
             --btn-secondary: #ebdcd0;
             --accent-red: #e74c3c;
             --soft-gray: #f4ece6;
+            --green-stock: #2e7d32;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; }
@@ -77,7 +78,8 @@
 
         .product-img-container { width: 100%; height: 140px; border-radius: 8px; overflow: hidden; background: #f7f5f0; margin-bottom: 10px; }
         .product-img-container img { width: 100%; height: 100%; object-fit: cover; }
-        .product-info h3 { font-size: 0.8rem; font-weight: 600; margin-bottom: 10px; text-align: center; }
+        .product-info h3 { font-size: 0.8rem; font-weight: 600; margin-bottom: 4px; text-align: center; }
+        .product-price { font-size: 0.95rem; font-weight: 700; color: var(--button-brown); text-align: center; margin-bottom: 6px; }
 
         /* --- PANTALLA DETALLE PRODUCTO (ESTILO MERCADO LIBRE) --- */
         .nav-header-detail { display: flex; align-items: center; justify-content: space-between; padding: 15px; background: #fff; border-bottom: 1px solid #eee; }
@@ -86,32 +88,51 @@
         .detail-container { padding: 15px; background: #fff; }
         .detail-img { width: 100%; height: 260px; border-radius: 10px; object-fit: cover; margin-bottom: 15px; }
         .detail-title { font-size: 1.2rem; font-weight: 600; margin-bottom: 8px; }
-        .stock-tag { color: #2e7d32; font-size: 0.85rem; font-weight: 600; margin-bottom: 15px; }
+        .detail-price { font-size: 1.8rem; font-weight: 700; color: var(--primary-text); margin-bottom: 12px; }
+
+        /* Medios de Pago Mercado Libre Style */
+        .payment-methods-box { background: var(--bg-color); border: 1px solid #e0d7cd; border-radius: 10px; padding: 12px 15px; margin-bottom: 18px; }
+        .payment-title { font-size: 0.8rem; font-weight: 600; color: var(--primary-text); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+        .payment-icons { display: flex; gap: 10px; align-items: center; margin-bottom: 6px; }
+        .payment-icons i { font-size: 1.3rem; color: var(--button-brown); }
+        .payment-link { font-size: 0.75rem; color: #8c6853; text-decoration: underline; cursor: pointer; font-weight: 600; }
+
+        .stock-tag { color: var(--green-stock); font-size: 0.85rem; font-weight: 600; margin-bottom: 15px; display: flex; align-items: center; gap: 6px; }
 
         .selector-cantidad { background: var(--soft-gray); padding: 12px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; font-size: 0.9rem; }
-        .selector-cantidad select { border: none; background: transparent; font-weight: bold; font-size: 0.9rem; outline: none; }
+        .selector-cantidad select { border: none; background: transparent; font-weight: bold; font-size: 0.9rem; outline: none; cursor: pointer; }
 
-        .btn-buy-now { width: 100%; background: var(--button-brown); color: white; border: none; padding: 14px; border-radius: 8px; font-weight: 600; font-size: 0.95rem; margin-bottom: 10px; cursor: pointer; }
+        .btn-buy-now { width: 100%; background: var(--button-brown); color: white; border: none; padding: 14px; border-radius: 8px; font-weight: 600; font-size: 0.95rem; margin-bottom: 10px; cursor: pointer; transition: background 0.2s; }
+        .btn-buy-now:hover { background: var(--button-hover); }
+        
         .btn-add-cart-detail { width: 100%; background: var(--btn-secondary); color: var(--button-brown); border: none; padding: 14px; border-radius: 8px; font-weight: 600; font-size: 0.95rem; cursor: pointer; margin-bottom: 20px; }
 
         .guarantee-box { display: flex; gap: 12px; align-items: center; font-size: 0.8rem; color: #666; border-top: 1px solid #eee; padding-top: 15px; }
-        .guarantee-box i { font-size: 1.2rem; color: var(--button-brown); }
+        .guarantee-box i { font-size: 1.4rem; color: var(--button-brown); }
 
-        /* --- PANTALLA CARRITO (ESTILO MERCADO LIBRE) --- */
+        /* --- PANTALLA CARRITO (SIN ENVÍO) --- */
         .cart-header { padding: 15px; background: #fff; border-bottom: 1px solid #eee; font-weight: 600; font-size: 1.1rem; text-align: center; }
         .cart-items-list { padding: 15px; }
         .cart-item-card { background: #fff; border-radius: 8px; padding: 12px; margin-bottom: 12px; display: flex; gap: 12px; align-items: center; box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
-        .cart-item-card input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--button-brown); }
+        .cart-item-card input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--button-brown); cursor: pointer; }
         .cart-item-img { width: 65px; height: 65px; border-radius: 6px; object-fit: cover; }
         .cart-item-info { flex: 1; }
-        .cart-item-info h4 { font-size: 0.85rem; font-weight: 600; margin-bottom: 5px; }
+        .cart-item-info h4 { font-size: 0.85rem; font-weight: 600; margin-bottom: 3px; }
+        .cart-item-price { font-size: 0.85rem; font-weight: bold; color: var(--button-brown); }
         .cart-item-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; }
-        .cart-item-actions select { padding: 2px 6px; border-radius: 4px; border: 1px solid #ccc; font-size: 0.75rem; }
-        .btn-delete-item { color: #888; background: none; border: none; cursor: pointer; font-size: 0.9rem; }
+        .cart-item-actions select { padding: 3px 8px; border-radius: 4px; border: 1px solid #ccc; font-size: 0.75rem; outline: none; }
+        .btn-delete-item { color: #888; background: none; border: none; cursor: pointer; font-size: 0.95rem; padding: 4px; }
+        .btn-delete-item:hover { color: var(--accent-red); }
+
+        /* Resumen de Compra en el Carrito */
+        .cart-summary-box { background: #fff; padding: 15px; border-radius: 8px; margin: 0 15px 15px 15px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
+        .summary-row { display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 8px; color: #555; }
+        .summary-row.total { font-size: 1.1rem; font-weight: bold; color: var(--primary-text); border-top: 1px solid #eee; padding-top: 8px; margin-bottom: 0; }
 
         /* Barra checkout inferior flotante */
         .cart-checkout-bar { position: fixed; bottom: 50px; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; background: #fff; padding: 12px 15px; border-top: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); z-index: 95; }
         .btn-continue { background: var(--button-brown); color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; font-size: 0.9rem; cursor: pointer; }
+        .btn-continue:hover { background: var(--button-hover); }
 
         /* --- NAVEGACIÓN INFERIOR --- */
         .bottom-nav { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; background: #fff; display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eee; z-index: 100; }
@@ -131,7 +152,7 @@
             <div class="logo-subtitle">• deco artesanal •</div>
             <div class="search-container">
                 <i class="fa-solid fa-magnifying-glass" style="color: #8c6853;"></i>
-                <input type="text" id="buscador" placeholder="Buscar en la tienda..." onkeyup="buscarProductos()">
+                <input type="text" id="buscador" placeholder="Buscar productos..." onkeyup="buscarProductos()">
             </div>
         </header>
 
@@ -166,46 +187,50 @@
 
         <section class="products-grid" id="contenedor-productos">
             <!-- Producto 1 -->
-            <div class="product-card" data-category="atrapasuenos" data-name="atrapasueños beige" onclick="abrirDetalle('Atrapasueños Beige', 'https://via.placeholder.com/400x400/f3ece3/8c6853?text=Atrapasue%C3%B1os')">
+            <div class="product-card" data-category="atrapasuenos" data-name="atrapasueños beige" onclick="abrirDetalle('Atrapasueños Beige', 8500, 'https://via.placeholder.com/400x400/f3ece3/8c6853?text=Atrapasue%C3%B1os')">
                 <button class="btn-fav" onclick="toggleFavorito(event, this)"><i class="fa-regular fa-heart"></i></button>
                 <div class="product-img-container">
                     <img src="https://via.placeholder.com/200x200/f3ece3/8c6853?text=Atrapasue%C3%B1os" alt="Atrapasueños">
                 </div>
                 <div class="product-info">
                     <h3>Atrapasueños Beige</h3>
+                    <div class="product-price">$8.500</div>
                 </div>
             </div>
 
             <!-- Producto 2 -->
-            <div class="product-card" data-category="caminitos" data-name="caminito boho natural" onclick="abrirDetalle('Caminito Boho Natural', 'https://via.placeholder.com/400x400/f3ece3/8c6853?text=Caminito')">
+            <div class="product-card" data-category="caminitos" data-name="caminito boho natural" onclick="abrirDetalle('Caminito Boho Natural', 12000, 'https://via.placeholder.com/400x400/f3ece3/8c6853?text=Caminito')">
                 <button class="btn-fav" onclick="toggleFavorito(event, this)"><i class="fa-regular fa-heart"></i></button>
                 <div class="product-img-container">
                     <img src="https://via.placeholder.com/200x200/f3ece3/8c6853?text=Caminito" alt="Caminito">
                 </div>
                 <div class="product-info">
                     <h3>Caminito Boho Natural</h3>
+                    <div class="product-price">$12.000</div>
                 </div>
             </div>
 
             <!-- Producto 3 -->
-            <div class="product-card" data-category="borlas" data-name="borla rosa decorativa" onclick="abrirDetalle('Borla Colgante Rosa', 'https://via.placeholder.com/400x400/f3ece3/8c6853?text=Borla')">
+            <div class="product-card" data-category="borlas" data-name="borla rosa decorativa" onclick="abrirDetalle('Borla Colgante Rosa', 4500, 'https://via.placeholder.com/400x400/f3ece3/8c6853?text=Borla')">
                 <button class="btn-fav" onclick="toggleFavorito(event, this)"><i class="fa-regular fa-heart"></i></button>
                 <div class="product-img-container">
                     <img src="https://via.placeholder.com/200x200/f3ece3/8c6853?text=Borla" alt="Borla">
                 </div>
                 <div class="product-info">
                     <h3>Borla Colgante Rosa</h3>
+                    <div class="product-price">$4.500</div>
                 </div>
             </div>
 
             <!-- Producto 4 -->
-            <div class="product-card" data-category="atrapasoles" data-name="atrapasol cristal luz" onclick="abrirDetalle('Atrapasol Cristal LUZ', 'https://via.placeholder.com/400x400/f3ece3/8c6853?text=Atrapasol')">
+            <div class="product-card" data-category="atrapasoles" data-name="atrapasol cristal luz" onclick="abrirDetalle('Atrapasol Cristal LUZ', 6800, 'https://via.placeholder.com/400x400/f3ece3/8c6853?text=Atrapasol')">
                 <button class="btn-fav" onclick="toggleFavorito(event, this)"><i class="fa-regular fa-heart"></i></button>
                 <div class="product-img-container">
                     <img src="https://via.placeholder.com/200x200/f3ece3/8c6853?text=Atrapasol" alt="Atrapasol">
                 </div>
                 <div class="product-info">
                     <h3>Atrapasol Cristal LUZ</h3>
+                    <div class="product-price">$6.800</div>
                 </div>
             </div>
         </section>
@@ -220,23 +245,44 @@
         <div class="detail-container">
             <img id="detail-img-element" src="" class="detail-img" alt="Producto">
             <h1 id="detail-title-element" class="detail-title">Nombre Producto</h1>
-            <div class="stock-tag"><i class="fa-solid fa-check"></i> Stock disponible</div>
+            <div id="detail-price-element" class="detail-price">$0</div>
+
+            <!-- Medios de Pago Estilo Mercado Libre -->
+            <div class="payment-methods-box">
+                <div class="payment-title">
+                    <i class="fa-regular fa-credit-card"></i> Medios de pago
+                </div>
+                <div class="payment-icons">
+                    <i class="fa-brands fa-cc-visa" title="Visa"></i>
+                    <i class="fa-brands fa-cc-mastercard" title="Mastercard"></i>
+                    <i class="fa-brands fa-cc-amex" title="American Express"></i>
+                    <i class="fa-solid fa-money-bill-transfer" title="Transferencia"></i>
+                    <i class="fa-solid fa-wallet" title="Efectivo / Mercado Pago"></i>
+                </div>
+                <div class="payment-link" onclick="alert('Aceptamos Tarjetas de Crédito, Débito, Mercado Pago y Transferencias Bancarias.')">Ver todos los medios de pago</div>
+            </div>
+
+            <div class="stock-tag">
+                <i class="fa-solid fa-check"></i> Stock disponible
+            </div>
 
             <div class="selector-cantidad">
                 <span>Cantidad:</span>
                 <select id="select-cantidad">
-                    <option value="1">1 unidad</option>
+                    <option value="1">1 unidad (+10 disponibles)</option>
                     <option value="2">2 unidades</option>
                     <option value="3">3 unidades</option>
                 </select>
             </div>
 
             <button class="btn-buy-now" onclick="comprarAhora()">Comprar ahora</button>
-            <button class="btn-add-cart-detail" onclick="agregarAlCarritoDesdeDetalle()">Agregar al carrito</button>
+            <button class="btn-add-cart-detail" onclick="agregarAlCarritoDesdeDetalle()">
+                <i class="fa-solid fa-cart-plus"></i> Agregar al carrito
+            </button>
 
             <div class="guarantee-box">
-                <i class="fa-solid fa-hand-holding-heart"></i>
-                <span><strong>Elaboración artesanal.</strong> Hecho a mano con dedicación y materiales de primera calidad.</span>
+                <i class="fa-solid fa-award"></i>
+                <span><strong>Elaboración artesanal.</strong> Calidad garantizada en cada detalle hecho a mano.</span>
             </div>
         </div>
     </div>
@@ -244,8 +290,21 @@
     <!-- ==================== VISTA 3: CARRITO DE COMPRAS ==================== -->
     <div id="view-cart" class="page-view">
         <div class="cart-header">Carrito de Compras</div>
+        
         <div class="cart-items-list" id="cart-items-container">
-            <!-- Los elementos agregados se insertarán aquí dinámicamente -->
+            <!-- Los elementos agregados se generan aquí -->
+        </div>
+
+        <!-- Resumen del Carrito sin costo ni datos de Envío -->
+        <div class="cart-summary-box" id="cart-summary-container" style="display: none;">
+            <div class="summary-row">
+                <span>Productos (<span id="summary-qty">0 u.</span>)</span>
+                <span id="summary-subtotal">$0</span>
+            </div>
+            <div class="summary-row total">
+                <span>Total</span>
+                <span id="summary-total" style="color: var(--button-brown);">$0</span>
+            </div>
         </div>
 
         <!-- Recomendaciones dentro del Carrito -->
@@ -254,105 +313,16 @@
             <h2>Descubre más para tu carrito</h2>
             <hr>
         </div>
+
         <section class="products-grid" style="margin-bottom: 70px;">
-            <div class="product-card" onclick="abrirDetalle('Borla Colgante Rosa', 'https://via.placeholder.com/400x400/f3ece3/8c6853?text=Borla')">
+            <div class="product-card" onclick="abrirDetalle('Borla Colgante Rosa', 4500, 'https://via.placeholder.com/400x400/f3ece3/8c6853?text=Borla')">
                 <div class="product-img-container">
                     <img src="https://via.placeholder.com/200x200/f3ece3/8c6853?text=Borla" alt="Borla">
                 </div>
                 <div class="product-info">
                     <h3>Borla Colgante Rosa</h3>
+                    <div class="product-price">$4.500</div>
                 </div>
             </div>
-            <div class="product-card" onclick="abrirDetalle('Atrapasol Cristal LUZ', 'https://via.placeholder.com/400x400/f3ece3/8c6853?text=Atrapasol')">
-                <div class="product-img-container">
-                    <img src="https://via.placeholder.com/200x200/f3ece3/8c6853?text=Atrapasol" alt="Atrapasol">
-                </div>
-                <div class="product-info">
-                    <h3>Atrapasol Cristal LUZ</h3>
-                </div>
-            </div>
-        </section>
-
-        <!-- Barra Checkout Inferior -->
-        <div class="cart-checkout-bar" id="cart-bar">
-            <div>
-                <span style="font-size: 0.8rem; color: #666;">Productos:</span>
-                <div style="font-weight: bold; font-size: 0.95rem;" id="total-items-cart">0 seleccionados</div>
-            </div>
-            <button class="btn-continue" onclick="finalizarCompra()">Continuar</button>
-        </div>
-    </div>
-
-    <!-- ==================== MENÚ INFERIOR DE NAVEGACIÓN ==================== -->
-    <nav class="bottom-nav">
-        <div class="nav-item active" id="nav-home" onclick="navegarA('home')">
-            <i class="fa-solid fa-house"></i>
-            <span>Inicio</span>
-        </div>
-        <div class="nav-item" id="nav-favs" onclick="alert('Mostrando tus productos favoritos')">
-            <i class="fa-regular fa-heart"></i>
-            <span>Favoritos</span>
-        </div>
-        <div class="nav-item" id="nav-cart" onclick="navegarA('cart')">
-            <i class="fa-solid fa-cart-shopping"></i>
-            <span>Carrito</span>
-            <span class="cart-badge" id="contador-carrito">0</span>
-        </div>
-    </nav>
-
-    <!-- ==================== LÓGICA JAVASCRIPT ==================== -->
-    <script>
-        let carrito = [];
-        let productoActual = null;
-
-        // Cambiar entre pantallas (Home, Detalle, Carrito)
-        function navegarA(vista) {
-            document.querySelectorAll('.page-view').forEach(v => v.classList.remove('active'));
-            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-
-            if (vista === 'home') {
-                document.getElementById('view-home').classList.add('active');
-                document.getElementById('nav-home').classList.add('active');
-            } else if (vista === 'detail') {
-                document.getElementById('view-detail').classList.add('active');
-            } else if (vista === 'cart') {
-                document.getElementById('view-cart').classList.add('active');
-                document.getElementById('nav-cart').classList.add('active');
-                renderizarCarrito();
-            }
-            window.scrollTo(0,0);
-        }
-
-        // Abrir vista tipo Mercado Libre para un producto
-        function abrirDetalle(nombre, imagen) {
-            productoActual = { nombre, imagen };
-            document.getElementById('detail-title-element').innerText = nombre;
-            document.getElementById('detail-img-element').src = imagen;
-            document.getElementById('select-cantidad').value = "1";
-            navegarA('detail');
-        }
-
-        // Agregar al Carrito desde pantalla Detalle
-        function agregarAlCarritoDesdeDetalle() {
-            let cantidad = parseInt(document.getElementById('select-cantidad').value);
-            let itemExistente = carrito.find(item => item.nombre === productoActual.nombre);
-
-            if (itemExistente) {
-                itemExistente.cantidad += cantidad;
-            } else {
-                carrito.push({ ...productoActual, cantidad: cantidad });
-            }
-
-            actualizarContadorBadge();
-            alert(`¡"${productoActual.nombre}" agregado al carrito!`);
-        }
-
-        // Botón "Comprar ahora"
-        function comprarAhora() {
-            agregarAlCarritoDesdeDetalle();
-            navegarA('cart');
-        }
-
-        // Dibujar elementos en la vista Carrito
-        function renderizarCarrito() {
-            
+            <div class="product-card" onclick="abrirDetalle('Atrapasol Cristal LUZ', 6800, 'https://via.placeholder.com/400x400/f3ece3/8c6853?text=Atrapasol')">
+                <div
