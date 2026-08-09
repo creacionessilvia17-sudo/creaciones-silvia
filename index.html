@@ -14,7 +14,9 @@
             --primary-text: #3a2e2b;
             --button-brown: #8c6853;
             --button-hover: #735340;
+            --btn-secondary: #ebdcd0;
             --accent-red: #e74c3c;
+            --soft-gray: #f4ece6;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; }
@@ -26,351 +28,331 @@
             margin: 0 auto; 
             padding-bottom: 80px; 
             box-shadow: 0 0 15px rgba(0,0,0,0.05);
+            position: relative;
+            min-height: 100vh;
         }
 
+        /* --- VISTAS PRINCIPALES --- */
+        .page-view { display: none; }
+        .page-view.active { display: block; }
+
         /* --- HEADER Y BUSCADOR --- */
-        header { padding: 15px 20px; background: #fff; text-align: center; border-bottom: 1px solid #f0ece9; }
-        .logo-title { font-family: 'Caveat', cursive; font-size: 2.2rem; color: var(--primary-text); }
+        header { padding: 15px 20px; background: #fff; text-align: center; border-bottom: 1px solid #f0ece9; position: sticky; top: 0; z-index: 90; }
+        .logo-title { font-family: 'Caveat', cursive; font-size: 2.2rem; color: var(--primary-text); cursor: pointer; }
         .logo-subtitle { font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; color: #777; margin-bottom: 10px; }
 
         .search-container { 
             display: flex; 
             align-items: center; 
-            background: #f4ece6; 
+            background: var(--soft-gray); 
             padding: 8px 15px; 
             border-radius: 20px; 
         }
         .search-container input { 
-            border: none; 
-            background: transparent; 
-            width: 100%; 
-            outline: none; 
-            margin-left: 10px; 
-            font-size: 0.85rem; 
-            color: var(--primary-text);
+            border: none; background: transparent; width: 100%; outline: none; margin-left: 10px; font-size: 0.85rem; color: var(--primary-text);
         }
 
         /* --- CATEGORÍAS --- */
-        .categories-section { 
-            display: grid; 
-            grid-template-columns: repeat(4, 1fr); 
-            gap: 10px; 
-            padding: 20px 10px 10px 10px; 
-            text-align: center;
-        }
+        .categories-section { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 20px 10px 10px 10px; text-align: center; }
         .category-item { cursor: pointer; transition: transform 0.2s; }
         .category-item:hover { transform: translateY(-3px); }
-        .category-img { 
-            width: 60px; 
-            height: 60px; 
-            border-radius: 50%; 
-            background: #f3ece3; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            margin: 0 auto 6px auto; 
-            border: 1px solid #e0d7cd;
-        }
+        .category-img { width: 60px; height: 60px; border-radius: 50%; background: #f3ece3; display: flex; align-items: center; justify-content: center; margin: 0 auto 6px auto; border: 1px solid #e0d7cd; }
         .category-img i { font-size: 1.3rem; color: var(--button-brown); }
         .category-item span { font-size: 0.7rem; font-weight: 600; display: block; }
 
-        /* Botón Mostrar Todos */
         .show-all-container { text-align: center; margin: 10px 0; }
-        .btn-show-all {
-            background: #f3ece3;
-            border: 1px solid #d1c7bc;
-            color: var(--button-brown);
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .btn-show-all:hover { background: var(--button-brown); color: white; }
+        .btn-show-all { background: #f3ece3; border: 1px solid #d1c7bc; color: var(--button-brown); padding: 6px 16px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; cursor: pointer; }
 
-        /* --- TITULO SECCIÓN --- */
-        .section-title {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 10px 20px 20px 20px;
-            gap: 10px;
-        }
+        .section-title { display: flex; align-items: center; justify-content: center; margin: 10px 20px 20px 20px; gap: 10px; }
         .section-title hr { flex: 1; border: none; height: 1px; background-color: #d1c7bc; }
         .section-title h2 { font-size: 0.95rem; font-weight: 600; }
 
-        /* --- PRODUCTOS --- */
+        /* --- PRODUCTOS (GRILLA INICIO) --- */
         .products-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 0 15px; }
-        .product-card { 
-            background: var(--card-bg); 
-            border-radius: 12px; 
-            padding: 10px; 
-            box-shadow: 0 2px 8px rgba(0,0,0,0.03); 
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            position: relative;
-        }
+        .product-card { background: var(--card-bg); border-radius: 12px; padding: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.03); display: flex; flex-direction: column; justify-content: space-between; position: relative; cursor: pointer; }
 
-        /* Botón de Favorito */
-        .btn-fav {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: rgba(255, 255, 255, 0.8);
-            border: none;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 5;
-            transition: transform 0.2s;
-        }
+        .btn-fav { position: absolute; top: 15px; right: 15px; background: rgba(255, 255, 255, 0.9); border: none; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 5; }
         .btn-fav i { font-size: 0.9rem; color: #888; }
         .btn-fav.active i { color: var(--accent-red); font-weight: 900; }
 
-        .product-img-container { 
-            width: 100%; 
-            height: 140px; 
-            border-radius: 8px; 
-            overflow: hidden; 
-            background: #f7f5f0; 
-            margin-bottom: 10px; 
-        }
+        .product-img-container { width: 100%; height: 140px; border-radius: 8px; overflow: hidden; background: #f7f5f0; margin-bottom: 10px; }
         .product-img-container img { width: 100%; height: 100%; object-fit: cover; }
         .product-info h3 { font-size: 0.8rem; font-weight: 600; margin-bottom: 10px; text-align: center; }
-        .btn-add-cart { 
-            width: 100%; 
-            background-color: var(--button-brown); 
-            color: white; 
-            border: none; 
-            padding: 8px; 
-            border-radius: 6px; 
-            font-size: 0.75rem; 
-            cursor: pointer; 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-        }
-        .btn-add-cart:hover { background-color: var(--button-hover); }
+
+        /* --- PANTALLA DETALLE PRODUCTO (ESTILO MERCADO LIBRE) --- */
+        .nav-header-detail { display: flex; align-items: center; justify-content: space-between; padding: 15px; background: #fff; border-bottom: 1px solid #eee; }
+        .nav-header-detail i { font-size: 1.2rem; cursor: pointer; color: var(--primary-text); }
+        
+        .detail-container { padding: 15px; background: #fff; }
+        .detail-img { width: 100%; height: 260px; border-radius: 10px; object-fit: cover; margin-bottom: 15px; }
+        .detail-title { font-size: 1.2rem; font-weight: 600; margin-bottom: 8px; }
+        .stock-tag { color: #2e7d32; font-size: 0.85rem; font-weight: 600; margin-bottom: 15px; }
+
+        .selector-cantidad { background: var(--soft-gray); padding: 12px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; font-size: 0.9rem; }
+        .selector-cantidad select { border: none; background: transparent; font-weight: bold; font-size: 0.9rem; outline: none; }
+
+        .btn-buy-now { width: 100%; background: var(--button-brown); color: white; border: none; padding: 14px; border-radius: 8px; font-weight: 600; font-size: 0.95rem; margin-bottom: 10px; cursor: pointer; }
+        .btn-add-cart-detail { width: 100%; background: var(--btn-secondary); color: var(--button-brown); border: none; padding: 14px; border-radius: 8px; font-weight: 600; font-size: 0.95rem; cursor: pointer; margin-bottom: 20px; }
+
+        .guarantee-box { display: flex; gap: 12px; align-items: center; font-size: 0.8rem; color: #666; border-top: 1px solid #eee; padding-top: 15px; }
+        .guarantee-box i { font-size: 1.2rem; color: var(--button-brown); }
+
+        /* --- PANTALLA CARRITO (ESTILO MERCADO LIBRE) --- */
+        .cart-header { padding: 15px; background: #fff; border-bottom: 1px solid #eee; font-weight: 600; font-size: 1.1rem; text-align: center; }
+        .cart-items-list { padding: 15px; }
+        .cart-item-card { background: #fff; border-radius: 8px; padding: 12px; margin-bottom: 12px; display: flex; gap: 12px; align-items: center; box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
+        .cart-item-card input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--button-brown); }
+        .cart-item-img { width: 65px; height: 65px; border-radius: 6px; object-fit: cover; }
+        .cart-item-info { flex: 1; }
+        .cart-item-info h4 { font-size: 0.85rem; font-weight: 600; margin-bottom: 5px; }
+        .cart-item-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; }
+        .cart-item-actions select { padding: 2px 6px; border-radius: 4px; border: 1px solid #ccc; font-size: 0.75rem; }
+        .btn-delete-item { color: #888; background: none; border: none; cursor: pointer; font-size: 0.9rem; }
+
+        /* Barra checkout inferior flotante */
+        .cart-checkout-bar { position: fixed; bottom: 50px; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; background: #fff; padding: 12px 15px; border-top: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); z-index: 95; }
+        .btn-continue { background: var(--button-brown); color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; font-size: 0.9rem; cursor: pointer; }
 
         /* --- NAVEGACIÓN INFERIOR --- */
-        .bottom-nav { 
-            position: fixed; 
-            bottom: 0; 
-            left: 50%; 
-            transform: translateX(-50%); 
-            width: 100%; 
-            max-width: 480px; 
-            background: #fff; 
-            display: flex; 
-            justify-content: space-around; 
-            padding: 12px 0; 
-            border-top: 1px solid #eee; 
-            z-index: 100;
-        }
-        .nav-item { 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            font-size: 0.7rem; 
-            color: #666; 
-            text-decoration: none; 
-            position: relative;
-        }
+        .bottom-nav { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; background: #fff; display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eee; z-index: 100; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; font-size: 0.7rem; color: #666; text-decoration: none; position: relative; cursor: pointer; }
         .nav-item i { font-size: 1.2rem; margin-bottom: 3px; }
+        .nav-item.active { color: var(--button-brown); font-weight: 600; }
         
-        /* Contador del Carrito */
-        .cart-badge {
-            position: absolute;
-            top: -5px;
-            right: 0px;
-            background-color: var(--button-brown);
-            color: white;
-            font-size: 0.6rem;
-            font-weight: bold;
-            border-radius: 50%;
-            padding: 2px 6px;
-        }
+        .cart-badge { position: absolute; top: -5px; right: -2px; background-color: var(--button-brown); color: white; font-size: 0.6rem; font-weight: bold; border-radius: 50%; padding: 2px 5px; }
     </style>
 </head>
 <body>
 
-    <!-- Header & Buscador -->
-    <header>
-        <div class="logo-title">Sueños</div>
-        <div class="logo-subtitle">• deco artesanal •</div>
-        <div class="search-container">
-            <i class="fa-solid fa-magnifying-glass" style="color: #8c6853;"></i>
-            <input type="text" id="buscador" placeholder="Buscar en la tienda..." onkeyup="buscarProductos()">
-        </div>
-    </header>
+    <!-- ==================== VISTA 1: INICIO Y CATÁLOGO ==================== -->
+    <div id="view-home" class="page-view active">
+        <header>
+            <div class="logo-title" onclick="navegarA('home')">Sueños</div>
+            <div class="logo-subtitle">• deco artesanal •</div>
+            <div class="search-container">
+                <i class="fa-solid fa-magnifying-glass" style="color: #8c6853;"></i>
+                <input type="text" id="buscador" placeholder="Buscar en la tienda..." onkeyup="buscarProductos()">
+            </div>
+        </header>
 
-    <!-- Las 4 Categorías -->
-    <section class="categories-section">
-        <div class="category-item" onclick="filtrarProductos('atrapasuenos')">
-            <div class="category-img"><i class="fa-solid fa-dharmachakra"></i></div>
-            <span>Atrapasueños</span>
-        </div>
-        <div class="category-item" onclick="filtrarProductos('caminitos')">
-            <div class="category-img"><i class="fa-solid fa-rug"></i></div>
-            <span>Caminitos</span>
-        </div>
-        <div class="category-item" onclick="filtrarProductos('borlas')">
-            <div class="category-img"><i class="fa-solid fa-certificate"></i></div>
-            <span>Borlas</span>
-        </div>
-        <div class="category-item" onclick="filtrarProductos('atrapasoles')">
-            <div class="category-img"><i class="fa-solid fa-gem"></i></div>
-            <span>Atrapasoles</span>
-        </div>
-    </section>
+        <section class="categories-section">
+            <div class="category-item" onclick="filtrarProductos('atrapasuenos')">
+                <div class="category-img"><i class="fa-solid fa-dharmachakra"></i></div>
+                <span>Atrapasueños</span>
+            </div>
+            <div class="category-item" onclick="filtrarProductos('caminitos')">
+                <div class="category-img"><i class="fa-solid fa-rug"></i></div>
+                <span>Caminitos</span>
+            </div>
+            <div class="category-item" onclick="filtrarProductos('borlas')">
+                <div class="category-img"><i class="fa-solid fa-certificate"></i></div>
+                <span>Borlas</span>
+            </div>
+            <div class="category-item" onclick="filtrarProductos('atrapasoles')">
+                <div class="category-img"><i class="fa-solid fa-gem"></i></div>
+                <span>Atrapasoles</span>
+            </div>
+        </section>
 
-    <!-- Opción Mostrar Todos -->
-    <div class="show-all-container">
-        <button class="btn-show-all" onclick="filtrarProductos('todos')">✨ Mostrar todos los productos</button>
+        <div class="show-all-container">
+            <button class="btn-show-all" onclick="filtrarProductos('todos')">✨ Mostrar todos los productos</button>
+        </div>
+
+        <div class="section-title">
+            <hr>
+            <h2 id="titulo-seccion">Todos los productos</h2>
+            <hr>
+        </div>
+
+        <section class="products-grid" id="contenedor-productos">
+            <!-- Producto 1 -->
+            <div class="product-card" data-category="atrapasuenos" data-name="atrapasueños beige" onclick="abrirDetalle('Atrapasueños Beige', 'https://via.placeholder.com/400x400/f3ece3/8c6853?text=Atrapasue%C3%B1os')">
+                <button class="btn-fav" onclick="toggleFavorito(event, this)"><i class="fa-regular fa-heart"></i></button>
+                <div class="product-img-container">
+                    <img src="https://via.placeholder.com/200x200/f3ece3/8c6853?text=Atrapasue%C3%B1os" alt="Atrapasueños">
+                </div>
+                <div class="product-info">
+                    <h3>Atrapasueños Beige</h3>
+                </div>
+            </div>
+
+            <!-- Producto 2 -->
+            <div class="product-card" data-category="caminitos" data-name="caminito boho natural" onclick="abrirDetalle('Caminito Boho Natural', 'https://via.placeholder.com/400x400/f3ece3/8c6853?text=Caminito')">
+                <button class="btn-fav" onclick="toggleFavorito(event, this)"><i class="fa-regular fa-heart"></i></button>
+                <div class="product-img-container">
+                    <img src="https://via.placeholder.com/200x200/f3ece3/8c6853?text=Caminito" alt="Caminito">
+                </div>
+                <div class="product-info">
+                    <h3>Caminito Boho Natural</h3>
+                </div>
+            </div>
+
+            <!-- Producto 3 -->
+            <div class="product-card" data-category="borlas" data-name="borla rosa decorativa" onclick="abrirDetalle('Borla Colgante Rosa', 'https://via.placeholder.com/400x400/f3ece3/8c6853?text=Borla')">
+                <button class="btn-fav" onclick="toggleFavorito(event, this)"><i class="fa-regular fa-heart"></i></button>
+                <div class="product-img-container">
+                    <img src="https://via.placeholder.com/200x200/f3ece3/8c6853?text=Borla" alt="Borla">
+                </div>
+                <div class="product-info">
+                    <h3>Borla Colgante Rosa</h3>
+                </div>
+            </div>
+
+            <!-- Producto 4 -->
+            <div class="product-card" data-category="atrapasoles" data-name="atrapasol cristal luz" onclick="abrirDetalle('Atrapasol Cristal LUZ', 'https://via.placeholder.com/400x400/f3ece3/8c6853?text=Atrapasol')">
+                <button class="btn-fav" onclick="toggleFavorito(event, this)"><i class="fa-regular fa-heart"></i></button>
+                <div class="product-img-container">
+                    <img src="https://via.placeholder.com/200x200/f3ece3/8c6853?text=Atrapasol" alt="Atrapasol">
+                </div>
+                <div class="product-info">
+                    <h3>Atrapasol Cristal LUZ</h3>
+                </div>
+            </div>
+        </section>
     </div>
 
-    <!-- Título de Sección -->
-    <div class="section-title">
-        <hr>
-        <h2 id="titulo-seccion">Todos los productos</h2>
-        <hr>
+    <!-- ==================== VISTA 2: DETALLE DEL PRODUCTO ==================== -->
+    <div id="view-detail" class="page-view">
+        <div class="nav-header-detail">
+            <i class="fa-solid fa-arrow-left" onclick="navegarA('home')"></i>
+            <i class="fa-regular fa-heart" id="btn-fav-detail" onclick="toggleFavoritoDetail()"></i>
+        </div>
+        <div class="detail-container">
+            <img id="detail-img-element" src="" class="detail-img" alt="Producto">
+            <h1 id="detail-title-element" class="detail-title">Nombre Producto</h1>
+            <div class="stock-tag"><i class="fa-solid fa-check"></i> Stock disponible</div>
+
+            <div class="selector-cantidad">
+                <span>Cantidad:</span>
+                <select id="select-cantidad">
+                    <option value="1">1 unidad</option>
+                    <option value="2">2 unidades</option>
+                    <option value="3">3 unidades</option>
+                </select>
+            </div>
+
+            <button class="btn-buy-now" onclick="comprarAhora()">Comprar ahora</button>
+            <button class="btn-add-cart-detail" onclick="agregarAlCarritoDesdeDetalle()">Agregar al carrito</button>
+
+            <div class="guarantee-box">
+                <i class="fa-solid fa-hand-holding-heart"></i>
+                <span><strong>Elaboración artesanal.</strong> Hecho a mano con dedicación y materiales de primera calidad.</span>
+            </div>
+        </div>
     </div>
 
-    <!-- Grilla de Productos -->
-    <section class="products-grid" id="contenedor-productos">
-        
-        <!-- Atrapasueños -->
-        <div class="product-card" data-category="atrapasuenos" data-name="atrapasueños beige">
-            <button class="btn-fav" onclick="toggleFavorito(this)"><i class="fa-regular fa-heart"></i></button>
-            <div class="product-img-container">
-                <img src="https://via.placeholder.com/200x200/f3ece3/8c6853?text=Atrapasue%C3%B1os" alt="Atrapasueños">
-            </div>
-            <div class="product-info">
-                <h3>Atrapasueños Beige</h3>
-                <button class="btn-add-cart" onclick="agregarAlCarrito('Atrapasueños Beige')"><i class="fa-solid fa-cart-shopping"></i> Agregar al carrito</button>
-            </div>
+    <!-- ==================== VISTA 3: CARRITO DE COMPRAS ==================== -->
+    <div id="view-cart" class="page-view">
+        <div class="cart-header">Carrito de Compras</div>
+        <div class="cart-items-list" id="cart-items-container">
+            <!-- Los elementos agregados se insertarán aquí dinámicamente -->
         </div>
 
-        <!-- Caminito -->
-        <div class="product-card" data-category="caminitos" data-name="caminito boho natural">
-            <button class="btn-fav" onclick="toggleFavorito(this)"><i class="fa-regular fa-heart"></i></button>
-            <div class="product-img-container">
-                <img src="https://via.placeholder.com/200x200/f3ece3/8c6853?text=Caminito" alt="Caminito">
-            </div>
-            <div class="product-info">
-                <h3>Caminito Boho Natural</h3>
-                <button class="btn-add-cart" onclick="agregarAlCarrito('Caminito Boho Natural')"><i class="fa-solid fa-cart-shopping"></i> Agregar al carrito</button>
-            </div>
+        <!-- Recomendaciones dentro del Carrito -->
+        <div class="section-title" style="margin-top:20px;">
+            <hr>
+            <h2>Descubre más para tu carrito</h2>
+            <hr>
         </div>
+        <section class="products-grid" style="margin-bottom: 70px;">
+            <div class="product-card" onclick="abrirDetalle('Borla Colgante Rosa', 'https://via.placeholder.com/400x400/f3ece3/8c6853?text=Borla')">
+                <div class="product-img-container">
+                    <img src="https://via.placeholder.com/200x200/f3ece3/8c6853?text=Borla" alt="Borla">
+                </div>
+                <div class="product-info">
+                    <h3>Borla Colgante Rosa</h3>
+                </div>
+            </div>
+            <div class="product-card" onclick="abrirDetalle('Atrapasol Cristal LUZ', 'https://via.placeholder.com/400x400/f3ece3/8c6853?text=Atrapasol')">
+                <div class="product-img-container">
+                    <img src="https://via.placeholder.com/200x200/f3ece3/8c6853?text=Atrapasol" alt="Atrapasol">
+                </div>
+                <div class="product-info">
+                    <h3>Atrapasol Cristal LUZ</h3>
+                </div>
+            </div>
+        </section>
 
-        <!-- Borla -->
-        <div class="product-card" data-category="borlas" data-name="borla rosa decorativa">
-            <button class="btn-fav" onclick="toggleFavorito(this)"><i class="fa-regular fa-heart"></i></button>
-            <div class="product-img-container">
-                <img src="https://via.placeholder.com/200x200/f3ece3/8c6853?text=Borla" alt="Borla">
+        <!-- Barra Checkout Inferior -->
+        <div class="cart-checkout-bar" id="cart-bar">
+            <div>
+                <span style="font-size: 0.8rem; color: #666;">Productos:</span>
+                <div style="font-weight: bold; font-size: 0.95rem;" id="total-items-cart">0 seleccionados</div>
             </div>
-            <div class="product-info">
-                <h3>Borla Colgante Rosa</h3>
-                <button class="btn-add-cart" onclick="agregarAlCarrito('Borla Colgante Rosa')"><i class="fa-solid fa-cart-shopping"></i> Agregar al carrito</button>
-            </div>
+            <button class="btn-continue" onclick="finalizarCompra()">Continuar</button>
         </div>
+    </div>
 
-        <!-- Atrapasol -->
-        <div class="product-card" data-category="atrapasoles" data-name="atrapasol cristal luz">
-            <button class="btn-fav" onclick="toggleFavorito(this)"><i class="fa-regular fa-heart"></i></button>
-            <div class="product-img-container">
-                <img src="https://via.placeholder.com/200x200/f3ece3/8c6853?text=Atrapasol" alt="Atrapasol">
-            </div>
-            <div class="product-info">
-                <h3>Atrapasol Cristal LUZ</h3>
-                <button class="btn-add-cart" onclick="agregarAlCarrito('Atrapasol Cristal LUZ')"><i class="fa-solid fa-cart-shopping"></i> Agregar al carrito</button>
-            </div>
-        </div>
-
-    </section>
-
-    <!-- Menú Inferior -->
+    <!-- ==================== MENÚ INFERIOR DE NAVEGACIÓN ==================== -->
     <nav class="bottom-nav">
-        <a href="#" class="nav-item" onclick="filtrarProductos('todos')">
+        <div class="nav-item active" id="nav-home" onclick="navegarA('home')">
             <i class="fa-solid fa-house"></i>
             <span>Inicio</span>
-        </a>
-        <a href="#" class="nav-item">
+        </div>
+        <div class="nav-item" id="nav-favs" onclick="alert('Mostrando tus productos favoritos')">
             <i class="fa-regular fa-heart"></i>
             <span>Favoritos</span>
-        </a>
-        <a href="#" class="nav-item">
+        </div>
+        <div class="nav-item" id="nav-cart" onclick="navegarA('cart')">
             <i class="fa-solid fa-cart-shopping"></i>
             <span>Carrito</span>
             <span class="cart-badge" id="contador-carrito">0</span>
-        </a>
+        </div>
     </nav>
 
-    <!-- Funcionalidades JavaScript -->
+    <!-- ==================== LÓGICA JAVASCRIPT ==================== -->
     <script>
-        let contadorCarrito = 0;
+        let carrito = [];
+        let productoActual = null;
 
-        // Filtrar productos por categoría o mostrar todos
-        function filtrarProductos(categoria) {
-            let tarjetas = document.getElementsByClassName('product-card');
-            let titulo = document.getElementById('titulo-seccion');
+        // Cambiar entre pantallas (Home, Detalle, Carrito)
+        function navegarA(vista) {
+            document.querySelectorAll('.page-view').forEach(v => v.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
 
-            for (let card of tarjetas) {
-                if (categoria === 'todos' || card.getAttribute('data-category') === categoria) {
-                    card.style.display = "flex";
-                } else {
-                    card.style.display = "none";
-                }
+            if (vista === 'home') {
+                document.getElementById('view-home').classList.add('active');
+                document.getElementById('nav-home').classList.add('active');
+            } else if (vista === 'detail') {
+                document.getElementById('view-detail').classList.add('active');
+            } else if (vista === 'cart') {
+                document.getElementById('view-cart').classList.add('active');
+                document.getElementById('nav-cart').classList.add('active');
+                renderizarCarrito();
             }
+            window.scrollTo(0,0);
+        }
 
-            if (categoria === 'todos') {
-                titulo.innerText = "Todos los productos";
+        // Abrir vista tipo Mercado Libre para un producto
+        function abrirDetalle(nombre, imagen) {
+            productoActual = { nombre, imagen };
+            document.getElementById('detail-title-element').innerText = nombre;
+            document.getElementById('detail-img-element').src = imagen;
+            document.getElementById('select-cantidad').value = "1";
+            navegarA('detail');
+        }
+
+        // Agregar al Carrito desde pantalla Detalle
+        function agregarAlCarritoDesdeDetalle() {
+            let cantidad = parseInt(document.getElementById('select-cantidad').value);
+            let itemExistente = carrito.find(item => item.nombre === productoActual.nombre);
+
+            if (itemExistente) {
+                itemExistente.cantidad += cantidad;
             } else {
-                titulo.innerText = categoria.charAt(0).toUpperCase() + categoria.slice(1);
+                carrito.push({ ...productoActual, cantidad: cantidad });
             }
+
+            actualizarContadorBadge();
+            alert(`¡"${productoActual.nombre}" agregado al carrito!`);
         }
 
-        // Buscador por texto
-        function buscarProductos() {
-            let texto = document.getElementById('buscador').value.toLowerCase();
-            let tarjetas = document.getElementsByClassName('product-card');
-
-            for (let card of tarjetas) {
-                let nombre = card.getAttribute('data-name');
-                if (nombre.includes(texto)) {
-                    card.style.display = "flex";
-                } else {
-                    card.style.display = "none";
-                }
-            }
+        // Botón "Comprar ahora"
+        function comprarAhora() {
+            agregarAlCarritoDesdeDetalle();
+            navegarA('cart');
         }
 
-        // Activar o desactivar Favoritos
-        function toggleFavorito(btn) {
-            btn.classList.toggle('active');
-            let icono = btn.querySelector('i');
-            if (btn.classList.contains('active')) {
-                icono.classList.remove('fa-regular');
-                icono.classList.add('fa-solid');
-            } else {
-                icono.classList.remove('fa-solid');
-                icono.classList.add('fa-regular');
-            }
-        }
-
-        // Agregar al Carrito e Incrementar Contador
-        function agregarAlCarrito(nombreProducto) {
-            contadorCarrito++;
-            document.getElementById('contador-carrito').innerText = contadorCarrito;
-            alert(`¡"${nombreProducto}" fue agregado al carrito!`);
-        }
-    </script>
-</body>
-</html>
+        // Dibujar elementos en la vista Carrito
+        function renderizarCarrito() {
+            
