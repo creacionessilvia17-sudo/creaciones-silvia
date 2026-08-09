@@ -1,81 +1,332 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sueños - Deco Artesanal</title>
-  <style>
-    :root { --bg-color: #f7f4ef; --primary-brown: #6b523e; }
-    body { background-color: #ccc; display: flex; justify-content: center; margin: 0; font-family: sans-serif; }
-    .app-container { width: 100%; max-width: 420px; background-color: #fff; min-height: 100vh; position: relative; display: flex; flex-direction: column; }
-    .view { display: none; padding-bottom: 70px; }
-    .view.active { display: block; }
-    
-    .img-placeholder { background-color: #dcd7d1; display: flex; align-items: center; justify-content: center; color: #6b523e; font-weight: bold; }
-    
-    /* Barra de navegación sin el botón perfil */
-    .tab-bar { position: fixed; bottom: 0; width: 100%; max-width: 420px; height: 60px; background: #fff; border-top: 1px solid #eee; display: flex; justify-content: space-around; align-items: center; }
-    .tab-bar button { border: none; background: none; cursor: pointer; font-size: 1rem; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creaciones Silvia - Deco Artesanal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        crema: '#F8F2E9',
+                        marron: '#8B6A4F',
+                        marronClaro: '#B89A7E',
+                        azul: '#2563EB',
+                        rojoCorazon: '#E53935',
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #F8F2E9; }
+        .corazon-activo { color: #E53935 !important; }
+        .modal-fondo { background: rgba(0,0,0,0.5); }
+        .enlace-whatsapp { position: relative; z-index: 99999 !important; pointer-events: auto !important; cursor: pointer !important; }
+        .categoria-activa { color: #8B6A4F !important; font-weight: 600; }
+
+        .contenedor-carrusel { position: relative; overflow: hidden; border-radius: 8px; }
+        .carrusel-fotos { display: flex; transition: transform 0.3s ease; }
+        .carrusel-fotos img { width: 100%; flex-shrink: 0; aspect-ratio: 3/4; object-fit: cover; }
+        .indicadores {
+            position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
+            display: flex; gap: 6px;
+        }
+        .ind-punto {
+            width: 9px; height: 9px; border-radius: 50%;
+            background: rgba(0,0,0,0.35); border: 1px solid #fff;
+        }
+        .ind-punto.activo { background: #fff; box-shadow: 0 0 3px rgba(0,0,0,0.3); }
+        .nombre-color {
+            position: absolute; bottom: 10px; left: 10px;
+            background: rgba(255,255,255,0.9);
+            padding: 3px 8px; border-radius: 12px;
+            font-size: 12px; font-weight: 500;
+        }
+        .btn-corazon {
+            position: absolute; top: 8px; right: 8px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 50%; width: 36px; height: 36px;
+            display: flex; align-items: center; justify-content: center;
+            border: none; cursor: pointer; font-size: 18px;
+            z-index: 10;
+        }
+        .btn-corazon.activo i { color: #E53935; }
+    </style>
 </head>
-<body>
+<body class="text-gray-800">
 
-<div class="app-container">
-  <header style="padding: 15px; border-bottom: 1px solid #eee; display:flex; justify-content: space-between; align-items: center;">
-    <strong>SUEÑOS - DECO ARTESANAL</strong>
-    <span>🛒 <span id="cart-count">0</span></span>
-  </header>
+<!-- Barra Superior -->
+<header class="bg-white shadow px-4 py-3 flex items-center justify-between sticky top-0 z-50">
+    <span></span>
+    <div class="text-center">
+        <span class="font-serif text-xl text-[#8B6A4F] font-semibold">CREACIONES SILVIA</span>
+        <span class="text-xs text-[#B89A7E] block">deco artesanal</span>
+    </div>
+    <button id="btnCarrito" class="text-xl relative">
+        <i class="fa fa-shopping-cart"></i>
+        <span id="contadorCarrito" class="absolute -top-2 -right-2 bg-blue-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+    </button>
+</header>
 
-  <!-- VISTAS -->
-  <main id="home-view" class="view active">
-    <div class="img-placeholder" style="height: 200px;">BANNER PRINCIPAL</div>
-    <h3 style="padding: 15px;">Productos Destacados</h3>
-    <div id="product-list" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px;"></div>
-  </main>
+<!-- Contenido Principal -->
+<main class="pb-20">
 
-  <main id="compras-view" class="view">
-    <h2 style="padding: 20px;">Mis Compras</h2>
-    <p style="padding: 20px;">Aquí aparecerá tu historial de pedidos.</p>
-  </main>
+    <!-- Portada -->
+    <section class="relative">
+        <img src="FOTO_PORTADA" class="w-full h-64 object-cover">
+        <div class="absolute inset-0 p-6 flex flex-col justify-center text-white">
+            <h2 class="text-xl font-semibold">Decora tus espacios</h2>
+            <p class="text-lg mb-2">Con buena energía</p>
+            <p class="text-sm mb-4 max-w-xs">Atrapasueños, bordados, caminitos y más, hechos a mano.</p>
+            <div class="flex gap-3">
+                <button id="btnVerTodos" class="bg-[#8B6A4F] px-6 py-3 rounded-md text-sm font-medium shadow-md hover:bg-[#7a5c43] transition">VER TODOS</button>
+            </div>
+        </div>
+    </section>
 
-  <!-- NAVEGACIÓN (Solo Inicio y Compras) -->
-  <nav class="tab-bar">
-    <button onclick="switchView('home-view')">🏠 Inicio</button>
-    <button onclick="switchView('compras-view')">📦 Compras</button>
-  </nav>
+    <!-- Categorías -->
+    <section class="px-4 py-4 grid grid-cols-4 gap-3 text-center">
+        <button id="cat-todos" class="categoria-boton text-center" onclick="mostrarCategoria('todos')">
+            <div class="w-12 h-12 mx-auto bg-white rounded-full flex items-center justify-center shadow mb-1">
+                <i class="fa fa-th-large text-lg text-[#8B6A4F]"></i>
+            </div>
+            <span class="text-xs">Todos</span>
+        </button>
+        <button id="cat-atrapasuenos" class="categoria-boton text-center" onclick="mostrarCategoria('atrapasuenos')">
+            <div class="w-12 h-12 mx-auto bg-white rounded-full flex items-center justify-center shadow mb-1">
+                <i class="fa fa-leaf text-lg text-[#8B6A4F]"></i>
+            </div>
+            <span class="text-xs">Atrapasueños</span>
+        </button>
+        <button id="cat-soles" class="categoria-boton text-center" onclick="mostrarCategoria('soles')">
+            <div class="w-12 h-12 mx-auto bg-white rounded-full flex items-center justify-center shadow mb-1">
+                <i class="fa fa-sun-o text-lg text-[#8B6A4F]"></i>
+            </div>
+            <span class="text-xs">Atrapasoles</span>
+        </button>
+        <button id="cat-bordados" class="categoria-boton text-center" onclick="mostrarCategoria('bordados')">
+            <div class="w-12 h-12 mx-auto bg-white rounded-full flex items-center justify-center shadow mb-1">
+                <i class="fa fa-paint-brush text-lg text-[#8B6A4F]"></i>
+            </div>
+            <span class="text-xs">Bordados</span>
+        </button>
+        <button id="cat-caminos" class="categoria-boton text-center" onclick="mostrarCategoria('caminos')">
+            <div class="w-12 h-12 mx-auto bg-white rounded-full flex items-center justify-center shadow mb-1">
+                <i class="fa fa-ellipsis-h text-lg text-[#8B6A4F]"></i>
+            </div>
+            <span class="text-xs">Caminitos</span>
+        </button>
+    </section>
+
+    <!-- LISTA DE PRODUCTOS -->
+    <section class="px-4 py-2">
+        <div class="flex justify-between items-center mb-3">
+            <h3 id="tituloSeccion" class="font-semibold text-[#8B6A4F]">TODOS LOS PRODUCTOS</h3>
+            <button id="btnVerFavoritos" class="text-sm text-[#8B6A4F]"><i class="fa fa-heart-o mr-1"></i>Favoritos</button>
+        </div>
+        <div id="contenedorProductos" class="grid grid-cols-2 gap-4">
+            <!-- SE LLENA SOLO -->
+        </div>
+    </section>
+
+</main>
+
+<!-- Barra Navegación Inferior -->
+<footer class="fixed bottom-0 left-0 right-0 bg-white border-t flex justify-around py-2 z-40">
+    <button class="flex flex-col items-center text-blue-600" onclick="mostrarCategoria('todos')"><i class="fa fa-home text-lg"></i><span class="text-xs">Inicio</span></button>
+    <button id="btnFavoritos" class="flex flex-col items-center text-gray-500"><i class="fa fa-heart-o text-lg"></i><span class="text-xs">Favoritos</span></button>
+    <a href="https://wa.me/5493804100777" target="_blank" class="enlace-whatsapp flex flex-col items-center text-green-600">
+        <i class="fa fa-whatsapp text-lg"></i>
+        <span class="text-xs">Contacto</span>
+    </a>
+</footer>
+
+<!-- MODAL DETALLE -->
+<div id="modalDetalle" class="fixed inset-0 z-50 hidden">
+    <div class="modal-fondo absolute inset-0" onclick="cerrarDetalle()"></div>
+    <div class="absolute bottom-0 left-0 right-0 bg-white rounded-t-2xl p-4 max-h-[90vh] overflow-y-auto">
+        <div class="flex justify-between items-center mb-4">
+            <h2 id="detalleNombre" class="text-xl font-semibold"></h2>
+            <div class="flex items-center gap-3">
+                <button id="btnCorazonDetalle" class="text-xl" title="Agregar a favoritos"><i class="fa fa-heart-o"></i></button>
+                <button onclick="cerrarDetalle()" class="text-xl"><i class="fa fa-times"></i></button>
+            </div>
+        </div>
+
+        <div class="contenedor-carrusel mb-4" id="carruselDetalle">
+            <div class="carrusel-fotos" id="carruselDetalleInner"></div>
+            <span class="nombre-color" id="nombreColorActual"></span>
+            <div class="indicadores" id="indicadoresDetalle"></div>
+        </div>
+
+        <p class="text-2xl font-bold mb-4" id="detallePrecio"></p>
+        <p class="text-sm text-gray-600 mb-3" id="detalleDesc"></p>
+        <ul class="text-sm text-gray-600 mb-4" id="detalleLista"></ul>
+
+        <div class="mb-4">
+            <label class="block text-sm font-medium mb-1">Cantidad:</label>
+            <select id="selCantidad" class="w-full border rounded p-2">
+                <option value="1">1 unidad</option>
+                <option value="2">2 unidades</option>
+                <option value="3">3 unidades</option>
+                <option value="4">4 unidades</option>
+                <option value="5">5 unidades</option>
+            </select>
+        </div>
+
+        <button id="btnAgregarCarritoDesdeDetalle" class="w-full border border-blue-600 text-blue-600 py-3 rounded-lg font-medium mb-2">Agregar al carrito</button>
+        <button id="btnComprarAhora" class="w-full bg-blue-600 text-white py-3 rounded-lg font-medium mb-4">Comprar ahora</button>
+
+        <div class="border-t pt-4 space-y-2 text-sm">
+            <p><i class="fa fa-shield text-blue-600 mr-2"></i>Compra Protegida</p>
+            <p class="text-xs text-gray-500">Vendido por Creaciones Silvia</p>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL CARRITO -->
+<div id="modalCarritoVentana" class="fixed inset-0 z-50 hidden">
+    <div class="modal-fondo absolute inset-0" onclick="cerrarCarrito()"></div>
+    <div class="absolute bottom-0 left-0 right-0 bg-white rounded-t-2xl p-4 max-h-[90vh] overflow-y-auto">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-semibold">Tu Carrito</h2>
+            <button onclick="cerrarCarrito()" class="text-xl"><i class="fa fa-times"></i></button>
+        </div>
+        <div id="listaCarrito"></div>
+        <div class="border-t mt-4 pt-4">
+            <p class="text-xl font-bold mb-4">Total: $<span id="totalCarrito">0</span></p>
+            <button onclick="abrirPago()" class="w-full bg-blue-600 text-white py-3 rounded-lg font-medium mb-2">Ir a Pagar</button>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL PAGO -->
+<div id="modalPagoVentana" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+    <div class="modal-fondo absolute inset-0"></div>
+    <div class="relative bg-white rounded-lg p-6 max-w-md w-full">
+        <h2 class="text-lg font-semibold mb-4">Medios de pago</h2>
+        <div class="space-y-4 text-sm">
+            <div><p class="font-medium mb-2">Tarjetas de crédito</p>
+                <div class="flex gap-2 flex-wrap">
+                    <span class="border px-2 py-1 rounded text-xs">VISA</span>
+                    <span class="border px-2 py-1 rounded text-xs">Mastercard</span>
+                </div>
+            </div>
+            <div><p class="font-medium mb-2">Efectivo</p>
+                <div class="flex gap-2 flex-wrap">
+                    <span class="border px-2 py-1 rounded text-xs">Pago Fácil</span>
+                    <span class="border px-2 py-1 rounded text-xs">Rapipago</span>
+                </div>
+            </div>
+        </div>
+        <button onclick="irAWhatsappPago()" class="w-full mt-6 bg-green-600 text-white py-2 rounded-lg font-medium">✅ Pedir por WhatsApp</button>
+    </div>
 </div>
 
 <script>
-  const products = [
-    { name: "Atrapasueños", price: "$8.500" },
-    { name: "Caminito", price: "$7.200" },
-    { name: "Borla", price: "$3.300" },
-    { name: "Atrapasol", price: "$4.800" }
-  ];
+const TU_WHATSAPP = "5493804100777";
+let carrito = [], favoritos = [], productoActual = null;
+let indiceColorActual = 0;
 
-  function renderProducts() {
-    const container = document.getElementById('product-list');
-    container.innerHTML = products.map(p => `
-      <div style="border: 1px solid #eee; padding: 10px; border-radius: 8px;">
-        <div class="img-placeholder" style="height: 100px;">FOTO</div>
-        <p style="margin: 10px 0 5px 0;">${p.name}</p>
-        <strong>${p.price}</strong>
-        <button onclick="addToCart()" style="display:block; width:100%; margin-top:10px; padding: 8px; cursor: pointer;">Agregar</button>
-      </div>
-    `).join('');
-  }
+// ======================================================
+// ACA PONES TUS ENLACES DE LAS FOTOS
+// ======================================================
 
-  function switchView(viewId) {
-    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-    document.getElementById(viewId).classList.add('active');
-  }
+// 🧶 ATRAPASUEÑOS CON FLORES - 4 COLORES
+const atrapasuenosColores = [
+    {nombre:'Lila', img:'FOTO_1'},
+    {nombre:'Blanco', img:'FOTO_2'},
+    {nombre:'Turquesa', img:'FOTO_3'},
+    {nombre:'Rosa', img:'FOTO_4'}
+];
 
-  function addToCart() {
-    let count = parseInt(document.getElementById('cart-count').innerText) + 1;
-    document.getElementById('cart-count').innerText = count;
-  }
+// 🧶 ATRAPASUEÑOS - 10 MODELOS MÁS
+const atrapasuenosExtra = [
+    {id:'atrapa-02', nombre:'Atrapasueños Modelo 2', precio:7500, img:'FOTO_ATRAPA_02', desc:'Hecho a mano con detalles únicos.', detalles:['Tamaño mediano','Materiales naturales']},
+    {id:'atrapa-03', nombre:'Atrapasueños Modelo 3', precio:7800, img:'FOTO_ATRAPA_03', desc:'Hecho a mano con detalles únicos.', detalles:['Tamaño mediano','Materiales naturales']},
+    {id:'atrapa-04', nombre:'Atrapasueños Modelo 4', precio:8000, img:'FOTO_ATRAPA_04', desc:'Hecho a mano con detalles únicos.', detalles:['Tamaño mediano','Materiales naturales']},
+    {id:'atrapa-05', nombre:'Atrapasueños Modelo 5', precio:8200, img:'FOTO_ATRAPA_05', desc:'Hecho a mano con detalles únicos.', detalles:['Tamaño mediano','Materiales naturales']},
+    {id:'atrapa-06', nombre:'Atrapasueños Modelo 6', precio:8500, img:'FOTO_ATRAPA_06', desc:'Hecho a mano con detalles únicos.', detalles:['Tamaño mediano','Materiales naturales']},
+    {id:'atrapa-07', nombre:'Atrapasueños Modelo 7', precio:7200, img:'FOTO_ATRAPA_07', desc:'Hecho a mano con detalles únicos.', detalles:['Tamaño mediano','Materiales naturales']},
+    {id:'atrapa-08', nombre:'Atrapasueños Modelo 8', precio:7900, img:'FOTO_ATRAPA_08', desc:'Hecho a mano con detalles únicos.', detalles:['Tamaño mediano','Materiales naturales']},
+    {id:'atrapa-09', nombre:'Atrapasueños Modelo 9', precio:8300, img:'FOTO_ATRAPA_09', desc:'Hecho a mano con detalles únicos.', detalles:['Tamaño mediano','Materiales naturales']},
+    {id:'atrapa-10', nombre:'Atrapasueños Modelo 10', precio:7600, img:'FOTO_ATRAPA_10', desc:'Hecho a mano con detalles únicos.', detalles:['Tamaño mediano','Materiales naturales']},
+    {id:'atrapa-11', nombre:'Atrapasueños Modelo 11', precio:8100, img:'FOTO_ATRAPA_11', desc:'Hecho a mano con detalles únicos.', detalles:['Tamaño mediano','Materiales naturales']}
+];
 
-  renderProducts();
-</script>
-</body>
-</html>
+// ☀️ ATRAPASOLES - 10
+const atrapasoles = [
+    {id:'sol-01', nombre:'Atrapasol Modelo 1', precio:4800, img:'FOTO_SOL_01', desc:'Luz y colores en tu hogar.', detalles:['Largo: 40 cm aprox.']},
+    {id:'sol-02', nombre:'Atrapasol Modelo 2', precio:5200, img:'FOTO_SOL_02', desc:'Luz y colores en tu hogar.', detalles:['Largo: 40 cm aprox.']},
+    {id:'sol-03', nombre:'Atrapasol Modelo 3', precio:4600, img:'FOTO_SOL_03', desc:'Luz y colores en tu hogar.', detalles:['Largo: 38 cm aprox.']},
+    {id:'sol-04', nombre:'Atrapasol Modelo 4', precio:4900, img:'FOTO_SOL_04', desc:'Luz y colores en tu hogar.', detalles:['Largo: 42 cm aprox.']},
+    {id:'sol-05', nombre:'Atrapasol Modelo 5', precio:5500, img:'FOTO_SOL_05', desc:'Luz y colores en tu hogar.', detalles:['Largo: 45 cm aprox.']},
+    {id:'sol-06', nombre:'Atrapasol Modelo 6', precio:5300, img:'FOTO_SOL_06', desc:'Luz y colores en tu hogar.', detalles:['Largo: 38 cm aprox.']},
+    {id:'sol-07', nombre:'Atrapasol Modelo 7', precio:5800, img:'FOTO_SOL_07', desc:'Luz y colores en tu hogar.', detalles:['Largo: 40 cm aprox.']},
+    {id:'sol-08', nombre:'Atrapasol Modelo 8', precio:6200, img:'FOTO_SOL_08', desc:'Luz y colores en tu hogar.', detalles:['Largo: 40 cm aprox.']},
+    {id:'sol-09', nombre:'Atrapasol Modelo 9', precio:3800, img:'FOTO_SOL_09', desc:'Luz y colores en tu hogar.', detalles:['Largo: 25 cm aprox.']},
+    {id:'sol-10', nombre:'Atrapasol Modelo 10', precio:7500, img:'FOTO_SOL_10', desc:'Luz y colores en tu hogar.', detalles:['Largo: 45 cm aprox.']}
+];
+
+// 🪡 BORDADOS - 10
+const bordados = [
+    {id:'borda-01', nombre:'Bordado Floral', precio:6800, img:'FOTO_BORDADO_01', desc:'Bordado a mano diseño floral.', detalles:['Tela: Algodón']},
+    {id:'borda-02', nombre:'Bordado Frases', precio:5200, img:'FOTO_BORDADO_02', desc:'Frases bonitas bordadas.', detalles:['Tela: Lino']},
+    {id:'borda-03', nombre:'Bordado Animales', precio:7200, img:'FOTO_BORDADO_03', desc:'Motivos de animales.', detalles:['Tela: Algodón']},
+    {id:'borda-04', nombre:'Bordado Rústico', precio:7600, img:'FOTO_BORDADO_04', desc:'Estilo campo.', detalles:['Tela: Lino rústico']},
+    {id:'borda-05', nombre:'Bordado Geométrico', precio:8200, img:'FOTO_BORDADO_05', desc:'Líneas y figuras.', detalles:['Tela: Algodón']},
+    {id:'borda-06', nombre:'Bordado Navideño', precio:6900, img:'FOTO_BORDADO_06', desc:'Motivos de Navidad.', detalles:['Tela: Lino']},
+    {id:'borda-07', nombre:'Bordado Mariposas', precio:7400, img:'FOTO_BORDADO_07', desc:'Hermosas mariposas.', detalles:['Tela: Algodón']},
+    {id:'borda-08', nombre:'Bordado Infantil', precio:6500, img:'FOTO_BORDADO_08', desc:'Diseños para niños.', detalles:['Tela: Algodón suave']},
+    {id:'borda-09', nombre:'Bordado Orillas', precio:5800, img:'FOTO_BORDADO_09', desc:'Bordes decorativos.', detalles:['Tela: Lino']},
+    {id:'borda-10', nombre:'Bordado Completo', precio:9500, img:'FOTO_BORDADO_10', desc:'Pieza completa bordada.', detalles:['Tela: Lino']}
+];
+
+// 🧶 CAMINITOS DE MESA - 10
+const caminos = [
+    {id:'camino-01', nombre:'Caminito Boho Natural', precio:7200, img:'FOTO_CAMINO_01', desc:'Tejido artesanal natural.', detalles:['Largo: 1.20 m']},
+    {id:'camino-02', nombre:'Caminito Rústico', precio:7800, img:'FOTO_CAMINO_02', desc:'Tonos tierra.', detalles:['Largo: 1.50 m']},
+    {id:'camino-03', nombre:'Caminito con Flecos', precio:6900, img:'FOTO_CAMINO_03', desc:'Terminación con flecos.', detalles:['Largo: 1.00 m']},
+    {id:'camino-04', nombre:'Caminito Colorido', precio:8200, img:'FOTO_CAMINO_04', desc:'Colores vivos.', detalles:['Largo: 1.20 m']},
+    {id:'camino-05', nombre:'Caminito Elegante', precio:9500, img:'FOTO_CAMINO_05', desc:'Tonos sobrios.', detalles:['Largo: 1.40 m']},
+    {id:'camino-06', nombre:'Caminito Pequeño', precio:5500, img:'FOTO_CAMINO_06', desc:'Para mesas chicas.', detalles:['Largo: 0.80 m']},
+    {id:'camino-07', nombre:'Caminito Estampado', precio:7600, img:'FOTO_CAMINO_07', desc:'Diseños tejidos.', detalles:['Largo: 1.20 m']},
+    {id:'camino-08', nombre:'Caminito Navideño', precio:8500, img:'FOTO_CAMINO_08', desc:'Especial fiestas.', detalles:['Largo: 1.50 m']},
+    {id:'camino-09', nombre:'Caminito Fino', precio:8900, img:'FOTO_CAMINO_09', desc:'Tejido delicado.', detalles:['Largo: 1.20 m']},
+    {id:'camino-10', nombre:'Caminito Extra Largo', precio:10500, img:'FOTO_CAMINO_10', desc:'Para mesas largas.', detalles:['Largo: 2.00 m']}
+];
+
+// ARMAR LISTA COMPLETA
+const productos = [
+    {id:'atrapa-01', nombre:'Atrapasueños con Flores', precio:8500, colores:atrapasuenosColores, desc:'Hecho 100% a mano con flores y detalles decorativos. Cada modelo es único.', detalles:['Diámetro: 20 cm aprox.','Largo total: 70 cm aprox.','Hecho artesanalmente'], categoria:'atrapasuenos'},
+    ...atrapasuenosExtra.map(p => ({...p, categoria:'atrapasuenos'})),
+    ...atrapasoles.map(p => ({...p, categoria:'soles'})),
+    ...bordados.map(p => ({...p, categoria:'bordados'})),
+    ...caminos.map(p => ({...p, categoria:'caminos'}))
+];
+
+const titulos = { todos:'TODOS LOS PRODUCTOS', atrapasuenos:'ATRAPASUEÑOS', soles:'ATRAPASOLES', bordados:'BORDADOS', caminos:'CAMINITOS' };
+
+// ======================================================
+// NO TOCAR DESDE AQUÍ
+// ======================================================
+
+function mostrarCategoria(categoria) {
+    document.querySelectorAll('.categoria-boton span').forEach(el => el.classList.remove('categoria-activa'));
+    if (categoria !== 'todos') document.querySelector(`#cat-${categoria} span`)?.classList.add('categoria-activa');
+    document.getElementById('tituloSeccion').textContent = titulos[categoria];
+    const filtrados = categoria === 'todos' ? productos : productos.filter(p => p.categoria === categoria);
+    const contenedor = document.getElementById('contenedorProductos');
+
+    contenedor.innerHTML = filtrados.map(p => {
+        const esFavorito = favoritos.includes(p.id);
+        if (p.colores) {
+            return `
+            <div class="bg-white rounded shadow-sm overflow-hidden">
+                <div class="relative cursor-pointer" onclick="verProducto('${p.id}')">
+                    <img src="${p.colores[0].img}" class="w-full aspect-[3/4] object-cover">
+                </div
