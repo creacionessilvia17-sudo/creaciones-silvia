@@ -14,10 +14,8 @@
             --brown-btn: #806857;
             --brown-btn-dark: #5a483c;
             --meli-blue: #2970e6;
-            --meli-blue-hover: #1e58bc;
             --meli-light-blue: #eaf2fe;
             --text-main: #333333;
-            --gray-text: #777777;
             --border-color: #eee7e1;
         }
 
@@ -34,11 +32,11 @@
             min-height: 100vh;
         }
 
-        /* --- CONTENEDORES DE VISTAS --- */
+        /* --- VISTAS --- */
         .page-view { display: none; background: var(--bg-warm); }
         .page-view.active { display: block; }
 
-        /* --- HEADER PRINCIPAL DE SUEÑOS --- */
+        /* --- HEADER --- */
         .suenos-header {
             background: #fff;
             padding: 12px 15px;
@@ -51,275 +49,83 @@
             z-index: 100;
         }
 
-        .header-logo {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .header-logo img { width: 32px; height: 32px; }
-        .header-logo-text { text-align: center; }
-        .header-logo-text h1 { font-size: 1.1rem; letter-spacing: 2px; color: var(--brown-dark); font-weight: 600; }
-        .header-logo-text span { font-size: 0.55rem; letter-spacing: 1.5px; color: #888; text-transform: uppercase; display: block; }
+        .header-logo-text h1 { font-size: 1.1rem; letter-spacing: 2px; color: var(--brown-dark); font-weight: 600; text-align: center; }
+        .header-logo-text span { font-size: 0.55rem; letter-spacing: 1.5px; color: #888; text-transform: uppercase; display: block; text-align: center; }
 
         .header-actions { display: flex; align-items: center; gap: 15px; }
-        .header-action-icon { font-size: 1.1rem; color: #333; cursor: pointer; position: relative; }
+        .header-action-icon { font-size: 1.2rem; color: #333; cursor: pointer; position: relative; }
         
         .cart-badge { 
             position: absolute; top: -6px; right: -8px; 
             background: var(--brown-dark); color: white; 
-            font-size: 0.6rem; font-weight: bold; 
-            border-radius: 50%; padding: 1px 5px; 
+            font-size: 0.65rem; font-weight: bold; 
+            border-radius: 50%; padding: 2px 6px; 
         }
 
-        /* --- BARRA DE BÚSQUEDA DINÁMICA --- */
-        .search-bar-header {
-            background: #fff;
-            padding: 8px 15px 12px 15px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
+        /* --- BARRA BÚSQUEDA --- */
+        .search-bar-container { background: #fff; padding: 8px 15px 12px 15px; border-bottom: 1px solid var(--border-color); }
         .search-input-box {
-            background: #f1ece6;
-            border-radius: 20px;
-            padding: 8px 14px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            background: #f1ece6; border-radius: 20px; padding: 8px 14px;
+            display: flex; align-items: center; gap: 10px;
         }
-
-        .search-input-box input {
-            border: none;
-            background: transparent;
-            outline: none;
-            width: 100%;
-            font-size: 0.85rem;
-            color: var(--text-main);
-        }
+        .search-input-box input { border: none; background: transparent; outline: none; width: 100%; font-size: 0.85rem; color: var(--text-main); }
 
         /* --- BANNER PRINCIPAL --- */
         .hero-banner {
-            position: relative;
-            width: 100%;
-            height: 220px;
-            background: url('https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&q=80&w=600') center/cover;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 20px;
-            color: #fff;
-        }
-
-        .hero-banner::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: rgba(0,0,0,0.25);
-        }
-
-        .hero-content { position: relative; z-index: 2; max-width: 220px; }
-        .hero-subtitle { font-size: 0.65rem; letter-spacing: 1.5px; text-transform: uppercase; }
-        .hero-title { font-family: 'Georgia', serif; font-style: italic; font-size: 1.4rem; margin: 4px 0 10px 0; }
-        .hero-desc { font-size: 0.7rem; opacity: 0.9; margin-bottom: 12px; line-height: 1.3; }
-
-        .btn-hero {
-            background: var(--brown-btn-dark);
-            color: white;
-            border: none;
-            padding: 6px 12px;
-            font-size: 0.65rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            cursor: pointer;
-            margin-right: 5px;
-        }
-
-        .btn-hero-outline {
-            background: rgba(255,255,255,0.8);
-            color: var(--brown-dark);
-        }
-
-        /* --- CATEGORÍAS REDONDAS --- */
-        .categories-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            padding: 20px 10px;
-            background: #fff;
-            text-align: center;
+            background: linear-gradient(135deg, #eaddca, #c8b29e);
+            padding: 25px 20px; color: var(--brown-dark);
             border-bottom: 1px solid var(--border-color);
         }
+        .hero-subtitle { font-size: 0.65rem; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600; }
+        .hero-title { font-family: 'Georgia', serif; font-style: italic; font-size: 1.5rem; margin: 4px 0 8px 0; }
+        .hero-desc { font-size: 0.75rem; opacity: 0.9; margin-bottom: 12px; line-height: 1.3; }
 
+        /* --- CATEGORÍAS REDONDAS --- */
+        .categories-grid { display: grid; grid-template-columns: repeat(4, 1fr); padding: 15px 10px; background: #fff; text-align: center; border-bottom: 1px solid var(--border-color); }
         .cat-item { cursor: pointer; }
         .cat-circle {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: #f4eee7;
-            margin: 0 auto 6px auto;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid #e2d7cc;
+            width: 55px; height: 55px; border-radius: 50%; background: #f4eee7;
+            margin: 0 auto 6px auto; display: flex; align-items: center; justify-content: center;
+            border: 1px solid #e2d7cc; font-size: 1.3rem; color: var(--brown-dark);
         }
-        .cat-circle img { width: 100%; height: 100%; object-fit: cover; }
         .cat-item span { font-size: 0.7rem; font-weight: 500; color: var(--brown-dark); }
 
-        /* --- GRILLA DE PRODUCTOS (INICIO & BÚSQUEDA) --- */
+        /* --- GRILLA DE PRODUCTOS --- */
         .products-section { padding: 15px; }
         .products-header-title { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
         .products-header-title h3 { font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; color: var(--brown-dark); font-weight: 700; }
-        .products-header-title a { font-size: 0.75rem; color: #888; text-decoration: underline; cursor: pointer; }
-
+        
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
         .card-product {
-            background: #fff;
-            border-radius: 10px;
-            padding: 10px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
-            position: relative;
-            cursor: pointer;
-            border: 1px solid #f0e8e0;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            background: #fff; border-radius: 10px; padding: 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03); position: relative; cursor: pointer;
+            border: 1px solid #f0e8e0; display: flex; flex-direction: column; justify-content: space-between;
         }
-
-        .card-product .fav-icon { position: absolute; top: 15px; right: 15px; color: #ccc; font-size: 0.9rem; z-index: 2; }
-        .card-product img { width: 100%; height: 140px; object-fit: cover; border-radius: 6px; margin-bottom: 8px; }
-        .card-product .title { font-size: 0.78rem; font-weight: 500; color: #333; margin-bottom: 4px; }
+        .card-product svg { width: 100%; height: 130px; border-radius: 6px; margin-bottom: 8px; background: #fcfaf8; }
+        .card-product .title { font-size: 0.8rem; font-weight: 600; color: #333; margin-bottom: 4px; }
         .card-product .price { font-size: 0.95rem; font-weight: 700; color: var(--brown-dark); }
 
-        /* --- DETALLE DEL PRODUCTO (ESTILO ME LI) --- */
-        .detail-header {
-            background: #fff;
-            padding: 12px 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .detail-img-box { position: relative; width: 100%; height: 320px; background: #fff; }
-        .detail-img-box img { width: 100%; height: 100%; object-fit: cover; }
-        .img-counter {
-            position: absolute; bottom: 12px; right: 15px;
-            background: rgba(0,0,0,0.5); color: #fff;
-            font-size: 0.65rem; padding: 2px 8px; border-radius: 10px;
-        }
+        /* --- DETALLE DE PRODUCTO --- */
+        .detail-img-box { width: 100%; height: 260px; background: #fff; display: flex; align-items: center; justify-content: center; }
+        .detail-img-box svg { width: 80%; height: 80%; }
 
         .detail-info { background: #fff; padding: 15px; border-top: 1px solid var(--border-color); }
-        .detail-title { font-size: 1.15rem; font-weight: 600; color: #222; margin-bottom: 6px; }
-        .detail-price { font-size: 1.8rem; font-weight: 400; color: #111; margin-bottom: 8px; }
-        
-        .detail-bullets { font-size: 0.8rem; color: #666; line-height: 1.5; margin: 12px 0; }
-        .detail-bullets p { margin-bottom: 4px; }
+        .detail-title { font-size: 1.2rem; font-weight: 600; color: #222; margin-bottom: 6px; }
+        .detail-price { font-size: 1.8rem; font-weight: bold; color: var(--brown-dark); margin-bottom: 8px; }
 
-        /* SECCIÓN MERCADO LIBRE CHECKOUT */
+        /* CHECKOUT MERCADO LIBRE */
         .meli-box { background: #fff; padding: 15px; border-top: 1px solid var(--border-color); }
-        
-        .stock-selector {
-            background: #f5f5f5;
-            padding: 10px 12px;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
+        .btn-meli-buy { width: 100%; background: var(--meli-blue); color: #fff; border: none; padding: 14px; border-radius: 6px; font-weight: 600; font-size: 0.9rem; cursor: pointer; margin-bottom: 8px; }
+        .btn-meli-add { width: 100%; background: var(--meli-light-blue); color: var(--meli-blue); border: none; padding: 14px; border-radius: 6px; font-weight: 600; font-size: 0.9rem; cursor: pointer; margin-bottom: 15px; }
 
-        .btn-meli-buy {
-            width: 100%;
-            background: var(--meli-blue);
-            color: #fff;
-            border: none;
-            padding: 14px;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            margin-bottom: 8px;
-        }
-
-        .btn-meli-add {
-            width: 100%;
-            background: var(--meli-light-blue);
-            color: var(--meli-blue);
-            border: none;
-            padding: 14px;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            margin-bottom: 20px;
-        }
-
-        .guarantee-item {
-            display: flex;
-            gap: 12px;
-            font-size: 0.8rem;
-            color: #555;
-            margin-bottom: 12px;
-            align-items: flex-start;
-        }
-        .guarantee-item i { color: var(--meli-blue); font-size: 1rem; margin-top: 2px; }
-
-        .payment-methods-link {
-            border-top: 1px solid #f0f0f0;
-            padding-top: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.85rem;
-            color: var(--meli-blue);
-            cursor: pointer;
-        }
-
-        /* --- MODAL MEDIOS DE PAGO --- */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.6);
-            z-index: 200;
-            align-items: flex-end;
-        }
-        .modal-overlay.active { display: flex; }
-
-        .modal-content {
-            background: #fff;
-            width: 100%;
-            max-width: 430px;
-            margin: 0 auto;
-            border-radius: 16px 16px 0 0;
-            padding: 20px;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: 600;
-            font-size: 1rem;
-            margin-bottom: 20px;
-        }
-
-        .payment-group { margin-bottom: 18px; }
-        .payment-group-title { font-size: 0.8rem; font-weight: 600; color: #333; margin-bottom: 8px; }
-        .payment-icons-flex { display: flex; gap: 8px; flex-wrap: wrap; }
-        .payment-badge { border: 1px solid #e0e0e0; border-radius: 4px; padding: 4px 8px; font-size: 0.7rem; font-weight: bold; color: #555; }
-
-        /* --- VISTA CARRITO --- */
+        /* --- CARRITO --- */
         .cart-header { background: #fff; padding: 15px; border-bottom: 1px solid var(--border-color); font-weight: 600; display: flex; justify-content: space-between; }
-        .cart-item { background: #fff; padding: 12px; margin-top: 10px; display: flex; gap: 10px; border-bottom: 1px solid #eee; }
-        .cart-item img { width: 60px; height: 60px; object-fit: cover; border-radius: 6px; }
+        .cart-item { background: #fff; padding: 12px; margin-top: 10px; display: flex; gap: 12px; border-bottom: 1px solid #eee; align-items: center; }
+        .cart-item svg { width: 50px; height: 50px; border-radius: 6px; background: #fdfbf7; }
         .cart-item-info { flex: 1; }
-        .cart-item-title { font-size: 0.8rem; font-weight: 500; }
-        .cart-item-price { font-size: 0.9rem; font-weight: bold; color: var(--brown-dark); margin-top: 4px; }
+        .cart-item-title { font-size: 0.85rem; font-weight: 600; }
+        .cart-item-price { font-size: 0.95rem; font-weight: bold; color: var(--brown-dark); margin-top: 2px; }
 
         .cart-bottom-bar {
             position: fixed; bottom: 50px; left: 50%; transform: translateX(-50%);
@@ -329,14 +135,13 @@
             box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
         }
 
-        /* --- BARRA DE NAVEGACIÓN INFERIOR --- */
+        /* --- BARRA NAVEGACIÓN INFERIOR --- */
         .navbar-bottom {
             position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
             width: 100%; max-width: 430px; background: #fff;
             display: flex; justify-content: space-around; padding: 8px 0;
             border-top: 1px solid var(--border-color); z-index: 100;
         }
-
         .nav-item { display: flex; flex-direction: column; align-items: center; font-size: 0.65rem; color: #777; cursor: pointer; }
         .nav-item i { font-size: 1.1rem; margin-bottom: 2px; }
         .nav-item.active { color: var(--brown-dark); font-weight: 600; }
@@ -344,14 +149,12 @@
 </head>
 <body>
 
-    <!-- HEADER DE BRANDING SUEÑOS -->
+    <!-- HEADER PRINCIPAL -->
     <header class="suenos-header">
-        <i class="fa-solid fa-arrow-left" id="header-back-btn" onclick="navegarA('home')" style="display:none; cursor:pointer;"></i>
-        <div class="header-logo" onclick="navegarA('home')">
-            <div class="header-logo-text">
-                <h1>SUEÑOS</h1>
-                <span>• deco artesanal •</span>
-            </div>
+        <i class="fa-solid fa-arrow-left" id="header-back-btn" onclick="navegarA('home')" style="display:none; cursor:pointer; font-size: 1.1rem;"></i>
+        <div class="header-logo-text" onclick="navegarA('home')" style="cursor:pointer;">
+            <h1>SUEÑOS</h1>
+            <span>• deco artesanal •</span>
         </div>
         <div class="header-actions">
             <i class="fa-solid fa-magnifying-glass header-action-icon" onclick="enfocarBuscador()"></i>
@@ -362,45 +165,39 @@
     </header>
 
     <!-- BARRA BÚSQUEDA INTERACTIVA -->
-    <div class="search-bar-header">
+    <div class="search-bar-container">
         <div class="search-input-box">
             <i class="fa-solid fa-magnifying-glass" style="color: #999; font-size: 0.8rem;"></i>
-            <input type="text" id="input-search" placeholder="Buscar productos (ej. atrapasol)..." onkeyup="ejecutarBusqueda(this.value)">
+            <input type="text" id="input-search" placeholder="Buscar atrapasol, borla, caminito..." oninput="ejecutarBusqueda(this.value)">
             <i class="fa-solid fa-xmark" id="clear-search" onclick="limpiarBuscador()" style="display:none; color: #888; cursor:pointer;"></i>
         </div>
     </div>
 
     <!-- ==================== VISTA 1: INICIO ==================== -->
     <div id="view-home" class="page-view active">
-        <!-- Banner Principal -->
+        <!-- Banner -->
         <div class="hero-banner">
-            <div class="hero-content">
-                <div class="hero-subtitle">Decorá tus espacios</div>
-                <div class="hero-title">Con buena energía</div>
-                <div class="hero-desc">Atrapasueños, caminitos, borlas y atrapasoles hechos a mano.</div>
-                <div>
-                    <button class="btn-hero">Ver productos</button>
-                    <button class="btn-hero btn-hero-outline">Sobre nosotros</button>
-                </div>
-            </div>
+            <div class="hero-subtitle">Decorá tus espacios</div>
+            <div class="hero-title">Con buena energía</div>
+            <div class="hero-desc">Atrapasueños, caminitos, borlas y atrapasoles hechos a mano.</div>
         </div>
 
         <!-- Categorías Redondas -->
         <div class="categories-grid">
-            <div class="cat-item" onclick="filtrarCategoria('atrapasuenos')">
-                <div class="cat-circle"><img src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&q=80&w=150" alt="Atrapasueños"></div>
+            <div class="cat-item" onclick="filtrarCategoria('atrapasueños')">
+                <div class="cat-circle"><i class="fa-solid fa-bahai"></i></div>
                 <span>Atrapasueños</span>
             </div>
-            <div class="cat-item" onclick="filtrarCategoria('caminitos')">
-                <div class="cat-circle"><img src="https://images.unsplash.com/photo-1606744888344-493238951221?auto=format&fit=crop&q=80&w=150" alt="Caminitos"></div>
+            <div class="cat-item" onclick="filtrarCategoria('caminito')">
+                <div class="cat-circle"><i class="fa-solid fa-rug"></i></div>
                 <span>Caminitos</span>
             </div>
-            <div class="cat-item" onclick="filtrarCategoria('borlas')">
-                <div class="cat-circle"><img src="https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?auto=format&fit=crop&q=80&w=150" alt="Borlas"></div>
+            <div class="cat-item" onclick="filtrarCategoria('borla')">
+                <div class="cat-circle"><i class="fa-solid fa-certificate"></i></div>
                 <span>Borlas</span>
             </div>
-            <div class="cat-item" onclick="filtrarCategoria('atrapasoles')">
-                <div class="cat-circle"><img src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&q=80&w=150" alt="Atrapasoles"></div>
+            <div class="cat-item" onclick="filtrarCategoria('atrapasol')">
+                <div class="cat-circle"><i class="fa-solid fa-sun"></i></div>
                 <span>Atrapasoles</span>
             </div>
         </div>
@@ -409,74 +206,45 @@
         <div class="products-section">
             <div class="products-header-title">
                 <h3>PRODUCTOS DESTACADOS</h3>
-                <a onclick="filtrarCategoria('todos')">Ver todos</a>
+                <a onclick="limpiarBuscador()" style="font-size: 0.75rem; color: #888; cursor:pointer;">Ver todos</a>
             </div>
-            <div class="grid-2" id="home-products-container">
-                <!-- Se completan dinámicamente -->
-            </div>
+            <div class="grid-2" id="home-products-container"></div>
         </div>
     </div>
 
-    <!-- ==================== VISTA 2: RESULTADOS BÚSQUEDA / CATEGORÍA ==================== -->
+    <!-- ==================== VISTA 2: RESULTADOS BÚSQUEDA ==================== -->
     <div id="view-search" class="page-view">
         <div class="products-section">
             <div class="products-header-title">
-                <h3 id="search-results-title">Resultados</h3>
+                <h3 id="search-results-title">Resultados de Búsqueda</h3>
             </div>
-            <div class="grid-2" id="search-products-container">
-                <!-- Se filtran dinámicamente -->
-            </div>
+            <div class="grid-2" id="search-products-container"></div>
         </div>
     </div>
 
     <!-- ==================== VISTA 3: DETALLE DEL PRODUCTO ==================== -->
     <div id="view-detail" class="page-view">
-        <div class="detail-header">
-            <i class="fa-solid fa-arrow-left" onclick="navegarA('home')"></i>
-            <i class="fa-regular fa-heart"></i>
-        </div>
-
-        <div class="detail-img-box">
-            <img id="detail-product-img" src="" alt="Producto">
-            <div class="img-counter">1/4</div>
-        </div>
+        <div class="detail-img-box" id="detail-product-svg"></div>
 
         <div class="detail-info">
-            <h2 class="detail-title" id="detail-product-title">Atrapasol Cristal</h2>
-            <div class="detail-price" id="detail-product-price">$ 4.800</div>
+            <h2 class="detail-title" id="detail-product-title">Nombre Producto</h2>
+            <div class="detail-price" id="detail-product-price">$ 0</div>
             
-            <div class="detail-bullets">
-                <p>Atrapasol de cristal hecho a mano que llena tus espacios de luz y colores hermosos.</p>
-                <p>• <strong>Largo total:</strong> 40 cm aprox.</p>
-                <p>• <strong>Material:</strong> Cristal K9 y cuentas de vidrio.</p>
-                <p>• Hecho a mano con amor.</p>
-                <p>• Ideal para ventanas, terrazas y jardines.</p>
+            <div style="font-size:0.8rem; color:#555; line-height:1.5; margin-top:10px;">
+                <p>• Hecho a mano con insumos de alta calidad.</p>
+                <p>• Ideal para decorar ventanas, terrazas o espacios interiores con luz y armonía.</p>
+                <p>• Envíos a todo el país.</p>
             </div>
         </div>
 
-        <!-- Checkout Estilo Mercado Libre -->
+        <!-- Checkout estilo Mercado Libre -->
         <div class="meli-box">
-            <div class="stock-selector">
-                <span>Cantidad: 1 unidad</span>
-                <i class="fa-solid fa-chevron-down" style="font-size:0.7rem;"></i>
-            </div>
-
             <button class="btn-meli-buy" onclick="comprarAhora()">Comprar ahora</button>
             <button class="btn-meli-add" onclick="agregarAlCarrito()">Agregar al carrito</button>
-
-            <div class="guarantee-item">
-                <i class="fa-shield-halved fa-solid"></i>
-                <div><strong>Compra Protegida:</strong> Recibí el producto que esperabas o te devolvemos tu dinero.</div>
-            </div>
-
-            <div class="guarantee-item">
-                <i class="fa-solid fa-handshake"></i>
-                <div><strong>Mercado Puntos:</strong> Sumás puntos en cada compra.</div>
-            </div>
-
-            <div class="payment-methods-link" onclick="abrirModalPagos()">
-                <span>Ver los medios de pago</span>
-                <i class="fa-solid fa-chevron-right"></i>
+            
+            <div style="font-size: 0.75rem; color: #666; display: flex; gap: 8px; align-items: center;">
+                <i class="fa-solid fa-shield-halved" style="color:var(--meli-blue);"></i>
+                <span><strong>Compra Protegida:</strong> Recibí lo que esperabas o te devolvemos el dinero.</span>
             </div>
         </div>
     </div>
@@ -484,16 +252,137 @@
     <!-- ==================== VISTA 4: CARRITO ==================== -->
     <div id="view-cart" class="page-view">
         <div class="cart-header">
-            <span>Mi Carrito</span>
-            <span onclick="vaciarCarrito()" style="color:red; font-size:0.75rem; cursor:pointer;">Vaciar</span>
+            <span>Tu Carrito</span>
+            <span onclick="vaciarCarrito()" style="color:red; font-size:0.75rem; cursor:pointer;">Vaciar carrito</span>
         </div>
-        <div id="cart-items-container">
-            <!-- Items agregados -->
-        </div>
+        
+        <div id="cart-items-container"></div>
 
         <div class="cart-bottom-bar">
             <div>
                 <span style="font-size: 0.7rem; color: #777;">Total:</span>
                 <div style="font-size: 1.1rem; font-weight: bold; color: var(--brown-dark);" id="cart-total-val">$ 0</div>
             </div>
-            <button
+            <button class="btn-meli-buy" style="width: auto; padding: 10px 20px; margin: 0;" onclick="alert('¡Gracias por tu compra en Sueños Deco!')">Finalizar compra</button>
+        </div>
+    </div>
+
+    <!-- BARRA NAVEGACIÓN INFERIOR -->
+    <nav class="navbar-bottom">
+        <div class="nav-item active" id="nav-home" onclick="navegarA('home')">
+            <i class="fa-solid fa-house"></i>
+            <span>Inicio</span>
+        </div>
+        <div class="nav-item" id="nav-cart" onclick="navegarA('cart')">
+            <i class="fa-solid fa-bag-shopping"></i>
+            <span>Carrito</span>
+        </div>
+        <div class="nav-item" onclick="alert('Contacto por WhatsApp al +54 9 11...')">
+            <i class="fa-brands fa-whatsapp"></i>
+            <span>Contacto</span>
+        </div>
+    </nav>
+
+    <!-- LÓGICA DE FUNCIONAMIENTO COMPLETA -->
+    <script>
+        // SVGs Ilustrativos integrados en código para que NUNCA fallen al cargar
+        const svgs = {
+            atrapasol: `<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="45" fill="#FFFDF9"/><path d="M50 10V30M50 70V90M10 50H30M70 50H90" stroke="#D4AF37" stroke-width="3"/><polygon points="50,30 62,50 50,70 38,50" fill="#EAD286" stroke="#D4AF37"/><circle cx="50" cy="50" r="5" fill="#FFF"/></svg>`,
+            atrapasuenos: `<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="40" r="28" stroke="#806857" stroke-width="4" fill="#FFFDF9"/><path d="M50 12L50 68M22 40L78 40M30 20L70 60M30 60L70 20" stroke="#C8B29E" stroke-width="2"/><path d="M35 68C35 80 30 90 30 90M50 68C50 82 50 95 50 95M65 68C65 80 70 90 70 90" stroke="#806857" stroke-width="3"/></svg>`,
+            caminito: `<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="25" y="10" width="50" height="80" rx="4" fill="#F4EEE7" stroke="#C8B29E" stroke-width="3"/><path d="M25 25H75M25 50H75M25 75H75" stroke="#D3C3B4" stroke-width="2" stroke-dasharray="4 4"/></svg>`,
+            borla: `<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="25" r="12" fill="#D8A7B1"/><path d="M35 37L25 90H75L65 37Z" fill="#E8C5CE"/><path d="M35 45H65" stroke="#B57281" stroke-width="3"/></svg>`
+        };
+
+        // BASE DE DATOS LOCAL
+        const productos = [
+            { id: 1, categoria: 'atrapasol', nombre: 'Atrapasol Cristal LUZ', precio: 4800, svg: svgs.atrapasol },
+            { id: 2, categoria: 'atrapasol', nombre: 'Atrapasol Chakra Arcoíris', precio: 5200, svg: svgs.atrapasol },
+            { id: 3, categoria: 'atrapasuenos', nombre: 'Atrapasueños Beige Natural', precio: 8500, svg: svgs.atrapasuenos },
+            { id: 4, categoria: 'caminito', nombre: 'Caminito Boho Algodón', precio: 7200, svg: svgs.caminito },
+            { id: 5, categoria: 'borla', nombre: 'Borla Rosa Decorativa', precio: 3300, svg: svgs.borla },
+            { id: 6, categoria: 'atrapasuenos', nombre: 'Atrapasueños Luna Blanca', precio: 9100, svg: svgs.atrapasuenos }
+        ];
+
+        let carrito = [];
+        let productoSeleccionado = null;
+
+        function formatearMoneda(val) {
+            return '$ ' + val.toLocaleString('es-AR');
+        }
+
+        // CARGAR PRODUCTOS EN INICIO
+        function renderHomeProducts() {
+            const container = document.getElementById('home-products-container');
+            container.innerHTML = "";
+            productos.forEach(p => {
+                container.innerHTML += crearCardHTML(p);
+            });
+        }
+
+        function crearCardHTML(prod) {
+            return `
+                <div class="card-product" onclick="verDetalleProducto(${prod.id})">
+                    ${prod.svg}
+                    <div class="title">${prod.nombre}</div>
+                    <div class="price">${formatearMoneda(prod.precio)}</div>
+                </div>
+            `;
+        }
+
+        // NAVEGACIÓN
+        function navegarA(vista) {
+            document.querySelectorAll('.page-view').forEach(v => v.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+
+            const btnBack = document.getElementById('header-back-btn');
+
+            if (vista === 'home') {
+                document.getElementById('view-home').classList.add('active');
+                document.getElementById('nav-home').classList.add('active');
+                btnBack.style.display = 'none';
+            } else if (vista === 'search') {
+                document.getElementById('view-search').classList.add('active');
+                btnBack.style.display = 'block';
+            } else if (vista === 'detail') {
+                document.getElementById('view-detail').classList.add('active');
+                btnBack.style.display = 'block';
+            } else if (vista === 'cart') {
+                document.getElementById('view-cart').classList.add('active');
+                document.getElementById('nav-cart').classList.add('active');
+                btnBack.style.display = 'block';
+                renderCarrito();
+            }
+            window.scrollTo(0, 0);
+        }
+
+        // BÚSQUEDA INTERACTIVA
+        function ejecutarBusqueda(texto) {
+            const clearBtn = document.getElementById('clear-search');
+            const query = texto.toLowerCase().trim();
+
+            if (query.length > 0) {
+                clearBtn.style.display = 'block';
+                navegarA('search');
+
+                const resultados = productos.filter(p => 
+                    p.nombre.toLowerCase().includes(query) || 
+                    p.categoria.toLowerCase().includes(query)
+                );
+
+                document.getElementById('search-results-title').innerText = `Resultados para "${texto}" (${resultados.length})`;
+                const container = document.getElementById('search-products-container');
+                container.innerHTML = "";
+
+                if (resultados.length === 0) {
+                    container.innerHTML = `<p style="grid-column: span 2; font-size:0.85rem; color:#888; text-align:center; padding: 20px;">No encontramos productos con ese nombre.</p>`;
+                } else {
+                    resultados.forEach(p => container.innerHTML += crearCardHTML(p));
+                }
+            } else {
+                clearBtn.style.display = 'none';
+                navegarA('home');
+            }
+        }
+
+        function limpiarBuscador() {
+        
