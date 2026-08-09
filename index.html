@@ -13,7 +13,6 @@
             --brown-dark: #3c2e27;
             --brown-light: #f4eee7;
             --wsp-green: #25d366;
-            --meli-blue: #2970e6;
             --text-main: #333333;
             --border-color: #eee7e1;
         }
@@ -86,7 +85,7 @@
         }
         .cat-item span { font-size: 0.65rem; font-weight: 500; color: var(--brown-dark); }
 
-        /* --- GRILLA DE PRODUCTOS Y BOTÓN VER TODOS --- */
+        /* --- GRILLA DE PRODUCTOS --- */
         .products-section { padding: 15px; }
         .products-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
         .products-title { font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; color: var(--brown-dark); font-weight: 700; }
@@ -113,9 +112,17 @@
         .detail-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 8px; }
         .detail-price { font-size: 1.6rem; font-weight: bold; color: var(--brown-dark); margin-bottom: 15px; }
 
-        .btn-meli-buy { width: 100%; background: var(--meli-blue); color: #fff; border: none; padding: 12px; border-radius: 6px; font-weight: 600; font-size: 0.85rem; cursor: pointer; margin-bottom: 10px; }
-        .btn-meli-add { width: 100%; background: #eaf2fe; color: var(--meli-blue); border: none; padding: 12px; border-radius: 6px; font-weight: 600; font-size: 0.85rem; cursor: pointer; }
-        .btn-wsp { width: 100%; background: var(--wsp-green); color: #fff; border: none; padding: 14px; border-radius: 6px; font-weight: 700; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        /* --- MÉTODOS DE PAGO Y PAGO SEGURO --- */
+        .payment-methods-box {
+            background: #fcfbf9; border: 1px dashed #dcd0c5; border-radius: 8px;
+            padding: 12px; margin: 15px 0; text-align: left;
+        }
+        .payment-methods-title { font-size: 0.75rem; font-weight: 700; color: var(--brown-dark); margin-bottom: 8px; text-transform: uppercase; }
+        .payment-icons-list { display: flex; gap: 12px; font-size: 1.2rem; color: #555; align-items: center; }
+        .payment-badge { font-size: 0.7rem; background: #eaf2fe; color: #2970e6; padding: 3px 8px; border-radius: 4px; font-weight: 600; }
+
+        .btn-wsp { width: 100%; background: var(--wsp-green); color: #fff; border: none; padding: 14px; border-radius: 6px; font-weight: 700; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 10px; }
+        .btn-cart-add { width: 100%; background: var(--brown-light); color: var(--brown-dark); border: 1px solid #e2d7cc; padding: 12px; border-radius: 6px; font-weight: 600; font-size: 0.85rem; cursor: pointer; }
 
         /* --- CARRITO --- */
         .cart-header { background: #fff; padding: 15px; border-bottom: 1px solid var(--border-color); font-weight: 600; display: flex; justify-content: space-between; }
@@ -190,7 +197,6 @@
         <div class="products-section">
             <div class="products-header">
                 <div class="products-title" id="section-title">PRODUCTOS DESTACADOS</div>
-                <!-- BOTÓN MOSTRAR TODOS -->
                 <button class="btn-see-all" onclick="mostrarTodosLosProductos()">Ver todos</button>
             </div>
             <div class="grid-2" id="grid-productos"></div>
@@ -204,12 +210,26 @@
             <h2 class="detail-title" id="detail-title"></h2>
             <div class="detail-price" id="detail-price"></div>
             
-            <p style="font-size:0.85rem; color:#666; margin-bottom:20px;">
+            <p style="font-size:0.85rem; color:#666; margin-bottom:10px;">
                 Producto elaborado a mano con insumos de excelente calidad. Ideal para iluminar y armonizar cualquier ambiente.
             </p>
 
-            <button class="btn-meli-buy" onclick="comprarYIrAlCarrito()">Comprar ahora</button>
-            <button class="btn-meli-add" onclick="agregarAlCarritoActual()">Agregar al carrito</button>
+            <!-- MÉTODOS DE PAGO -->
+            <div class="payment-methods-box">
+                <div class="payment-methods-title"><i class="fa-solid fa-credit-card"></i> Medios de pago aceptados</div>
+                <div class="payment-icons-list">
+                    <span class="payment-badge">Mercado Pago</span>
+                    <i class="fa-solid fa-money-bill-transfer" title="Transferencia"></i>
+                    <i class="fa-brands fa-cc-visa" title="Visa"></i>
+                    <i class="fa-brands fa-cc-mastercard" title="Mastercard"></i>
+                </div>
+            </div>
+
+            <button class="btn-wsp" onclick="comprarYIrAlCarrito()">
+                <i class="fa-brands fa-whatsapp" style="font-size: 1.2rem;"></i>
+                Pedir ahora por WhatsApp
+            </button>
+            <button class="btn-cart-add" onclick="agregarAlCarritoActual()">Agregar al carrito</button>
         </div>
     </div>
 
@@ -223,11 +243,22 @@
         <div id="cart-list" style="padding: 15px;"></div>
 
         <div style="padding: 15px; background: #fff; border-top: 1px solid var(--border-color); margin-top: 20px;">
-            <div style="display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 15px;">
+            <div style="display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 10px;">
                 <span>Total:</span>
                 <span id="cart-total">$ 0</span>
             </div>
-            <!-- BOTÓN ENVIAR PEDIDO POR WHATSAPP -->
+
+            <!-- MÉTODOS DE PAGO EN CARRITO -->
+            <div class="payment-methods-box" style="margin-top:0;">
+                <div class="payment-methods-title"><i class="fa-solid fa-shield-halved"></i> Medios de pago aceptados</div>
+                <div class="payment-icons-list">
+                    <span class="payment-badge">Mercado Pago</span>
+                    <i class="fa-solid fa-money-bill-transfer" title="Transferencia"></i>
+                    <i class="fa-brands fa-cc-visa" title="Visa"></i>
+                    <i class="fa-brands fa-cc-mastercard" title="Mastercard"></i>
+                </div>
+            </div>
+
             <button class="btn-wsp" onclick="enviarPedidoWhatsApp()">
                 <i class="fa-brands fa-whatsapp" style="font-size: 1.2rem;"></i>
                 Enviar pedido por WhatsApp
@@ -248,8 +279,8 @@
     </nav>
 
     <script>
-        // CONFIGURACIÓN DE TU TELÉFONO (Escribe aquí tu número con código de país, ej: 5491112345678)
-        const TU_NUMERO_WHATSAPP = "5491100000000";
+        // NÚMERO CONFIGURADO CON CÓDIGO DE PAÍS (54) + TU NÚMERO
+        const TU_NUMERO_WHATSAPP = "543804100777";
 
         // BASE DE DATOS DE PRODUCTOS
         const listaProductos = [
@@ -376,45 +407,4 @@
                 });
             }
 
-            document.getElementById('cart-total').innerText = "$ " + total.toLocaleString('es-AR');
-        }
-
-        function eliminarDelCarrito(index) {
-            carrito.splice(index, 1);
-            actualizarContador();
-            renderizarCarrito();
-        }
-
-        function vaciarCarrito() {
-            carrito = [];
-            actualizarContador();
-            renderizarCarrito();
-        }
-
-        // ENVIAR POR WHATSAPP
-        function enviarPedidoWhatsApp() {
-            if (carrito.length === 0) {
-                alert("Agrega al menos un producto al carrito para realizar el pedido.");
-                return;
-            }
-
-            let mensaje = "¡Hola Sueños Deco! 🌸 Quiero realizar el siguiente pedido:\n\n";
-            let total = 0;
-
-            carrito.forEach((item, i) => {
-                mensaje += `${i + 1}. ${item.nombre} - $${item.precio.toLocaleString('es-AR')}\n`;
-                total += item.precio;
-            });
-
-            mensaje += `\n*Total a pagar: $${total.toLocaleString('es-AR')}*\n\n¿Cómo podemos coordinar el pago y envío?`;
-
-            const url = `https://wa.me/${TU_NUMERO_WHATSAPP}?text=${encodeURIComponent(mensaje)}`;
-            window.open(url, '_blank');
-        }
-
-        // CARGA INICIAL
-        cargarProductos(listaProductos);
-    </script>
-</body>
-</html>
-
+            document.getElementById
